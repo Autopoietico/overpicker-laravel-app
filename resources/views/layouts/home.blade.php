@@ -32,7 +32,7 @@
   <meta property="twitter:title" content="Overpicker - Overwatch tool made to build Composition based in Counter and Synergies" />
   <meta property="twitter:image" content="https://overpicker.win/public/images/resources/overpicker-front.png" />
 </head>
-<body>
+<body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12">
   @yield('content')
 </body>
 </html>

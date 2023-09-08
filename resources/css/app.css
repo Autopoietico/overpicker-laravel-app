@@ -3,18 +3,30 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'overwatch-picker';
-    src:  url('../fonts/overwatch-picker.eot?ta4nt5');
-    src:  url('../fonts/overwatch-picker.eot?ta4nt5#iefix') format('embedded-opentype'),
-      url('../fonts/overwatch-picker.ttf?ta4nt5') format('truetype'),
-      url('../fonts/overwatch-picker.woff?ta4nt5') format('woff'),
-      url('../fonts/overwatch-picker.svg?ta4nt5#overwatch-picker') format('svg');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-  }
+  font-family: 'overwatch-picker';
+  src:  url('../fonts/overwatch-picker.eot?ta4nt5');
+  src:  url('../fonts/overwatch-picker.eot?ta4nt5#iefix') format('embedded-opentype'),
+        url('../fonts/overwatch-picker.ttf?ta4nt5') format('truetype'),
+        url('../fonts/overwatch-picker.woff?ta4nt5') format('woff'),
+        url('../fonts/overwatch-picker.svg?ta4nt5#overwatch-picker') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
 
-h1{
-    font-family: 'Fjalla One', sans-serif;
-    font-weight: normal;
+.abel{
+  font-family: 'Abel', sans-serif;
+}
+
+.fjalla-n{
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: normal;
+}
+
+.fjalla{
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.poppins{
+  font-family: 'Poppins', sans-serif;
 }
