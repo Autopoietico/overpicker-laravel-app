@@ -30,3 +30,12 @@
 .poppins{
   font-family: 'Poppins', sans-serif;
 }
+
+.checkbox-panel > label:nth-child(odd){
+  text-align: left;
+}
+
+.checkbox-panel > label:nth-child(even){
+  text-align: right;
+  flex-direction: row-reverse;
+}

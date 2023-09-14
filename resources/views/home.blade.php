@@ -27,6 +27,70 @@
     <span>/</span>
     <span class="text-red-600">Enemy Team</span>
   </div>
+  <div class="calculator">
+    <div class="text-center underline mb-5">Clear All</div>
+    <div class="checkbox-panel grid grid-flow-row grid-cols-2 justify-center">
+      <label class="flex"><input for="cbrole-lock" type="checkbox" /><span class="mx-1">Role Lock</span></label>
+      <label class="flex"><input for="cbtier-mode" type="checkbox" /><span class="mx-1">Tier Mode</span></label>
+      <label class="flex"><input for="cbmap-pools" type="checkbox" /><span class="mx-1">Map Pools</span></label>
+      <label class="flex"><input for="cbhero-rotation" type="checkbox" /><span class="mx-1">Hero Rotation</span></label>
+      <label class="flex"><input for="cbhero-icons" type="checkbox" /><span class="mx-1">Hero Icons</span></label>
+    </div>
+    <div class="grid text-center mt-2">
+      <span class="font-bold">Tier: </span>
+      <select id="tier-select" class="bg-[#1C2E37] border border-white rounded-md">
+        <option value="top-500">Top 500</option>
+        <option value="grandmaster">Grandmaster</option>
+        <option value="master">Master</option>
+        <option value="diamond">Diamond</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+        <option value="all-ranks">All Ranks</option>
+        <option value="community-ranking">Community Ranking</option>
+      </select>
+      <span class="font-bold">Map: </span>
+      <select id="tier-select" class="bg-[#1C2E37] border border-white rounded-md">
+        <option value="top-500">Top 500</option>
+        <option value="grandmaster">Grandmaster</option>
+        <option value="master">Master</option>
+        <option value="diamond">Diamond</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+        <option value="all-ranks">All Ranks</option>
+        <option value="community-ranking">Community Ranking</option>
+      </select>
+      <span class="font-bold">Point: </span>
+      <select id="tier-select" class="bg-[#1C2E37] border border-white rounded-md">
+        <option value="top-500">Top 500</option>
+        <option value="grandmaster">Grandmaster</option>
+        <option value="master">Master</option>
+        <option value="diamond">Diamond</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+        <option value="all-ranks">All Ranks</option>
+        <option value="community-ranking">Community Ranking</option>
+      </select>
+      <span class="font-bold">A/D: </span>
+      <select id="tier-select" class="bg-[#1C2E37] border border-white rounded-md">
+        <option value="top-500">Top 500</option>
+        <option value="grandmaster">Grandmaster</option>
+        <option value="master">Master</option>
+        <option value="diamond">Diamond</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+        <option value="all-ranks">All Ranks</option>
+        <option value="community-ranking">Community Ranking</option>
+      </select>
+    </div>
+  </div>
 </section>
 <footer class="grid gap-y-1 justify-items-center">
   <nav class="w-full border-t-2">
