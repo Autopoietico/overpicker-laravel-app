@@ -33,6 +33,8 @@
   <meta property="twitter:image" content="https://overpicker.win/public/images/resources/overpicker-front.png" />
 </head>
 <body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12">
+  <x-home.header/>
   @yield('content')
+  <x-home.footer/>
 </body>
 </html>
