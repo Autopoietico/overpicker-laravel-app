@@ -13,12 +13,12 @@
   </div>
   <div class="calculator">
     <div class="text-center underline mb-5">Clear All</div>
-    <div class="checkbox-panel grid grid-flow-row grid-cols-2 justify-center">
-      <label class="flex"><input for="cbrole-lock" type="checkbox" /><span class="mx-1">Role Lock</span></label>
-      <label class="flex"><input for="cbtier-mode" type="checkbox" /><span class="mx-1">Tier Mode</span></label>
-      <label class="flex"><input for="cbmap-pools" type="checkbox" /><span class="mx-1">Map Pools</span></label>
-      <label class="flex"><input for="cbhero-rotation" type="checkbox" /><span class="mx-1">Hero Rotation</span></label>
-      <label class="flex"><input for="cbhero-icons" type="checkbox" /><span class="mx-1">Hero Icons</span></label>
+    <div class="group grid grid-flow-row grid-cols-2 justify-center">
+      <label class="flex group-odd:text-left"><input for="cbrole-lock" type="checkbox" /><span class="mx-1">Role Lock</span></label>
+      <label class="flex group-even:text-rigth group-even:flex-row-reverse"><input for="cbtier-mode" type="checkbox" /><span class="mx-1">Tier Mode</span></label>
+      <label class="flex group-odd:text-left"><input for="cbmap-pools" type="checkbox" /><span class="mx-1">Map Pools</span></label>
+      <label class="flex group-even:text-rigth group-even:flex-row-reverse"><input for="cbhero-rotation" type="checkbox" /><span class="mx-1">Hero Rotation</span></label>
+      <label class="flex group-odd:text-left"><input for="cbhero-icons" type="checkbox" /><span class="mx-1">Hero Icons</span></label>
     </div>
     <div class="grid text-center mt-2">
       <span class="font-bold">Tier: </span>

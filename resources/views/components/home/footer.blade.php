@@ -1,5 +1,5 @@
 <footer class="mt-5 grid gap-y-1 justify-items-center">
-    <nav class="w-full border-t-2">
+    <nav class="w-full">
       <ol class="grid grid-flow-col gap-x-4 text-2xl justify-center">
         <li><a href="tiers">Tiers</a></li>
         <li><a href="sources">Sources</a></li>

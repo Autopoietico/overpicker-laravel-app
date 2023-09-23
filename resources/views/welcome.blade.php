@@ -15,4 +15,5 @@
 
   </div>
 </section>
+<script defer src="js/calculator.js"></script>
 @endsection

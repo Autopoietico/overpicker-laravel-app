@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @font-face {
   font-family: 'overwatch-picker';
@@ -33,13 +33,4 @@
 
 .poppins{
   font-family: 'Poppins', sans-serif;
-}
-
-.checkbox-panel > label:nth-child(odd){
-  text-align: left;
-}
-
-.checkbox-panel > label:nth-child(even){
-  text-align: right;
-  flex-direction: row-reverse;
 }
