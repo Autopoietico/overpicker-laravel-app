@@ -1247,14 +1247,27 @@ class ModelOverPiker {
 
 class ViewOverPiker {
     constructor() {
+        //Base div
         this.calculator = this.getElement(".calculator");
+        this.calculator.classList.add(
+            "sm:grid",
+            "sm:grid-cols-2",
+            "sm:gap-x-8",
+            "sm:justify-between"
+        );
+
         //Clear Selection
         this.clearSelection = this.createElement(
             "div",
             "selection-team-clear-all",
             "clear-all-values"
         );
-        this.clearSelection.classList.add("text-center", "underline", "mb-5");
+        this.clearSelection.classList.add(
+            "text-center",
+            "underline",
+            "mb-5",
+            "sm:col-span-2"
+        );
         this.clearSelection.textContent = "Clear All";
 
         //Selection and Option Panels
@@ -1267,16 +1280,36 @@ class ViewOverPiker {
             "grid",
             "grid-flow-row",
             "grid-cols-2",
-            "justify-center"
+            "justify-center",
+            "sm:grid-flow-col",
+            "sm:grid-cols-none",
+            "sm:gap-x-1",
+            "sm:text-xl",
+            "sm:col-span-2"
         );
+
         this.selectionPanel = this.createElement("div", "selection-panel");
-        this.selectionPanel.classList.add("grid", "text-center", "mt-2");
+        this.selectionPanel.classList.add(
+            "grid",
+            "text-center",
+            "mt-2",
+            "sm:grid-flow-col",
+            "sm:justify-center",
+            "sm:col-span-2"
+        );
 
         this.blueTeam = this.createElement("div");
         this.blueTeam.classList.add("mt-5");
 
+        this.teamSeparator = this.createElement("div");
+
         this.redTeam = this.createElement("div");
-        this.redTeam.classList.add("mt-10");
+        this.redTeam.classList.add(
+            "mt-10",
+            "sm:mt-5",
+            "sm:row-start-4",
+            "sm:col-start-2"
+        );
 
         //Team Scores
         this.blueTeamScore = this.createElement(
@@ -1305,7 +1338,12 @@ class ViewOverPiker {
             "heroes-filter",
             "heroes-filter-blue"
         );
-        this.blueFilter.classList.add("mt-5", "text-sm", "text-center");
+        this.blueFilter.classList.add(
+            "mt-5",
+            "text-sm",
+            "text-center",
+            "sm:text-left"
+        );
 
         //Hero per Rol Options
         this.blueTankRolSelection = this.createElement(
@@ -1317,7 +1355,8 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
-            "justify-items-center"
+            "justify-items-center",
+            "sm:justify-items-start"
         );
 
         this.blueDamageRolSelection = this.createElement(
@@ -1329,7 +1368,8 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
-            "justify-items-center"
+            "justify-items-center",
+            "sm:justify-items-start"
         );
 
         this.blueSupportRolSelection = this.createElement(
@@ -1341,7 +1381,8 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
-            "justify-items-center"
+            "justify-items-center",
+            "sm:justify-items-start"
         );
 
         this.redTeamScore = this.createElement(
@@ -1351,7 +1392,6 @@ class ViewOverPiker {
         );
         this.redTeamScore.classList.add(
             "enemy-team-direction",
-            "mt-2",
             "text-2xl",
             "text-center"
         );
@@ -1378,7 +1418,8 @@ class ViewOverPiker {
             "enemy-team-direction",
             "mt-5",
             "text-sm",
-            "text-center"
+            "text-center",            
+            "sm:text-right"
         );
 
         this.blueSupportRolSelection.classList.add("rol-selection-support");
@@ -1391,7 +1432,8 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
-            "justify-items-center"
+            "justify-items-center",
+            "sm:justify-items-end"
         );
 
         this.redTankRolSelection.classList.add("enemy-team-direction");
@@ -1404,7 +1446,8 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
-            "justify-items-center"
+            "justify-items-center",
+            "sm:justify-items-end"
         );
 
         this.redDamageRolSelection.classList.add("enemy-team-direction");
@@ -1417,17 +1460,12 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
-            "justify-items-center"
+            "justify-items-center",
+            "sm:justify-items-end"
         );
 
         this.redSupportRolSelection.classList.add("rol-selection-support");
         this.redSupportRolSelection.classList.add("enemy-team-direction");
-
-        //Border
-        this.teamSeparator = this.createElement(
-            "div",
-            "team-heroes-selection-line-between"
-        );
 
         this.blueTeam.append(this.blueTeamScore);
         this.blueTeam.append(this.teamBlueComposition);
@@ -1449,8 +1487,6 @@ class ViewOverPiker {
         this.calculator.append(this.selectionPanel);
 
         this.calculator.append(this.blueTeam);
-
-        this.calculator.append(this.teamSeparator);
 
         this.calculator.append(this.redTeam);
 
@@ -1483,7 +1519,8 @@ class ViewOverPiker {
             "grid-flow-row",
             "items-baseline",
             "justify-center",
-            "mx-0.5"
+            "mx-0.5",
+            "sm:mx-1"
         );
 
         if (hero == "None") {
@@ -1561,7 +1598,12 @@ class ViewOverPiker {
             if (index % 2 == 0) {
                 optionLabel.classList.add("text-left");
             } else {
-                optionLabel.classList.add("text-right", "flex-row-reverse");
+                optionLabel.classList.add(
+                    "text-right",
+                    "flex-row-reverse",
+                    "sm:text-left",
+                    "sm:flex-row"
+                );
             }
 
             index++;
@@ -1590,13 +1632,15 @@ class ViewOverPiker {
         panelSelections.forEach((selector) => {
             //Add a special class for selectors that have long names
             const selectorSpan = this.createElement("span", selector.class);
-            const select = this.createElement("select", "", selector.id);
+            selectorSpan.classList.add("sm:mr-0.5");
 
+            const select = this.createElement("select", "", selector.id);
             select.classList.add(
                 "bg-[#1C2E37]",
                 "border",
                 "border-white",
-                "rounded-md"
+                "rounded-md",
+                "sm:mr-0.5"
             );
 
             //The text don't have a html label
@@ -1779,7 +1823,7 @@ class ViewOverPiker {
         }
 
         const blueInput = this.createElement("input", "", "blue-hero-filter");
-        blueInput.classList.add("mx-1");
+        blueInput.classList.add("mx-1","text-black");
 
         blueInput.type = "text";
         blueInput.name = "filter";
@@ -1928,9 +1972,7 @@ class ViewOverPiker {
                 "flex",
                 "flex-wrap",
                 "justify-center",
-                "mt-2",
-                "pb-4",
-                "border-b-2"
+                "mt-2"
             );
 
             tankIcon.src = "images/assets/tank.png";
@@ -1951,17 +1993,49 @@ class ViewOverPiker {
 
             if (t == "Blue") {
                 tankRoleSel.id = "tanks-onselect-blue";
+                tankRoleSel.classList.add("sm:justify-start");
+
+                tankFigCap.classList.add("ml-1");
+
                 damageRoleSel.id = "damage-onselect-blue";
+                damageRoleSel.classList.add("sm:justify-start");
+
+                damageFigCap.classList.add("ml-1");
+
                 supportRoleSel.id = "support-onselect-blue";
+                supportRoleSel.classList.add("sm:justify-start");
+
+                supportFigCap.classList.add("ml-1");
             } else if (t == "Red") {
                 tankRoleSel.id = "tanks-onselect-red";
-                tankRoleSel.classList.add("enemy-team-direction");
+                tankRoleSel.classList.add(
+                    "enemy-team-direction",
+                    "sm:justify-end"
+                );
+
+                tankRoleIcon.classList.add("sm:flex", "sm:flex-row-reverse");
+
+                tankFigCap.classList.add("mr-1");
 
                 damageRoleSel.id = "damage-onselect-red";
-                damageRoleSel.classList.add("enemy-team-direction");
+                damageRoleSel.classList.add(
+                    "enemy-team-direction",
+                    "sm:justify-end"
+                );
+
+                damageRoleIcon.classList.add("sm:flex", "sm:flex-row-reverse");
+
+                damageFigCap.classList.add("mr-1");
 
                 supportRoleSel.id = "support-onselect-red";
-                supportRoleSel.classList.add("enemy-team-direction");
+                supportRoleSel.classList.add(
+                    "enemy-team-direction",
+                    "sm:justify-end"
+                );
+
+                supportRoleIcon.classList.add("sm:flex", "sm:flex-row-reverse");
+
+                supportFigCap.classList.add("mr-1");
             }
 
             let sortedHeroes = teams[t].getSortedHeroesNameperValue();
