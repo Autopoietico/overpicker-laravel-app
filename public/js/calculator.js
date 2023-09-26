@@ -1266,7 +1266,8 @@ class ViewOverPiker {
             "text-center",
             "underline",
             "mb-5",
-            "sm:col-span-2"
+            "sm:col-span-2",
+            "md:text-xl"
         );
         this.clearSelection.textContent = "Clear All";
 
@@ -1285,7 +1286,9 @@ class ViewOverPiker {
             "sm:grid-cols-none",
             "sm:gap-x-1",
             "sm:text-xl",
-            "sm:col-span-2"
+            "sm:col-span-2",
+            "md:gap-x-3",
+            "md:text-2xl"
         );
 
         this.selectionPanel = this.createElement("div", "selection-panel");
@@ -1295,7 +1298,8 @@ class ViewOverPiker {
             "mt-2",
             "sm:grid-flow-col",
             "sm:justify-center",
-            "sm:col-span-2"
+            "sm:col-span-2",
+            "md:text-xl"
         );
 
         this.blueTeam = this.createElement("div");
@@ -1317,7 +1321,7 @@ class ViewOverPiker {
             "heroes-selection-title-text",
             "blue-team-title-text"
         );
-        this.blueTeamScore.classList.add("text-2xl", "text-center");
+        this.blueTeamScore.classList.add("text-2xl", "text-center","md:text-left");
 
         //Team Hero Selections
         this.teamBlueComposition = this.createElement(
@@ -1329,7 +1333,8 @@ class ViewOverPiker {
             "mt-2",
             "flex",
             "flex-wrap",
-            "justify-center"
+            "justify-center",
+            "md:justify-start"
         );
 
         //Filters
@@ -1393,7 +1398,8 @@ class ViewOverPiker {
         this.redTeamScore.classList.add(
             "enemy-team-direction",
             "text-2xl",
-            "text-center"
+            "text-center",
+            "md:text-right"
         );
 
         this.teamRedComposition = this.createElement(
@@ -1406,7 +1412,8 @@ class ViewOverPiker {
             "mt-2",
             "flex",
             "flex-wrap",
-            "justify-center"
+            "justify-center",
+            "md:justify-end"
         );
 
         this.redFilter = this.createElement(
