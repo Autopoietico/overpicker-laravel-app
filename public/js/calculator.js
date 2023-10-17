@@ -1253,7 +1253,8 @@ class ViewOverPiker {
             "sm:grid",
             "sm:grid-cols-2",
             "sm:gap-x-8",
-            "sm:justify-between"
+            "sm:justify-between",
+            "md:gap-x-16"
         );
 
         //Clear Selection
@@ -1288,7 +1289,9 @@ class ViewOverPiker {
             "sm:text-xl",
             "sm:col-span-2",
             "md:gap-x-3",
-            "md:text-2xl"
+            "md:text-2xl",
+            "lg:gap-x-3.5",
+            "lg:text-3xl"
         );
 
         this.selectionPanel = this.createElement("div", "selection-panel");
@@ -1296,10 +1299,12 @@ class ViewOverPiker {
             "grid",
             "text-center",
             "mt-2",
+            "lg:mt-3",
             "sm:grid-flow-col",
             "sm:justify-center",
             "sm:col-span-2",
-            "md:text-xl"
+            "md:text-xl",
+            "lg:text-2xl"
         );
 
         this.blueTeam = this.createElement("div");
@@ -1321,7 +1326,11 @@ class ViewOverPiker {
             "heroes-selection-title-text",
             "blue-team-title-text"
         );
-        this.blueTeamScore.classList.add("text-2xl", "text-center","md:text-left");
+        this.blueTeamScore.classList.add(
+            "text-2xl",
+            "text-center",
+            "md:text-left"
+        );
 
         //Team Hero Selections
         this.teamBlueComposition = this.createElement(
@@ -1425,7 +1434,7 @@ class ViewOverPiker {
             "enemy-team-direction",
             "mt-5",
             "text-sm",
-            "text-center",            
+            "text-center",
             "sm:text-right"
         );
 
@@ -1639,7 +1648,7 @@ class ViewOverPiker {
         panelSelections.forEach((selector) => {
             //Add a special class for selectors that have long names
             const selectorSpan = this.createElement("span", selector.class);
-            selectorSpan.classList.add("sm:mr-0.5");
+            selectorSpan.classList.add("sm:mr-0.5", "md:mr-1", "lg:mr-1.5");
 
             const select = this.createElement("select", "", selector.id);
             select.classList.add(
@@ -1647,7 +1656,9 @@ class ViewOverPiker {
                 "border",
                 "border-white",
                 "rounded-md",
-                "sm:mr-0.5"
+                "sm:mr-0.5",
+                "md:mr-1",
+                "lg:mr-1.5"
             );
 
             //The text don't have a html label
@@ -1830,7 +1841,7 @@ class ViewOverPiker {
         }
 
         const blueInput = this.createElement("input", "", "blue-hero-filter");
-        blueInput.classList.add("mx-1","text-black");
+        blueInput.classList.add("mx-1", "text-black");
 
         blueInput.type = "text";
         blueInput.name = "filter";

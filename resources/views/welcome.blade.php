@@ -1,7 +1,7 @@
 @extends('layouts.home')
 @section('content')
-<section class="mt-7">
-  <div class="text-2xl text-center mb-8 border-t-2 border-b-2 border-white">
+<section class="mt-7 flex justify-center">
+  <div class="text-2xl text-center mb-8 border-t-2 border-b-2 border-white max-w-4xl">
     <p>Find your best composition, counter the enemy comp, and find the best hero for every map in Overwatch</p>
   </div>
 </section>
