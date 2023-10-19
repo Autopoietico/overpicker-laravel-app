@@ -35,7 +35,8 @@
   <link href="https://fonts.googleapis.com/css?family=Abel|Fjalla+One|Poppins&display=swap" rel="stylesheet">
   {{-- Styles --}}
   @vite('resources/css/app.css')
-
+  {{-- Boostrap Icons --}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12">
   <x-home.header/>
