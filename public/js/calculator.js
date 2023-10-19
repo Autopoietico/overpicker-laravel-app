@@ -1536,7 +1536,9 @@ class ViewOverPiker {
             "items-baseline",
             "justify-center",
             "mx-0.5",
-            "sm:mx-1"
+            "hover:bg-[#294452]",
+            "rounded-lg",
+            "sm:mx-1",
         );
 
         if (hero == "None") {

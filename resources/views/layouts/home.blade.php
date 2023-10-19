@@ -38,7 +38,7 @@
   {{-- Boostrap Icons --}}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-<body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12">
+<body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12 relative">
   <x-home.header/>
   @yield('content')
   <x-home.footer/>
