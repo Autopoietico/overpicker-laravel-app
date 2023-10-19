@@ -1266,6 +1266,7 @@ class ViewOverPiker {
         this.clearSelection.classList.add(
             "text-center",
             "underline",
+            "cursor-pointer",
             "mb-5",
             "sm:col-span-2",
             "md:text-xl"
