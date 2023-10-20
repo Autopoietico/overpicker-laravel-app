@@ -1538,9 +1538,8 @@ class ViewOverPiker {
             "items-baseline",
             "justify-center",
             "mx-0.5",
-            "hover:bg-[#294452]",
             "rounded-lg",
-            "sm:mx-1",
+            "sm:mx-1"
         );
 
         if (hero == "None") {
@@ -1548,7 +1547,7 @@ class ViewOverPiker {
 
             const figcaption = this.createElement("figcaption");
             figcaption.classList.add("text-xs");
-            figcaption.textContent = "Blank Hero";
+            figcaption.textContent = "Empty";
 
             const img = this.createElement("img");
             img.classList.add("justify-self-center");
@@ -1560,7 +1559,12 @@ class ViewOverPiker {
 
             figure.append(figcaption, img, "0", border);
         } else {
-            figure.classList.add("relative", "cursor-pointer", "group");
+            figure.classList.add(
+                "relative",
+                "cursor-pointer",
+                "group",
+                "hover:bg-[#294452]"
+            );
 
             figure.dataset.name = hero;
             figure.dataset.team = team;
@@ -1571,7 +1575,7 @@ class ViewOverPiker {
             figcaption.textContent = hero;
 
             const img = heroIMG;
-            img.classList.add("h-14", "justify-self-center");
+            img.classList.add("h-14", "justify-self-center", "rounded-t-lg");
             img.alt = hero + " white schematic face";
 
             const heroTip = this.createElement("span", "hero-tip");
