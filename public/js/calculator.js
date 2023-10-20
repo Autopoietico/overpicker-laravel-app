@@ -1267,6 +1267,7 @@ class ViewOverPiker {
             "text-center",
             "underline",
             "cursor-pointer",
+            "mt-2",
             "mb-5",
             "sm:col-span-2",
             "md:text-xl"
