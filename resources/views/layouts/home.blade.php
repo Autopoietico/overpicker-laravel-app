@@ -30,7 +30,7 @@
   <meta property="twitter:title" content="Overpicker - Overwatch tool made to build Composition based in Counter and Synergies" />
   <meta property="twitter:image" content="https://overpicker.win/public/images/resources/overpicker-front.png" />
   {{-- Title --}}
-  <title>OverPicker </title>
+  <title>OverPicker {{$title}} </title>
   {{-- Fonts --}}
   <link href="https://fonts.googleapis.com/css?family=Abel|Fjalla+One|Poppins&display=swap" rel="stylesheet">
   {{-- Styles --}}
@@ -41,6 +41,6 @@
 <body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12 relative">
   <x-home.header/>
   @yield('content')
-  <x-home.footer/>
+  <x-home.footer :dates=$dates/>
 </body>
 </html>

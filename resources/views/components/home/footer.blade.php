@@ -11,8 +11,8 @@
       <h2 class="abel text-base text-right"><a href="about">By Autopoietico</a></h2>
     </div>
     <div class="mt-6 h-fit w-full grid grid-flow-col place-content-between">
-      <span>Last Update: 2023-09-14</span>
-      <span>CC(2023)</span>
+      <span>Last Update: {{$dates['LAST_DATA_UPDATE']}}</span>
+      <span>CC({{$dates['COPY_DATE']}})</span>
     </div>
     <div class="mt-3 grid grid-flow-col gap-x-5">
       <a href="https://discord.gg/PBfMUzz" title="OW Picker Discord" target="_blank"><img class="w-12" src="{{ asset('images/social/discord-brands.svg') }}" alt="Discord Icon" /></a>

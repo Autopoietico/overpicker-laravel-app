@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+$DATES = include(config_path('dates.php'));
+
+Route::get('/', function () use ($DATES) {
+    $title = ' - Overwatch tool made to build Composition based in Counter and Synergies';
+    return view('calculator',[
+        'title' => $title,
+        'dates' => $DATES,
+    ]);
 });
+
+// Route::get('/tiers', function () {
+//     return view('tiers');
+// });

@@ -8,12 +8,16 @@ use Illuminate\View\Component;
 
 class Footer extends Component
 {
+
+    public $dates;
+    public $copy;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($dates)
     {
         //
+        $this->dates = $dates;
     }
 
     /**
