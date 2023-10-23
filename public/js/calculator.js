@@ -1539,6 +1539,7 @@ class ViewOverPiker {
             "justify-center",
             "mx-0.5",
             "rounded-lg",
+            "drop-shadow-lg",
             "sm:mx-1"
         );
 
@@ -1570,7 +1571,15 @@ class ViewOverPiker {
             figure.dataset.team = team;
 
             const figcaption = this.createElement("figcaption");
-            figcaption.classList.add("h-6", "justify-self-center");
+            figcaption.classList.add(
+                "h-6",
+                "justify-self-center",
+                "rounded-md",
+                "group-hover:-mt-1",
+                "group-hover:text-2xl",
+                "group-hover:bg-black",
+                "group-hover:poppins"
+            );
 
             figcaption.textContent = hero;
 
@@ -1580,7 +1589,6 @@ class ViewOverPiker {
 
             const heroTip = this.createElement("span", "hero-tip");
             heroTip.classList.add(
-                "group-hover:visible",
                 "invisible",
                 "absolute",
                 "z-10",
