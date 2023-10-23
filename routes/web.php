@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OverpickerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 $DATES = include(config_path('dates.php'));
 
-Route::get('/', function () use ($DATES) {
-    $title = ' - Overwatch tool made to build Composition based in Counter and Synergies';
-    return view('calculator',[
-        'title' => $title,
-        'dates' => $DATES,
-    ]);
-});
+Route::get('/', [OverpickerController::class, 'home']);
 
-// Route::get('/tiers', function () {
-//     return view('tiers');
-// });
+Route::get('/about', [OverpickerController::class, 'about']);
+
+Route::get('/sources', [OverpickerController::class, 'sources']);
+
+Route::get('/privacy', [OverpickerController::class, 'privacy']);

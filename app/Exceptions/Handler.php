@@ -27,4 +27,20 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+{
+    if ($this->isHttpException($exception) && $exception->getStatusCode() == 404) {
+        // Personaliza la respuesta de error 404
+        $title = ' - Page Not Found';
+        $DATES = include(config_path('dates.php'));
+
+        return response()->view('errors.404', [
+            'title' => $title,
+            'dates' => $DATES,
+        ], 404);
+    }
+
+    return parent::render($request, $exception);
+}
 }

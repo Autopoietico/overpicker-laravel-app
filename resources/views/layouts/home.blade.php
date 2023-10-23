@@ -41,6 +41,9 @@
 <body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12 relative">
   <x-home.header/>
   @yield('content')
+  @php
+    $dates = include(config_path('dates.php'));    
+  @endphp
   <x-home.footer :dates=$dates/>
 </body>
 </html>
