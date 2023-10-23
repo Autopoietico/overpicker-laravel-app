@@ -1527,7 +1527,7 @@ class ViewOverPiker {
         return element;
     }
 
-    createHeroFigure(hero, team, value, heroIMG) {
+    createHeroFigure(hero, team, value, heroIMG, noRound) {
         const figure = this.createElement("figure", "hero-value");
 
         figure.classList.add(
@@ -1574,33 +1574,24 @@ class ViewOverPiker {
             figcaption.classList.add(
                 "h-6",
                 "justify-self-center",
-                "rounded-md",
-                "group-hover:-mt-1",
-                "group-hover:text-2xl",
-                "group-hover:bg-black",
+                "rounded-t-lg",
+                "group-hover:w-full",
+                "group-hover:bg-white",
+                "group-hover:text-black",
                 "group-hover:poppins"
             );
 
             figcaption.textContent = hero;
 
             const img = heroIMG;
-            img.classList.add("h-14", "justify-self-center", "rounded-t-lg");
+            img.classList.add("h-14", "justify-self-center");
             img.alt = hero + " white schematic face";
 
-            const heroTip = this.createElement("span", "hero-tip");
-            heroTip.classList.add(
-                "invisible",
-                "absolute",
-                "z-10",
-                "py-1",
-                "px-2.5",
-                "poppins",
-                "bg-black",
-                "rounded-md"
-            );
-            heroTip.textContent = hero;
+            if (!noRound) {
+                img.classList.add("rounded-t-lg");
+            }
 
-            figure.append(figcaption, img, value, heroTip);
+            figure.append(figcaption, img, value);
         }
 
         return figure;
@@ -1776,6 +1767,7 @@ class ViewOverPiker {
             let heroIMG = "";
             let enemyEcho = teams["Red"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
+            let notRound = false;
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
@@ -1797,13 +1789,14 @@ class ViewOverPiker {
                                     teams[team].heroes[hero].getIMG(
                                         "prof-echo-img"
                                     );
+                                    notRound = true
                             }
                         }
                     }
                 }
             }
 
-            const figure = this.createHeroFigure(hero, team, value, heroIMG);
+            const figure = this.createHeroFigure(hero, team, value, heroIMG, notRound);
             this.teamBlueComposition.append(figure);
         }
 
@@ -1815,6 +1808,7 @@ class ViewOverPiker {
             let heroIMG = "";
             let enemyEcho = teams["Blue"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
+            let noRound = false
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
@@ -1836,13 +1830,20 @@ class ViewOverPiker {
                                     teams[team].heroes[hero].getIMG(
                                         "prof-echo-img"
                                     );
+                                noRound = true
                             }
                         }
                     }
                 }
             }
 
-            const figure = this.createHeroFigure(hero, team, value, heroIMG);
+            const figure = this.createHeroFigure(
+                hero,
+                team,
+                value,
+                heroIMG,
+                noRound
+            );
             this.teamRedComposition.append(figure);
         }
     }
@@ -2079,6 +2080,8 @@ class ViewOverPiker {
 
                 let hero = teams[t].heroes[h];
                 let role = hero.generalRol;
+                let notRound = false;
+
                 if (!hero.selected) {
                     let figHeroOption;
 
@@ -2087,14 +2090,16 @@ class ViewOverPiker {
                             hero.name,
                             t,
                             hero.value,
-                            hero.getIMG("white-img")
+                            hero.getIMG("white-img"),
+                            notRound
                         );
                     } else {
                         figHeroOption = this.createHeroFigure(
                             hero.name,
                             t,
                             hero.value,
-                            hero.getIMG("profile-img")
+                            hero.getIMG("profile-img"),
+                            notRound
                         );
                     }
 
