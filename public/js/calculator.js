@@ -1547,11 +1547,11 @@ class ViewOverPiker {
             figure.classList.add("no-hero-selected", "bg-color-text");
 
             const figcaption = this.createElement("figcaption");
-            figcaption.classList.add("text-xs");
+            figcaption.classList.add("h-6");
             figcaption.textContent = "Empty";
 
             const img = this.createElement("img");
-            img.classList.add("justify-self-center");
+            img.classList.add("h-14", "justify-self-center");
             img.src = "images/assets/blank-hero.png";
             img.alt = "Blank hero space";
 
@@ -1561,10 +1561,10 @@ class ViewOverPiker {
             figure.append(figcaption, img, "0", border);
         } else {
             figure.classList.add(
-                "relative",
                 "cursor-pointer",
                 "group",
-                "hover:bg-[#294452]"
+                "hover:bg-[#294452]",
+                "hover:-mt-1"
             );
 
             figure.dataset.name = hero;
@@ -1789,14 +1789,20 @@ class ViewOverPiker {
                                     teams[team].heroes[hero].getIMG(
                                         "prof-echo-img"
                                     );
-                                    notRound = true
+                                notRound = true;
                             }
                         }
                     }
                 }
             }
 
-            const figure = this.createHeroFigure(hero, team, value, heroIMG, notRound);
+            const figure = this.createHeroFigure(
+                hero,
+                team,
+                value,
+                heroIMG,
+                notRound
+            );
             this.teamBlueComposition.append(figure);
         }
 
@@ -1808,7 +1814,7 @@ class ViewOverPiker {
             let heroIMG = "";
             let enemyEcho = teams["Blue"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
-            let noRound = false
+            let noRound = false;
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
@@ -1830,7 +1836,7 @@ class ViewOverPiker {
                                     teams[team].heroes[hero].getIMG(
                                         "prof-echo-img"
                                     );
-                                noRound = true
+                                noRound = true;
                             }
                         }
                     }
