@@ -1269,6 +1269,7 @@ class ViewOverPiker {
             "cursor-pointer",
             "mt-2",
             "mb-5",
+            "decoration-amber-400",
             "sm:col-span-2",
             "md:text-xl"
         );
