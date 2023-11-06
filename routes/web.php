@@ -18,6 +18,8 @@ $DATES = include(config_path('dates.php'));
 
 Route::get('/', [OverpickerController::class, 'home']);
 
+Route::get('/tiers', [OverpickerController::class, 'tiers']);
+
 Route::get('/about', [OverpickerController::class, 'about']);
 
 Route::get('/sources', [OverpickerController::class, 'sources']);
