@@ -41,10 +41,10 @@
                                 </div>
                             </td>
                             <td class="border-x-2">
-                                <p class="text-base font-bold mx-1">{{$hero["role"]}}</p>
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
                             </td>
                             <td>
-                                <p class="p-2">{{$hero["description"]}}</p>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
                             </td>
                         </tr>
                     @endif
@@ -59,10 +59,10 @@
                                 </div>
                             </td>
                             <td class="border-x-2">
-                                <p class="text-base font-bold mx-1">{{$hero["role"]}}</p>
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
                             </td>
                             <td>
-                                <p class="p-2">{{$hero["description"]}}</p>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
                             </td>
                         </tr>
                     @endif
@@ -77,10 +77,10 @@
                             </div>
                         </td>
                         <td class="border-x-2">
-                            <p class="text-base font-bold mx-1">{{$hero["role"]}}</p>
+                            <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
                         </td>
                         <td>
-                            <p class="p-2">{{$hero["description"]}}</p>
+                            <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
                         </td>
                     </tr>
                 @endif
@@ -108,10 +108,10 @@
                                 </div>
                             </td>
                             <td class="border-x-2">
-                                <p class="text-base font-bold mx-1">{{$hero["role"]}}</p>
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
                             </td>
                             <td>
-                                <p class="p-2">{{$hero["description"]}}</p>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
                             </td>
                         </tr>
                     @endif
@@ -126,10 +126,10 @@
                                 </div>
                             </td>
                             <td class="border-x-2">
-                                <p class="text-base font-bold mx-1">{{$hero["role"]}}</p>
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
                             </td>
                             <td>
-                                <p class="p-2">{{$hero["description"]}}</p>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
                             </td>
                         </tr>
                     @endif
@@ -144,10 +144,211 @@
                             </div>
                         </td>
                         <td class="border-x-2">
-                            <p class="text-base font-bold mx-1">{{$hero["role"]}}</p>
+                            <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
                         </td>
                         <td>
-                            <p class="p-2">{{$hero["description"]}}</p>
+                            <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-10 text-center">
+        <h2 class="text-3xl fjalla font-normal border-t-4 pt-1">Tier - B</h2>
+        @php
+            $value = 25;
+        @endphp
+        <table class="w-full">
+            <thead>
+                <tr class="bg-white bg-color-text fjalla text-xl"><td><h3>Hero:</h3></td><td><h3>Role:</h3></td><td><h3>Description:</h3></td></tr>
+            </thead>
+            <tbody>
+                @foreach($tiers as $hero)
+                    @if($hero["value"] == $value && $hero["role"] == "Tank")
+                        <tr class="odd:bg-[#294452]">
+                            <td>
+                                <div class="flex flex-col items-center m-1">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                    <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                </div>
+                            </td>
+                            <td class="border-x-2">
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            </td>
+                            <td>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+                @foreach($tiers as $hero)
+                    @if($hero["value"] == $value && $hero["role"] == "Damage")
+                        <tr class="odd:bg-[#294452]">
+                            <td>
+                                <div class="flex flex-col items-center m-1">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                    <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                </div>
+                            </td>
+                            <td class="border-x-2">
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            </td>
+                            <td>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            @foreach($tiers as $hero)
+                @if($hero["value"] == $value && $hero["role"] == "Support")
+                    <tr class="odd:bg-[#294452]">
+                        <td>
+                            <div class="flex flex-col items-center m-1">
+                                <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                            </div>
+                        </td>
+                        <td class="border-x-2">
+                            <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                        </td>
+                        <td>
+                            <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-10 text-center">
+        <h2 class="text-red-200 text-3xl fjalla font-normal border-t-4 pt-1">Tier - C</h2>
+        @php
+            $value = 15;
+        @endphp
+        <table class="w-full">
+            <thead>
+                <tr class="bg-white bg-color-text fjalla text-xl"><td><h3>Hero:</h3></td><td><h3>Role:</h3></td><td><h3>Description:</h3></td></tr>
+            </thead>
+            <tbody>
+                @foreach($tiers as $hero)
+                    @if($hero["value"] == $value && $hero["role"] == "Tank")
+                        <tr class="odd:bg-[#294452]">
+                            <td>
+                                <div class="flex flex-col items-center m-1">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                    <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                </div>
+                            </td>
+                            <td class="border-x-2">
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            </td>
+                            <td>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+                @foreach($tiers as $hero)
+                    @if($hero["value"] == $value && $hero["role"] == "Damage")
+                        <tr class="odd:bg-[#294452]">
+                            <td>
+                                <div class="flex flex-col items-center m-1">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                    <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                </div>
+                            </td>
+                            <td class="border-x-2">
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            </td>
+                            <td>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            @foreach($tiers as $hero)
+                @if($hero["value"] == $value && $hero["role"] == "Support")
+                    <tr class="odd:bg-[#294452]">
+                        <td>
+                            <div class="flex flex-col items-center m-1">
+                                <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                            </div>
+                        </td>
+                        <td class="border-x-2">
+                            <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                        </td>
+                        <td>
+                            <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-10 text-center">
+        <h2 class="text-red-400 text-3xl fjalla font-normal border-t-4 pt-1">Tier - D</h2>
+        @php
+            $value = 5;
+        @endphp
+        <table class="w-full">
+            <thead>
+                <tr class="bg-white bg-color-text fjalla text-xl"><td><h3>Hero:</h3></td><td><h3>Role:</h3></td><td><h3>Description:</h3></td></tr>
+            </thead>
+            <tbody>
+                @foreach($tiers as $hero)
+                    @if($hero["value"] == $value && $hero["role"] == "Tank")
+                        <tr class="odd:bg-[#294452]">
+                            <td>
+                                <div class="flex flex-col items-center m-1">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                    <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                </div>
+                            </td>
+                            <td class="border-x-2">
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            </td>
+                            <td>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+                @foreach($tiers as $hero)
+                    @if($hero["value"] == $value && $hero["role"] == "Damage")
+                        <tr class="odd:bg-[#294452]">
+                            <td>
+                                <div class="flex flex-col items-center m-1">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                    <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                </div>
+                            </td>
+                            <td class="border-x-2">
+                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            </td>
+                            <td>
+                                <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            @foreach($tiers as $hero)
+                @if($hero["value"] == $value && $hero["role"] == "Support")
+                    <tr class="odd:bg-[#294452]">
+                        <td>
+                            <div class="flex flex-col items-center m-1">
+                                <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
+                                <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                            </div>
+                        </td>
+                        <td class="border-x-2">
+                            <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                        </td>
+                        <td>
+                            <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
                         </td>
                     </tr>
                 @endif
