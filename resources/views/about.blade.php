@@ -44,7 +44,7 @@
     </div>
     <div class="mt-10 border-b-2 border-dashed mb-10 sm:mb-14">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">Paypal Email:</h2>
-        <p class="italic sm:text-lg">If you want to help me continue with this proyect:</p>
+        <p class="italic sm:text-lg">If you want to help me to continue with this proyect:</p>
         <p class="mt-3 sm:text-lg"><b><a href="https://paypal.me/car930" class="underline decoration-amber-400" target="_blank" rel="noopener noreferrer">nizampop@gmail.com</a></b></p>
     </div>
 </section>
