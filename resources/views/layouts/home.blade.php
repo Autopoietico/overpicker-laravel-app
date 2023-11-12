@@ -8,8 +8,8 @@
             gain something in the process is a plus.
             Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
         -->
-        <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7835978513866271"
-  crossorigin="anonymous"></script>-->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7835978513866271"
+  crossorigin="anonymous"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
