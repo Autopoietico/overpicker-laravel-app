@@ -38,7 +38,7 @@
     <div
         class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between"
     >
-        <span>Last Update: {{$dates['LAST_DATA_UPDATE']}}</span>
+        <span class="footer-final-line-left">Last Update: {{$dates['LAST_DATA_UPDATE']}}</span>
         <span>CC({{$dates['COPY_DATE']}})</span>
     </div>
     <div class="mt-3 grid grid-flow-col gap-x-5">
