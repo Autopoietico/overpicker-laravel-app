@@ -28,7 +28,7 @@
             I play competitive Overwatch since <b>Season 8</b> of first Overwatch, I touch every
             low rank (even bronze), but now I'm a <b>Diamond I</b> player and I peak to
             3.9k. I mostly play Tanks but I can play all the roles, my mains are
-            <b>D.Va/Zarya</b>, <b>Tracer/Soldier</b> and <b>Ana/Illari</b
+            <b>D.Va/Zarya</b>, <b>Tracer/Soldier</b> and <b>Ana/Illari</b>
         </p>
     </div>
     <div class="mt-10 border-b-2 border-dashed">
