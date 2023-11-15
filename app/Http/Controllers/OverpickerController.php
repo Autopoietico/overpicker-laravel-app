@@ -25,6 +25,13 @@ class OverpickerController extends Controller
     public function tiers(){
         
         $TOP500 = 0; //Top 500 is indexed as 0 in the tiers
+        $tierValues = array(//Tier value, letter and Tailwind Text Color
+            array(45, 'S', 'text-emerald-400'),
+            array(35, 'A', 'text-emerald-200'),
+            array(25, 'B', ''),
+            array(15, 'C', 'text-red-200'),
+            array(5, 'D', 'text-red-400'),
+        );
         
         //Download all the data necessary for the tiers page
         $url_heroes = "https://api.overpicker.win/hero-info";
@@ -68,7 +75,8 @@ class OverpickerController extends Controller
         return view('tiers',[
             'title' => $title,
             'dates' => $this->DATES,
-            'tiers' => $sorted_heroes
+            'tiers' => $sorted_heroes,
+            'tierValues' => $tierValues
         ]);
     }
 
