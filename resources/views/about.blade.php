@@ -14,7 +14,7 @@
         </p>
     </div>
 </section>
-<section class="text-center sm:text-left text-sm max-w-4xl m-auto">
+<section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
     <div class="mt-12 pb-2 border-b-2 border-dashed sm:mt-16">
         <p class="sm:text-lg">
             I'm a casual player of overwatch that love stats and things related
@@ -42,7 +42,7 @@
         <p class="mt-3 sm:text-lg"><b>Battletag:</b> Autopoietico#1428</p>
         <p class="sm:text-lg"><b>DiscordTag:</b> Autopoietico#1640</p>
     </div>
-    <div class="mt-10 pb-2 border-b-2 border-dashed mb-10 sm:mb-14">
+    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mb-14">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">Paypal Email:</h2>
         <p class="italic sm:text-lg">If you want to help me to continue with this proyect:</p>
         <p class="mt-3 sm:text-lg"><b><a href="https://paypal.me/car930" class="underline decoration-amber-400" target="_blank" rel="noopener noreferrer">nizampop@gmail.com</a></b></p>

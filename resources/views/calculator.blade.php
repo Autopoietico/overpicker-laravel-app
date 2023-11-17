@@ -7,7 +7,7 @@
         </p>
     </div>
 </section>
-<section>
+<section class="mb-10">
     <div class="poppins font-bold text-center text-xl sm:text-2xl md:text-3xl">
         <span class="text-sky-600">Ally Team</span>
         <span>/</span>

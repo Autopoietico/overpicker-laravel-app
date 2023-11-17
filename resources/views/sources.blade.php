@@ -14,7 +14,7 @@
         </p>
     </div>
 </section>
-<section class="text-center sm:text-left text-sm max-w-4xl m-auto">
+<section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
     <div class="mt-10 pb-2 border-b-2 border-dashed sm:mt-16">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">
             Tiers, Map Type, Maps, Counters and Synergies:
@@ -109,7 +109,7 @@
             , and Others
         </p>
     </div>
-    <div class="mt-10 pb-2 border-b-2 border-dashed mb-10 sm:mb-14">
+    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mb-14">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">
             Synergies & Counters::
         </h2>
