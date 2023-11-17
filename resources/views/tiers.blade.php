@@ -16,7 +16,7 @@
     </div>
 </section>
 <section class="text-center sm:text-left text-sm max-w-4xl m-auto">
-    <div class="mt-12 border-b-2 border-dashed sm:mt-16">
+    <div class="mt-12 pb-2 border-b-2 border-dashed sm:mt-16">
         <p class="sm:text-lg">
             The tiers system allows the calculator to quickly pick heroes according to their performance in the last weeks, the tiers presented here are based on the heroes that are currently in the <b>Top500 leaderboard</b> in Overwatch 2, but the calculator has other types of tiers that may be more convenient for you!
         </p>

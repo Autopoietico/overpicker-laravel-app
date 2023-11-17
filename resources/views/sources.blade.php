@@ -15,7 +15,7 @@
     </div>
 </section>
 <section class="text-center sm:text-left text-sm max-w-4xl m-auto">
-    <div class="mt-10 border-b-2 border-dashed sm:mt-16">
+    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mt-16">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">
             Tiers, Map Type, Maps, Counters and Synergies:
         </h2>
@@ -31,7 +31,7 @@
             has my own data and ideas about interactions in the game.
         </p>
     </div>
-    <div class="mt-10 border-b-2 border-dashed">
+    <div class="mt-10 pb-2 border-b-2 border-dashed">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">Tiers:</h2>
         <p class="sm:text-lg">
             I create a tier list based in the
@@ -109,7 +109,7 @@
             , and Others
         </p>
     </div>
-    <div class="mt-10 border-b-2 border-dashed mb-10 sm:mb-14">
+    <div class="mt-10 pb-2 border-b-2 border-dashed mb-10 sm:mb-14">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">
             Synergies & Counters::
         </h2>
