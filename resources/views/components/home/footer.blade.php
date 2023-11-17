@@ -61,4 +61,10 @@
                 alt="PayPal Icon"
         /></a>
     </div>
+    <div
+    class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between"
+>
+    <span class="footer-final-line-left"><a href="/privacy" class="underline decoration-amber-400">Privacy Policy</a></span>
+    <span>This site is not affiliated with Overwatch or Blizzard Entertainment.</span>
+</div>
 </footer>
