@@ -20,3 +20,9 @@ npm install
 ```
 
 You can preview the production build with `php artisan serve` and `npm run dev`.
+
+## About Me
+Full Stack developer focused in web-apps around PHP, you can contact me in my email: autopoietico@outlook.com
+
+## License
+[Apache-2.0](/LICENSE)
