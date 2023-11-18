@@ -22,9 +22,12 @@ npm install
 You can preview the production build with `php artisan serve` and `npm run dev`.
 
 ## About Me
-Full Stack developer focused in web-apps around PHP, you can contact me in my email: autopoietico@outlook.com
+Full Stack developer focused in web-apps around PHP, you can contact me at: autopoietico@outlook.com
 
-## License
-[CC BY-NC-ND 4.0 Deed ](/LICENSE)
-
-[Attribution-NonCommercial-NoDerivs 4.0 International ](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+## Copyright
+> 
+> This webapp is copyright (c) 2023 Autopoietico.
+> 
+> [CC BY-NC-ND 4.0 Deed ](/LICENSE)
+> 
+> [Attribution-NonCommercial-NoDerivs 4.0 International ](https://creativecommons.org/licenses/by-nc-nd/4.0/)
