@@ -33,10 +33,10 @@ class OverpickerController extends Controller
             array(5, 'D', 'text-red-400'),
         );
         
-        //Download all the data necessary for the tiers page
-        $url_heroes = "https://api.overpicker.win/hero-info";
-        $url_tiers = "https://api.overpicker.win/hero-tiers";
-        $url_img = "https://api.overpicker.win/hero-img";        
+        //Extract all the data from the storage
+        $url_heroes = storage_path() . "/api/hero-data/hero-info.json";
+        $url_tiers = storage_path() . "/api/hero-data/hero-tiers.json";
+        $url_img = storage_path() . "/api/hero-data/hero-img.json";      
         
         $data_heroes = file_get_contents($url_heroes);
         $data_tiers = file_get_contents($url_tiers);

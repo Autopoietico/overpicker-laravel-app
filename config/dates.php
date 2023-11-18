@@ -1,6 +1,6 @@
 <?php
 
-$url_version = __DIR__ . "/../resources/api/version.json";
+$url_version = storage_path() . "/api/version.json";
 $data_version = file_get_contents($url_version);
 $data_obj = json_decode($data_version, true); 
 
