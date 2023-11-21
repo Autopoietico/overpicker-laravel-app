@@ -1595,7 +1595,7 @@ class ViewOverPiker {
                 "cursor-pointer",
                 "group",
                 "hover:bg-[#294452]",
-                "hover:-mt-1"
+                "hover:-translate-y-1"
             );
 
             figure.dataset.name = hero;
