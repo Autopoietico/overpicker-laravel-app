@@ -40,6 +40,7 @@
                                 <td>
                                     <div class="flex flex-col items-center m-1">
                                         <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                        <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
                                     </div>
                                 </td>
                                 <td class="border-x-2 hidden sm:table-cell">
@@ -59,8 +60,8 @@
                             <tr class="odd:bg-[#294452]">
                                 <td>
                                     <div class="flex flex-col items-center m-1">
-                                        <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
                                         <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                        <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
                                     </div>
                                 </td>
                                 <td class="border-x-2 hidden sm:table-cell">
@@ -80,8 +81,8 @@
                         <tr class="odd:bg-[#294452]">
                             <td>
                                 <div class="flex flex-col items-center m-1">
-                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
                                     <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
                                 </div>
                             </td>
                             <td class="border-x-2 hidden sm:table-cell">
