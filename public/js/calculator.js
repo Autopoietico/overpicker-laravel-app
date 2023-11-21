@@ -1251,10 +1251,10 @@ class ViewOverPiker {
         this.calculator = this.getElement(".calculator");
         this.calculator.classList.add(
             "sm:grid",
-            "sm:grid-cols-2",
-            "sm:gap-x-8",
-            "sm:justify-between",
-            "md:gap-x-16"
+            "sm:grid-cols-[minmax(0,_1fr)_32px_minmax(0,_1fr)]",
+            "md:grid-cols-[minmax(0,_1fr)_64px_minmax(0,_1fr)]",
+            "lg:grid-cols-[minmax(0,_1fr)_128px_minmax(0,_1fr)]",
+            "sm:justify-between"
         );
 
         //Clear Selection
@@ -1270,7 +1270,7 @@ class ViewOverPiker {
             "mt-2",
             "mb-5",
             "decoration-amber-400",
-            "sm:col-span-2",
+            "sm:col-span-3",
             "md:text-xl"
         );
         this.clearSelection.textContent = "Clear All";
@@ -1290,7 +1290,7 @@ class ViewOverPiker {
             "sm:grid-cols-none",
             "sm:gap-x-1",
             "sm:text-xl",
-            "sm:col-span-2",
+            "sm:col-span-3",
             "md:gap-x-3",
             "md:text-2xl",
             "lg:gap-x-3.5",
@@ -1302,26 +1302,27 @@ class ViewOverPiker {
             "grid",
             "text-center",
             "mt-2",
+            "mb-10",
             "lg:mt-3",
             "sm:grid-flow-col",
             "sm:justify-center",
-            "sm:col-span-2",
+            "sm:col-span-3",
             "md:text-xl",
             "lg:text-2xl"
         );
 
-        this.blueTeam = this.createElement("div");
-        this.blueTeam.classList.add("mt-5");
-
         this.teamSeparator = this.createElement("div");
-
-        this.redTeam = this.createElement("div");
-        this.redTeam.classList.add(
-            "mt-10",
-            "sm:mt-5",
-            "sm:row-start-4",
-            "sm:col-start-2"
-        );
+        this.teamSeparator.classList.add(
+            "my-10",
+            "border-t-2",
+            "sm:justify-self-center",
+            "sm:my-0",
+            "sm:border-t-0",
+            "sm:border-r-2",
+            "sm:row-[start_6_/_end_9]",
+            "sm:invisible",
+            "lg:visible"
+        )
 
         //Team Scores
         this.blueTeamScore = this.createElement(
@@ -1332,7 +1333,10 @@ class ViewOverPiker {
         this.blueTeamScore.classList.add(
             "text-2xl",
             "text-center",
-            "md:text-left"
+            "md:text-left",
+            "sm:col-start-1",
+            "sm:col-end-2",
+            "sm:row-start-4"
         );
 
         //Team Hero Selections
@@ -1346,20 +1350,27 @@ class ViewOverPiker {
             "flex",
             "flex-wrap",
             "justify-center",
-            "md:justify-start"
+            "md:justify-start",
+            "sm:col-start-1",
+            "sm:col-end-2",
+            "sm:row-start-5"
         );
 
         //Filters
         this.blueFilter = this.createElement(
             "div",
             "heroes-filter",
-            "heroes-filter-blue"
+            "heroes-filter-blue",
+            "hidden"
         );
         this.blueFilter.classList.add(
             "mt-5",
             "text-sm",
             "text-center",
-            "sm:text-left"
+            "sm:text-left",
+            "sm:col-start-1",
+            "sm:col-end-2",
+            "sm:row-start-6"
         );
 
         //Hero per Rol Options
@@ -1372,8 +1383,10 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
+            "content-start",
             "justify-items-center",
-            "sm:justify-items-start"
+            "sm:justify-items-start",
+            "sm:row-start-7"
         );
 
         this.blueDamageRolSelection = this.createElement(
@@ -1385,8 +1398,10 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
+            "content-start",
             "justify-items-center",
-            "sm:justify-items-start"
+            "sm:justify-items-start",
+            "sm:row-[start_7_]"
         );
 
         this.blueSupportRolSelection = this.createElement(
@@ -1398,8 +1413,10 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
+            "content-start",
             "justify-items-center",
-            "sm:justify-items-start"
+            "sm:justify-items-start",
+            "sm:row-[start_8_]"
         );
 
         this.redTeamScore = this.createElement(
@@ -1411,7 +1428,10 @@ class ViewOverPiker {
             "enemy-team-direction",
             "text-2xl",
             "text-center",
-            "md:text-right"
+            "md:text-right",
+            "sm:col-start-3",
+            "sm:col-end-4",
+            "sm:row-start-4"
         );
 
         this.teamRedComposition = this.createElement(
@@ -1425,7 +1445,10 @@ class ViewOverPiker {
             "flex",
             "flex-wrap",
             "justify-center",
-            "md:justify-end"
+            "md:justify-end",
+            "sm:col-start-3",
+            "sm:col-end-4",
+            "sm:row-start-5"
         );
 
         this.redFilter = this.createElement(
@@ -1438,7 +1461,10 @@ class ViewOverPiker {
             "mt-5",
             "text-sm",
             "text-center",
-            "sm:text-right"
+            "sm:text-right",
+            "sm:col-start-3",
+            "sm:col-end-4",
+            "sm:row-start-6"
         );
 
         this.blueSupportRolSelection.classList.add("rol-selection-support");
@@ -1451,8 +1477,10 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
+            "content-start",
             "justify-items-center",
-            "sm:justify-items-end"
+            "sm:justify-items-end",
+            "sm:row-start-7"
         );
 
         this.redTankRolSelection.classList.add("enemy-team-direction");
@@ -1465,8 +1493,10 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
+            "content-start",
             "justify-items-center",
-            "sm:justify-items-end"
+            "sm:justify-items-end",
+            "sm:row-[start_7_]"
         );
 
         this.redDamageRolSelection.classList.add("enemy-team-direction");
@@ -1479,35 +1509,35 @@ class ViewOverPiker {
             "mt-5",
             "grid",
             "grid-flow-row",
+            "content-start",
             "justify-items-center",
-            "sm:justify-items-end"
+            "sm:justify-items-end",
+            "sm:row-[start_8_]"
         );
 
         this.redSupportRolSelection.classList.add("rol-selection-support");
         this.redSupportRolSelection.classList.add("enemy-team-direction");
-
-        this.blueTeam.append(this.blueTeamScore);
-        this.blueTeam.append(this.teamBlueComposition);
-        this.blueTeam.append(this.blueFilter);
-        this.blueTeam.append(this.blueTankRolSelection);
-        this.blueTeam.append(this.blueDamageRolSelection);
-        this.blueTeam.append(this.blueSupportRolSelection);
-
-        this.redTeam.append(this.redTeamScore);
-        this.redTeam.append(this.teamRedComposition);
-        this.redTeam.append(this.redFilter);
-        this.redTeam.append(this.redTankRolSelection);
-        this.redTeam.append(this.redDamageRolSelection);
-        this.redTeam.append(this.redSupportRolSelection);
 
         this.calculator.append(this.clearSelection);
 
         this.calculator.append(this.checkboxPanel);
         this.calculator.append(this.selectionPanel);
 
-        this.calculator.append(this.blueTeam);
+        this.calculator.append(this.blueTeamScore);
+        this.calculator.append(this.teamBlueComposition);
+        this.calculator.append(this.blueFilter);
+        this.calculator.append(this.blueTankRolSelection);
+        this.calculator.append(this.blueDamageRolSelection);
+        this.calculator.append(this.blueSupportRolSelection);
 
-        this.calculator.append(this.redTeam);
+        this.calculator.append(this.teamSeparator);
+
+        this.calculator.append(this.redTeamScore);
+        this.calculator.append(this.teamRedComposition);
+        this.calculator.append(this.redFilter);
+        this.calculator.append(this.redTankRolSelection);
+        this.calculator.append(this.redDamageRolSelection);
+        this.calculator.append(this.redSupportRolSelection);
 
         this.displayFilters();
     }
