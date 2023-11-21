@@ -1322,7 +1322,7 @@ class ViewOverPiker {
             "sm:row-[start_6_/_end_9]",
             "sm:invisible",
             "lg:visible"
-        )
+        );
 
         //Team Scores
         this.blueTeamScore = this.createElement(
