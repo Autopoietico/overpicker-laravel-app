@@ -31,7 +31,7 @@
             <h2 class="{{ $tierColor }} text-3xl fjalla font-normal border-t-4 pt-1">Tier - {{ $tierLetter }}</h2>
             <table class="w-full">
                 <thead>
-                    <tr class="bg-white bg-color-text fjalla text-xl"><td><h3>Hero:</h3></td><td><h3>Role:</h3></td><td><h3>Description:</h3></td></tr>
+                    <tr class="bg-white bg-color-text fjalla text-xl"><th>Hero:</th><th class="hidden sm:table-cell">Role:</th><th>Description:</th></tr>
                 </thead>
                 <tbody>
                     @foreach($tiers as $hero)
@@ -39,12 +39,14 @@
                             <tr class="odd:bg-[#294452]">
                                 <td>
                                     <div class="flex flex-col items-center m-1">
-                                        <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">{{$hero["name"]}}</h4>
                                         <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
                                     </div>
                                 </td>
-                                <td class="border-x-2">
-                                    <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                                <td class="border-x-2 hidden sm:table-cell">
+                                    <div class="flex flex-col items-center m-1">
+                                        <img src="\images\assets\tank.png" alt="Tank Icon" class="w-14 rounded-lg">
+                                        <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">Tank</h4>
+                                    </div>
                                 </td>
                                 <td>
                                     <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
@@ -61,8 +63,11 @@
                                         <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
                                     </div>
                                 </td>
-                                <td class="border-x-2">
-                                    <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                                <td class="border-x-2 hidden sm:table-cell">
+                                    <div class="flex flex-col items-center m-1">
+                                        <img src="\images\assets\damage.png" alt="Damage Icon" class="w-14 rounded-lg">
+                                        <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">Damage</h4>
+                                    </div>
                                 </td>
                                 <td>
                                     <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
@@ -79,8 +84,11 @@
                                     <img src="{{$hero["img"]}}" alt="{{$hero["name"]}} profile" class="w-14 rounded-lg">
                                 </div>
                             </td>
-                            <td class="border-x-2">
-                                <p class="text-sm font-bold mx-1 sm:text-base">{{$hero["role"]}}</p>
+                            <td class="border-x-2 hidden sm:table-cell">
+                                <div class="flex flex-col items-center m-1">
+                                    <img src="\images\assets\support.png" alt="Support Icon" class="w-14 rounded-lg">
+                                    <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">Support</h4>
+                                </div>
                             </td>
                             <td>
                                 <p class="p-2 text-xs sm:text-sm">{{$hero["description"]}}</p>
