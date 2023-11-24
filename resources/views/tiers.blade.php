@@ -24,11 +24,10 @@
     @foreach($tierValues as $tier)
         @php
             $tierValue = $tier[0];
-            $tierLetter = $tier[1];
-            $tierColor = $tier[2];            
+            $tierComponent = $tier[1];           
         @endphp
         <div class="mt-10 text-center">
-            <h2 class="{{ $tierColor }} text-3xl fjalla font-normal border-t-4 pt-1">Tier - {{ $tierLetter }}</h2>
+            {!! $tierComponent !!}
             <table class="w-full">
                 <thead>
                     <tr class="bg-white bg-color-text fjalla text-xl"><th>Hero:</th><th class="hidden sm:table-cell">Role:</th><th>Description:</th></tr>

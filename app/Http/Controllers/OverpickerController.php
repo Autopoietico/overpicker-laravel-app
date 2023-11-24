@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 
 class OverpickerController extends Controller
@@ -25,12 +26,12 @@ class OverpickerController extends Controller
     public function tiers(){
         
         $TOP500 = 0; //Top 500 is indexed as 0 in the tiers
-        $tierValues = array(//Tier value, letter and Tailwind Text Color
-            array(45, 'S', 'text-emerald-400'),
-            array(35, 'A', 'text-emerald-200'),
-            array(25, 'B', ''),
-            array(15, 'C', 'text-red-200'),
-            array(5, 'D', 'text-red-400'),
+        $tierValues = array(//Tier value and the blade component with the Tier Name and color
+            array(45, View::make('components.tiers.tier-s')),
+            array(35, View::make('components.tiers.tier-a')),
+            array(25, View::make('components.tiers.tier-b')),
+            array(15, View::make('components.tiers.tier-c')),
+            array(5, View::make('components.tiers.tier-d')),
         );
         
         //Extract all the data from the storage
