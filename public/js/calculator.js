@@ -716,7 +716,7 @@ class ModelOverPiker {
             {
                 text: "Hero Icons",
                 id: `cb${getSelectValue("Hero Icons")}`,
-                state: true,
+                state: false,
             },
         ];
 
