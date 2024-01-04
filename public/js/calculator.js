@@ -22,7 +22,7 @@ const getSelectValue = function (name) {
 // API METHODS
 //////////////////////
 
-const API_URL = "https://api.overpicker.win/";
+const API_URL = "https://api.overpicker.com/";
 
 //subdirectory link in the API.
 const JSON_URL = {
