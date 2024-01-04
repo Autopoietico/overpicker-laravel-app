@@ -27,10 +27,10 @@ class downloadAPIData extends Command
     public function handle()
     {
 
-        $url_heroes = "https://api.overpicker.win/hero-info";
-        $url_tiers = "https://api.overpicker.win/hero-tiers";
-        $url_img = "https://api.overpicker.win/hero-img";
-        $url_version = "https://api.overpicker.win/version";
+        $url_heroes = "https://api.overpicker.com/hero-info";
+        $url_tiers = "https://api.overpicker.com/hero-tiers";
+        $url_img = "https://api.overpicker.com/hero-img";
+        $url_version = "https://api.overpicker.com/version";
 
         $heroes_data = Http::get($url_heroes)->body();
         $tiers_data = Http::get($url_tiers)->body();

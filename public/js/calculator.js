@@ -6,7 +6,7 @@ gain something in the process is a plus.
 Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
 */
 
-const LASTDATAUPDATE = "2023-11-11";
+const LASTDATAUPDATE = "2024-01-04";
 
 //////////////////////
 // Miscelaneus
