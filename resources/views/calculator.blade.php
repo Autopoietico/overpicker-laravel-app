@@ -5,7 +5,7 @@
     class="fixed z-50 top-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-[#1C2E37] text-white p-4 rounded-md shadow-md border border-white"
 >
     <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold">
+        <p class="text-lg font-semibold text-center">
             Important Message:
             <a
                 href="#"
@@ -16,15 +16,15 @@
             >
             is now
             <a
-                href="overpicker.com"
+                href="http://www.overpicker.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="underline decoration-amber-400"
                 >overpicker.com</a
-            >, update your bookmarks!
+            > - The old domain will stop working in March, so please update your bookmarks!
         </p>
         <button id="closeAlert" class="ml-10 text-white focus:outline-none">
-            <span class="text-2xl">×</span>
+            <span class="text-4xl font-bold text-amber-400">×</span>
         </button>
     </div>
     </div>
