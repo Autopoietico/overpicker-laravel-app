@@ -1,8 +1,27 @@
 @extends('layouts.home') @section('content')
-<div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white p-4 rounded-md shadow-md">
+<div
+    class="fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white p-4 rounded-md shadow-md"
+>
     <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold">Important Message: <a href="#">overpicker.win</a> is now <a href="overpicker.com">overpicker.com</a>, update your bookmarks!</p>
-        <button id="closeAlert" class="text-white focus:outline-none">
+        <p class="text-lg font-semibold">
+            Important Message:
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline decoration-amber-400"
+                >overpicker.win</a
+            >
+            is now
+            <a
+                href="overpicker.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline decoration-amber-400"
+                >overpicker.com</a
+            >, update your bookmarks!
+        </p>
+        <button id="closeAlert" class="ml-10 text-white focus:outline-none">
             <span class="text-2xl">×</span>
         </button>
     </div>
@@ -10,12 +29,9 @@
 <section class="mt-7 flex justify-center">
     <div class="text-2xl font-black text-center mb-8 max-w-4xl sm:text-4xl">
         <p>
-            Overpicker new domain is now Overpicker.com, update your bookmarks!!
-        </p>
-{{--         <p>
             Find your best composition, counter the enemy comp, and find the
             best hero for every map in Overwatch
-        </p> --}}
+        </p>
     </div>
 </section>
 <section class="mb-10">
@@ -29,8 +45,10 @@
 <script defer src="js/calculator.js"></script>
 <script>
     // JavaScript to close the alert when the close button is clicked
-    document.getElementById('closeAlert').addEventListener('click', function () {
-        document.querySelector('.fixed').style.display = 'none';
-    });
+    document
+        .getElementById("closeAlert")
+        .addEventListener("click", function () {
+            document.querySelector(".fixed").style.display = "none";
+        });
 </script>
 @endsection
