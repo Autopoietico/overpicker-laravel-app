@@ -1,6 +1,8 @@
 @extends('layouts.home') @section('content')
-<div
-    class="fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white p-4 rounded-md shadow-md"
+
+<section class="relative mt-7 flex justify-center">
+    <div
+    class="fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white p-4 rounded-md shadow-md border border-white"
 >
     <div class="flex justify-between items-center">
         <p class="text-lg font-semibold">
@@ -25,8 +27,7 @@
             <span class="text-2xl">×</span>
         </button>
     </div>
-</div>
-<section class="mt-7 flex justify-center">
+    </div>
     <div class="text-2xl font-black text-center mb-8 max-w-4xl sm:text-4xl">
         <p>
             Find your best composition, counter the enemy comp, and find the
