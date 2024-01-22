@@ -1,8 +1,8 @@
 @extends('layouts.home') @section('content')
 
 <section class="relative mt-7 flex justify-center">
-    <div
-    class="fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white p-4 rounded-md shadow-md border border-white"
+    <div id="alert"
+    class="fixed z-50 top-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-[#1C2E37] text-white p-4 rounded-md shadow-md border border-white"
 >
     <div class="flex justify-between items-center">
         <p class="text-lg font-semibold">
@@ -49,7 +49,7 @@
     document
         .getElementById("closeAlert")
         .addEventListener("click", function () {
-            document.querySelector(".fixed").style.display = "none";
+            document.getElementById("alert").style.display = "none";
         });
 </script>
 @endsection
