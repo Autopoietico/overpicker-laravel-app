@@ -6,7 +6,7 @@ An Overwatch tool for creation of compositions, around Synergies, Counters, Maps
 
 ## Tech Stack
 
-[overpicker.win](https://overpicker.win) uses [Laravel](https://laravel.com/) and vanilla Javascript
+[overpicker.com](https://overpicker.com) uses [Laravel](https://laravel.com/) and vanilla Javascript
 
 ![laravel_icon](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
 
