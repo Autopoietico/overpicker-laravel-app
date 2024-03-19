@@ -1,6 +1,9 @@
 @extends('layouts.home') @section('content')
 <section class="mt-12 flex justify-center sm:mt-16">
     <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
+        <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
+            Overwatch Tracker
+        </h2>
         <img src="{{ asset('images\assets\trackers-hero.png') }}" alt="Overwatch Tracker Dashboard screenshot"
             class="rounded-2xl shadow-md shadow-slate-500">
     </div>

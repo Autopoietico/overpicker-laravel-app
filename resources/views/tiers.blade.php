@@ -2,21 +2,13 @@
 @section('content')
 <section class="mt-12 flex justify-center sm:mt-16">
     <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
-        <p>
-            Overpicker is a hero composition calculator inspired in
-            jazzmasta25's
-            <a
-                href="https://heropicker.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="underline decoration-amber-400"
-                >Hero Picker</a
-            >
-        </p>
+        <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
+            Overpicker Tiers
+        </h2>
     </div>
 </section>
 <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
-    <div class="mt-12 pb-2 border-b-2 border-dashed sm:mt-16">
+    <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8">
         <p class="sm:text-lg">
             The tiers system allows the calculator to quickly pick heroes according to their performance in the last weeks, the tiers presented here are based on the heroes that are currently in the <b>Top500 leaderboard</b> in Overwatch 2, but the calculator has other types of tiers that may be more convenient for you!
         </p>
