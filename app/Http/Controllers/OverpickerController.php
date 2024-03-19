@@ -110,4 +110,14 @@ class OverpickerController extends Controller
             'dates' => $this->DATES,
         ]);
     }
+
+    public function trackers(){
+
+        $title = ' - Trackers';
+
+        return view('trackers',[
+            'title' => $title,
+            'dates' => $this->DATES,
+        ]);
+    }
 }

@@ -25,3 +25,5 @@ Route::get('/about', [OverpickerController::class, 'about']);
 Route::get('/sources', [OverpickerController::class, 'sources']);
 
 Route::get('/privacy', [OverpickerController::class, 'privacy']);
+
+Route::get('/trackers', [OverpickerController::class, 'trackers']);
