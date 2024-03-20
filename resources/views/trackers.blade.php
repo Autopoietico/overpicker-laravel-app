@@ -3,9 +3,9 @@
     <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
         <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
             Overwatch Tracker
-        </h2>
-        <img src="{{ asset('images\assets\trackers-hero.png') }}" alt="Overwatch Tracker Dashboard screenshot"
-            class="rounded-2xl shadow-md shadow-slate-500">
+            </h2>
+            <img src="{{ asset('images\assets\trackers-hero.png') }}" alt="Overwatch Tracker Dashboard screenshot"
+                class="rounded-2xl shadow-md shadow-slate-500">
     </div>
 </section>
 <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
@@ -33,10 +33,12 @@
             You only need to locate your rank and add the percentage after each match. If you have demotion protection,
             just take the average SR losses/wins from the home page and subtract/add that from your last match.
         </p>
-        <button id="toggleButton" class="focus:outline-none mt-3 sm:text-lg">
+    </div>
+    <div class="mt-3 pb-6 sm:text-lg flex justify-center border-b-2 border-dashed flex-col">
+        <button id="toggleButton" class="focus:outline-none mt-3">
             <b><span class="underline decoration-amber-400">SR Translator Hide/Show</span></b>
         </button>
-        <ul id="listContainer" class="mt-3 sm:text-lg hidden">
+        <ul id="listContainer" class="mt-3 sm:text-lg hidden mb-6 text-center">
             <li><b>Champion 1</b> - 4900SR</li>
             <li><b>Champion 2</b> - 4800SR</li>
             <li><b>Champion 3</b> - 4700SR</li>
