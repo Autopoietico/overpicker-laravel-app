@@ -266,14 +266,14 @@
                 <p class="ml-3 mt-1">-There is a bridge between your spreadsheet and the server (see below), so that
                     you'll get the new heroes and maps when Blizz releases them.</p>
             </li>
-            <li>
+            <li class="mt-4">
                 <p>
                 <h3 class="font-normal text-1xl fjalla sm:text-2xl">&bull; ASSETS_PERSONALISED_ADVICES</h3>
                 </p>
                 <p class="ml-3 mt-1">-This one will take note of your most used heroes and filter some advices that are
                     useful to you. </p>
             </li>
-            <li>
+            <li class="mt-4">
                 <p>
                 <h3 class="font-normal text-1xl fjalla sm:text-2xl">&bull; <a
                         href="https://docs.google.com/spreadsheets/d/1JqxVVmhN0swqh_2puB-sL0mFRI4jd1mU1VbBOUnkzu8"
@@ -281,6 +281,61 @@
                         Tracker 1.8.7 "Sierra Nevada" Server</a></h3>
                 </p>
                 <p class="ml-3 mt-1">-By using the old server, I can keep updated even older versions of the sheet.</p>
+            </li>
+        </ul>
+    </div>
+    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mb-14">
+        <h2 class="font-normal text-2xl fjalla sm:text-3xl">
+            F. A. Q.
+        </h2>
+        <ul class="mt-5 sm:text-lg">
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, those tips seem useful, but you should add this one."</em></b> - At this moment, I'm not adding new tips to the spreadsheet, but I may do so in the future for both the webpage and the spreadsheet!
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, How can I save Overwatch's screenshots?"</em></b> - Overwatch itself saves screenshots in 'Documents\Overwatch\ScreenShots\Overwatch'.
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, How do I do to get a blank copy?"</em></b> - ****If you wanna get a copy of the blank one, click File > Make a copy. It should save it to your Google Drive account.
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, you said something about customizable columns, How do I do that?"</em></b> - Edit AY5 and BD5, then the text to have there will mirror in the rest of thre spreadsheet, try to keep it short though.
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, Can I use this file in Excel/Calc/Numbers/1-2-3/VisiCalc?"</em></b> -  Due to some features that might be unique to Google Sheets (see Query) it might not work in other apps. 
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, WTF is Paramillo?"</em></b> - Paramillo is a massif located in Colombia. The original author of this spreadsheet named each version after a geographical feature of their country, Argentina. I've followed suit, using names from my country. (Aconcagua, Bonete Chico, Chuscha, Calinga, Colangüil and Piltriquitrón for 1.3, 1.4, 1.8.3, 1.8.5, 1.8.6 and 1.9 respectively).
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, Do I have to fill this myself? Really, I feel like an accountant!"</em></b> - Well, yeah. It will be that way till the day Blizz releases an API in the shape of something that works with Google Sheets or something like that. If you don't like it, webs like Overbuff and MasterOverwatch can track plenty of your stats without any input.
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, What kind of information does it provide that other available tools (such as Overbuff for example) don't?"</em></b> - A few seasons ago, u/WumpaWolfy provided an excellent answer to this question: 
+                </p>
+                <p class="mt-2 ml-3 text-slate-300">
+                    I imagine using this chart would allow you to notice a bunch of patterns about your play you otherwise may have never realized, such as maybe your win rate tanks after midnight, rises after your first half hour, or that you have a horrible win rate defending Numbani point A as Reinhardt. In these cases changing when you play, how long you play (and warm up), and who you play and where can all be informed better with this method. Not to mention I find that taking notes and being so focused on improvement during a session can really help you see past just winning and losing to diagnose the real problems holding you back. 
+                </p>
+            </li>
+            <li class="mt-4">
+                <p>
+                <b>&bull; <em>"Hey, Is there someplace where I could see the average SR gained/lost per hero?"</em></b> - You can either go to "Heroes" and see the values for every hero, or by going to "Hero Progression" you'll be able to select the hero you're interested in, and see the average SR won/lost on the top right corner. There's also a little graph that will show you the evolution of that stat.
+                </p>
             </li>
         </ul>
     </div>
