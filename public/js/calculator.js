@@ -6,7 +6,7 @@ gain something in the process is a plus.
 Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
 */
 
-const LASTDATAUPDATE = "2024-01-04";
+const LASTDATAUPDATE = "2024-06-03";
 
 //////////////////////
 // Miscelaneus
@@ -649,6 +649,8 @@ class ModelTeam {
     }
 
     isRoleFiltered(role) {
+
+        //Check if Hero is filtered and avoid cleaning the role that don't belongs to the hero
         let isFiltered = false;
 
         for (let h in this.heroes) {
@@ -1160,8 +1162,10 @@ class ModelOverPiker {
     }
 
     editSelectedHeroes(team, hero, role) {
+        //If Role Lock selected and role exists
         if (this.panelOptions[0].state && role) {
-            if (this.teams[team].getRoleAmount(role) < 2 && role != "Tank") {
+            //If Role Lock selected check amount of Tank, Damage and Supports to fill 1Tank-2Damage-2Supports
+            if (this.teams[team].getRoleAmount(role) <= 0 && role == "Tank") {
                 this.selectedHeroes = this.selectedHeroes.map(function (
                     selector
                 ) {
@@ -1187,7 +1191,35 @@ class ModelOverPiker {
 
                 this.loadSelectedHeroes();
                 this._commitSelectedHeroes(this.teams, this.selectedHeroes);
-            } else if (this.teams[team].getRoleAmount("Tank") < 1) {
+            }
+            if (this.teams[team].getRoleAmount(role) <= 1 && role == "Damage") {
+                this.selectedHeroes = this.selectedHeroes.map(function (
+                    selector
+                ) {
+                    if (selector.team === team) {
+                        let found = selector.selectedHeroes.indexOf(hero);
+
+                        //-1 means they don't found the hero in the array of selectedHeroes
+                        if (found == -1) {
+                            let foundNone =
+                                selector.selectedHeroes.indexOf("None");
+                            if (foundNone != -1) {
+                                selector.selectedHeroes[foundNone] = hero;
+                            }
+                        } else {
+                            selector.selectedHeroes[found] = "None";
+                        }
+
+                        return selector;
+                    } else {
+                        return selector;
+                    }
+                });
+
+                this.loadSelectedHeroes();
+                this._commitSelectedHeroes(this.teams, this.selectedHeroes);
+            }
+            if (this.teams[team].getRoleAmount(role) <= 1 && role == "Support") {
                 this.selectedHeroes = this.selectedHeroes.map(function (
                     selector
                 ) {
