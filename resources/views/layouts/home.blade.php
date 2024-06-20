@@ -29,7 +29,7 @@
         {{-- SEO Data --}}
         <meta
             name="description"
-            content="Find your best composition, counter the enemy comp, and find the best hero for every map in Overwatch"
+            content="Find your best hero and Overwatch 2 composition, counter the enemy team, and find the best hero for every map"
         />
         <meta
             name="keywords"
