@@ -1615,7 +1615,7 @@ class ViewOverPiker {
 
             const img = this.createElement("img");
             img.classList.add("h-14", "justify-self-center");
-            img.src = "images/assets/blank-hero.png";
+            img.src = "images/assets/blank-hero.webp";
             img.alt = "Blank hero space";
 
             const border = this.createElement("div", "border-bottom-75");
@@ -2079,15 +2079,15 @@ class ViewOverPiker {
                 "mt-2"
             );
 
-            tankIcon.src = "images/assets/tank.png";
+            tankIcon.src = "images/assets/tank.webp";
             tankIcon.alt = "Tank icon";
             tankFigCap.textContent = "Tank";
 
-            damageIcon.src = "images/assets/damage.png";
+            damageIcon.src = "images/assets/damage.webp";
             damageIcon.alt = "Damage icon";
             damageFigCap.textContent = "Damage";
 
-            supportIcon.src = "images/assets/support.png";
+            supportIcon.src = "images/assets/support.webp";
             supportIcon.alt = "Support icon";
             supportFigCap.textContent = "Support";
 

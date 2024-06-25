@@ -4,7 +4,7 @@
         <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
             Overwatch Tracker
             </h2>
-            <img src="{{ asset('images\assets\trackers-hero.png') }}" alt="Overwatch Tracker Dashboard screenshot"
+            <img src="{{ asset('images\assets\trackers-hero.webp') }}" alt="Overwatch Tracker Dashboard screenshot"
                 class="rounded-2xl shadow-md shadow-slate-500">
     </div>
 </section>
@@ -182,7 +182,7 @@
                 <p class="mt-1">&bull; <b>If you need some help about filling the sheet, check the next image. (Also, no
                         need to write the date manually, it should do it by its own).</b></p>
                 <p class="mt-1"><a href="https://i.imgur.com/d4wJhCM.png" target="_blank" rel="noopener noreferrer"><img
-                            src="{{ asset('images\assets\ABREBIATIONS.png') }}"
+                            src="{{ asset('images\assets\ABREBIATIONS.webp') }}"
                             alt="Overwatch Tracker Manual Indications"></a></p>
             </li>
             <li class="mt-3">

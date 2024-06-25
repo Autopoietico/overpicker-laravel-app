@@ -43,7 +43,7 @@
                     </td>
                     <td class="border-x-2 hidden sm:table-cell">
                         <div class="flex flex-col items-center m-1">
-                            <img src="\images\assets\tank.png" alt="Tank Icon" class="w-14 rounded-lg">
+                            <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-14 rounded-lg">
                             <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">Tank</h4>
                         </div>
                     </td>
@@ -65,7 +65,7 @@
                     </td>
                     <td class="border-x-2 hidden sm:table-cell">
                         <div class="flex flex-col items-center m-1">
-                            <img src="\images\assets\damage.png" alt="Damage Icon" class="w-14 rounded-lg">
+                            <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-14 rounded-lg">
                             <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">Damage</h4>
                         </div>
                     </td>
@@ -87,7 +87,7 @@
                     </td>
                     <td class="border-x-2 hidden sm:table-cell">
                         <div class="flex flex-col items-center m-1">
-                            <img src="\images\assets\support.png" alt="Support Icon" class="w-14 rounded-lg">
+                            <img src="\images\assets\support.webp" alt="Support Icon" class="w-14 rounded-lg">
                             <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">Support</h4>
                         </div>
                     </td>
