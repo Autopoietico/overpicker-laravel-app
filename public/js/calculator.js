@@ -1329,6 +1329,27 @@ class ViewOverPiker {
             "lg:text-3xl"
         );
 
+        //Options Icon
+        this.optionsButton = this.createElement(
+            "div",
+            "options-button"
+        )
+        this.optionsButton.classList.add(
+            "grid",
+            "justify-items-center",
+            "text-4xl",
+            "cursor-pointer",
+            "sm:col-span-3",
+        )
+
+        this.gearIcon = this.createElement("i")
+        //Bootstrap Icons
+        this.gearIcon.classList.add(
+            "bi",
+            "bi-gear-fill"
+        )
+        this.optionsButton.append(this.gearIcon)
+
         this.selectionPanel = this.createElement("div", "selection-panel");
         this.selectionPanel.classList.add(
             "grid",
@@ -1351,9 +1372,10 @@ class ViewOverPiker {
             "sm:my-0",
             "sm:border-t-0",
             "sm:border-r-2",
-            "sm:row-[start_6_/_end_9]",
             "sm:invisible",
-            "lg:visible"
+            "lg:visible",
+            "sm:row-[star_7_]",
+            "sm:row-[span_4_]"
         );
 
         //Team Scores
@@ -1368,7 +1390,6 @@ class ViewOverPiker {
             "md:text-left",
             "sm:col-start-1",
             "sm:col-end-2",
-            "sm:row-start-4"
         );
 
         //Team Hero Selections
@@ -1385,7 +1406,6 @@ class ViewOverPiker {
             "md:justify-start",
             "sm:col-start-1",
             "sm:col-end-2",
-            "sm:row-start-5"
         );
 
         //Filters
@@ -1402,7 +1422,6 @@ class ViewOverPiker {
             "sm:text-left",
             "sm:col-start-1",
             "sm:col-end-2",
-            "sm:row-start-6"
         );
 
         //Hero per Rol Options
@@ -1418,7 +1437,7 @@ class ViewOverPiker {
             "content-start",
             "justify-items-center",
             "sm:justify-items-start",
-            "sm:row-start-7"
+            "sm:row-[star_7_]"
         );
 
         this.blueDamageRolSelection = this.createElement(
@@ -1433,7 +1452,7 @@ class ViewOverPiker {
             "content-start",
             "justify-items-center",
             "sm:justify-items-start",
-            "sm:row-[start_7_]"
+            "sm:row-[star_8_]"
         );
 
         this.blueSupportRolSelection = this.createElement(
@@ -1448,7 +1467,7 @@ class ViewOverPiker {
             "content-start",
             "justify-items-center",
             "sm:justify-items-start",
-            "sm:row-[start_8_]"
+            "sm:row-[star_9_]"
         );
 
         this.redTeamScore = this.createElement(
@@ -1463,7 +1482,7 @@ class ViewOverPiker {
             "md:text-right",
             "sm:col-start-3",
             "sm:col-end-4",
-            "sm:row-start-4"
+            "sm:row-[star_4_]"
         );
 
         this.teamRedComposition = this.createElement(
@@ -1480,7 +1499,7 @@ class ViewOverPiker {
             "md:justify-end",
             "sm:col-start-3",
             "sm:col-end-4",
-            "sm:row-start-5"
+            "sm:row-[star_5_]"
         );
 
         this.redFilter = this.createElement(
@@ -1496,7 +1515,6 @@ class ViewOverPiker {
             "sm:text-right",
             "sm:col-start-3",
             "sm:col-end-4",
-            "sm:row-start-6"
         );
 
         this.blueSupportRolSelection.classList.add("rol-selection-support");
@@ -1512,7 +1530,6 @@ class ViewOverPiker {
             "content-start",
             "justify-items-center",
             "sm:justify-items-end",
-            "sm:row-start-7"
         );
 
         this.redTankRolSelection.classList.add("enemy-team-direction");
@@ -1527,8 +1544,7 @@ class ViewOverPiker {
             "grid-flow-row",
             "content-start",
             "justify-items-center",
-            "sm:justify-items-end",
-            "sm:row-[start_7_]"
+            "sm:justify-items-end"
         );
 
         this.redDamageRolSelection.classList.add("enemy-team-direction");
@@ -1543,8 +1559,7 @@ class ViewOverPiker {
             "grid-flow-row",
             "content-start",
             "justify-items-center",
-            "sm:justify-items-end",
-            "sm:row-[start_8_]"
+            "sm:justify-items-end"
         );
 
         this.redSupportRolSelection.classList.add("rol-selection-support");
@@ -1553,6 +1568,7 @@ class ViewOverPiker {
         this.calculator.append(this.clearSelection);
 
         this.calculator.append(this.checkboxPanel);
+        this.calculator.append(this.optionsButton);
         this.calculator.append(this.selectionPanel);
 
         this.calculator.append(this.blueTeamScore);
