@@ -722,6 +722,9 @@ class ModelOverPiker {
             },
         ];
 
+        //Hiden Options panel state
+        this.gearOptionsState = false
+
         this.checkFullOptions();
 
         this.panelSelections = JSON.parse(
@@ -1107,6 +1110,11 @@ class ModelOverPiker {
         );
 
         this._commitOptions(this.panelOptions);
+    }
+
+    toggleGearOptions(){
+        this.gearOptionsState = !this.gearOptionsState;
+        console.log(this.gearOptionsState)
     }
 
     //Selected option in the panel are saved here
@@ -1707,6 +1715,15 @@ class ViewOverPiker {
 
             this.checkboxPanel.append(optionLabel);
         });
+
+        this.gearIcon = this.createElement("i")
+        //Bootstrap Icons
+        this.gearIcon.classList.add(
+            "bi",
+            "bi-gear-fill",
+            "cursor-pointer",
+        )
+        this.checkboxPanel.append(this.gearIcon)
     }
 
     displaySelections(panelSelections) {
@@ -2239,7 +2256,15 @@ class ViewOverPiker {
             if (event.target.type == "checkbox") {
                 const id = event.target.id;
                 handler(id);
-            }
+            }       
+        });
+    }
+
+    bindGearOptions(handler) {
+        this.checkboxPanel.addEventListener("click", (event) => {
+            if (event.target.classList.contains('bi-gear-fill')) {
+                handler();
+            }       
         });
     }
 
@@ -2451,6 +2476,7 @@ class ControllerOverPiker {
         //Bind controller with the Option panel
         this.model.bindOptionChanged(this.onOptionsChanged);
         this.view.bindToggleOptions(this.handleToggleOptions);
+        this.view.bindGearOptions(this.handleGearOptions);
 
         //Bind controller with the Selection panel
         this.model.bindSelectionsChanged(this.onSelectionsChanged);
@@ -2507,6 +2533,10 @@ class ControllerOverPiker {
         this.model.editSelected(); //This recharge the options if map pools are selected
         this.model.editSelectedHeroes(); //This recharge the heroes if TierMode or Hero Rotation is activated
     };
+
+    handleGearOptions = () => {
+        this.model.toggleGearOptions();
+    }
 
     handleFilter = (nick, team) => {
         this.model.filterHero(nick, team);
