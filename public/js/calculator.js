@@ -649,7 +649,6 @@ class ModelTeam {
     }
 
     isRoleFiltered(role) {
-
         //Check if Hero is filtered and avoid cleaning the role that don't belongs to the hero
         let isFiltered = false;
 
@@ -699,31 +698,36 @@ class ModelOverPiker {
                 text: "Role Lock",
                 id: `cb${getSelectValue("Role Lock")}`,
                 state: true,
+                hidden: false,
             },
             {
                 text: "Tier Mode",
                 id: `cb${getSelectValue("Tier Mode")}`,
                 state: true,
+                hidden: false,
             },
             {
                 text: "Map Pools",
                 id: `cb${getSelectValue("Map Pools")}`,
                 state: true,
+                hidden: true,
             },
             {
                 text: "Hero Rotation",
                 id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
+                hidden: true,
             },
             {
                 text: "Hero Icons",
                 id: `cb${getSelectValue("Hero Icons")}`,
                 state: false,
+                hidden: false,
             },
         ];
 
         //Hiden Options panel state
-        this.gearOptionsState = false
+        this.gearOptionsState = false;
 
         this.checkFullOptions();
 
@@ -1072,6 +1076,10 @@ class ModelOverPiker {
         this.onOptionsChanged = callback;
     }
 
+    bindOptionGearChanged(callback) {
+        this.onGearStateChanged = callback;
+    }
+
     bindSelectionsChanged(callback) {
         this.onSelectionsChanged = callback;
     }
@@ -1084,6 +1092,15 @@ class ModelOverPiker {
         //Save the changes of panelOptions on the local storage
         this.onOptionsChanged(panelOptions);
         localStorage.setItem("panelOptions", JSON.stringify(panelOptions));
+    }
+
+    _commitGearOptions(panelOptions, gearOptionsState) {
+        //Save the changes of panelOptions on the local storage
+        this.onGearStateChanged(panelOptions, gearOptionsState);
+        localStorage.setItem(
+            "gearOptionsState",
+            JSON.stringify(gearOptionsState)
+        );
     }
 
     _commitSelections(panelSelections) {
@@ -1112,9 +1129,10 @@ class ModelOverPiker {
         this._commitOptions(this.panelOptions);
     }
 
-    toggleGearOptions(){
+    toggleGearOptions() {
         this.gearOptionsState = !this.gearOptionsState;
-        console.log(this.gearOptionsState)
+
+        this._commitGearOptions(this.panelOptions, this.gearOptionsState);
     }
 
     //Selected option in the panel are saved here
@@ -1227,7 +1245,10 @@ class ModelOverPiker {
                 this.loadSelectedHeroes();
                 this._commitSelectedHeroes(this.teams, this.selectedHeroes);
             }
-            if (this.teams[team].getRoleAmount(role) <= 1 && role == "Support") {
+            if (
+                this.teams[team].getRoleAmount(role) <= 1 &&
+                role == "Support"
+            ) {
                 this.selectedHeroes = this.selectedHeroes.map(function (
                     selector
                 ) {
@@ -1676,54 +1697,62 @@ class ViewOverPiker {
         return element;
     }
 
-    displayOptions(panelOptions) {
+    createSingleOption(option, index) {
+        const optionLabel = this.createElement("label");
+        optionLabel.classList.add("flex");
+
+        if (index % 2 == 0) {
+            optionLabel.classList.add("text-left");
+        } else {
+            optionLabel.classList.add(
+                "text-right",
+                "flex-row-reverse",
+                "sm:text-left",
+                "sm:flex-row"
+            );
+        }
+
+        index++;
+
+        const checkbox = this.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = option.state;
+        checkbox.id = option.id;
+
+        const span = this.createElement("span");
+        span.classList.add("mx-1");
+        span.textContent = option.text;
+
+        optionLabel.append(checkbox, span);
+
+        return optionLabel;
+    }
+
+    displayOptions(panelOptions, gearOptionsState) {
         while (this.checkboxPanel.firstChild) {
             this.checkboxPanel.removeChild(this.checkboxPanel.firstChild);
         }
 
         let index = 0;
-
         //Create panel options nodes
         panelOptions.forEach((option) => {
             //Label enclose the elements
-            const optionLabel = this.createElement("label");
-            optionLabel.classList.add("flex");
-
-            if (index % 2 == 0) {
-                optionLabel.classList.add("text-left");
-            } else {
-                optionLabel.classList.add(
-                    "text-right",
-                    "flex-row-reverse",
-                    "sm:text-left",
-                    "sm:flex-row"
+            if (!gearOptionsState && !option.hidden) {
+                this.checkboxPanel.append(
+                    this.createSingleOption(option, index)
+                );
+            } else if (gearOptionsState && option.hidden) {
+                this.checkboxPanel.append(
+                    this.createSingleOption(option, index)
                 );
             }
-
-            index++;
-
-            const checkbox = this.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = option.state;
-            checkbox.id = option.id;
-
-            const span = this.createElement("span");
-            span.classList.add("mx-1");
-            span.textContent = option.text;
-
-            optionLabel.append(checkbox, span);
-
-            this.checkboxPanel.append(optionLabel);
         });
 
-        this.gearIcon = this.createElement("i")
+        //This show hidden options
+        this.gearIcon = this.createElement("i");
         //Bootstrap Icons
-        this.gearIcon.classList.add(
-            "bi",
-            "bi-gear-fill",
-            "cursor-pointer",
-        )
-        this.checkboxPanel.append(this.gearIcon)
+        this.gearIcon.classList.add("bi", "bi-gear-fill", "cursor-pointer");
+        this.checkboxPanel.append(this.gearIcon);
     }
 
     displaySelections(panelSelections) {
@@ -2256,15 +2285,15 @@ class ViewOverPiker {
             if (event.target.type == "checkbox") {
                 const id = event.target.id;
                 handler(id);
-            }       
+            }
         });
     }
 
     bindGearOptions(handler) {
         this.checkboxPanel.addEventListener("click", (event) => {
-            if (event.target.classList.contains('bi-gear-fill')) {
+            if (event.target.classList.contains("bi-gear-fill")) {
                 handler();
-            }       
+            }
         });
     }
 
@@ -2475,6 +2504,7 @@ class ControllerOverPiker {
 
         //Bind controller with the Option panel
         this.model.bindOptionChanged(this.onOptionsChanged);
+        this.model.bindOptionGearChanged(this.onGearStateChanged);
         this.view.bindToggleOptions(this.handleToggleOptions);
         this.view.bindGearOptions(this.handleGearOptions);
 
@@ -2489,7 +2519,10 @@ class ControllerOverPiker {
         this.view.bindSelectedHeroes(this.handleSelectedHeroes);
 
         //Bind View with Model
-        this.onOptionsChanged(this.model.panelOptions);
+        this.onOptionsChanged(
+            this.model.panelOptions,
+            this.model.gearOptionsState
+        );
         this.onSelectedHeroesChanged(
             this.model.teams,
             this.model.selectedHeroes
@@ -2497,8 +2530,12 @@ class ControllerOverPiker {
         this.onSelectionsChanged(this.model.panelSelections);
     }
 
-    onOptionsChanged = (panelOptions) => {
-        this.view.displayOptions(panelOptions);
+    onOptionsChanged = (panelOptions, gearOptionsState) => {
+        this.view.displayOptions(panelOptions, gearOptionsState);
+    };
+
+    onGearStateChanged = (panelOptions, gearOptionsState) => {
+        this.view.displayOptions(panelOptions, gearOptionsState);
     };
 
     onSelectionsChanged = (panelSelections) => {
@@ -2536,7 +2573,7 @@ class ControllerOverPiker {
 
     handleGearOptions = () => {
         this.model.toggleGearOptions();
-    }
+    };
 
     handleFilter = (nick, team) => {
         this.model.filterHero(nick, team);
