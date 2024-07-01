@@ -789,6 +789,7 @@ class ModelOverPiker {
                 text: "Hero Icons",
                 id: `cb${getSelectValue("Hero Icons")}`,
                 state: true,
+                hidden: false,
             };
         }
     }
@@ -1088,9 +1089,9 @@ class ModelOverPiker {
         this.onSelectedHeroesChanged = callback;
     }
 
-    _commitOptions(panelOptions) {
+    _commitOptions(panelOptions, gearOptionsState) {
         //Save the changes of panelOptions on the local storage
-        this.onOptionsChanged(panelOptions);
+        this.onOptionsChanged(panelOptions, gearOptionsState);
         localStorage.setItem("panelOptions", JSON.stringify(panelOptions));
     }
 
@@ -1122,11 +1123,16 @@ class ModelOverPiker {
     toggleOptionPanel(id) {
         this.panelOptions = this.panelOptions.map((option) =>
             option.id === id
-                ? { text: option.text, id: option.id, state: !option.state }
+                ? {
+                      text: option.text,
+                      id: option.id,
+                      state: !option.state,
+                      hidden: option.hidden,
+                  }
                 : option
         );
 
-        this._commitOptions(this.panelOptions);
+        this._commitOptions(this.panelOptions, this.gearOptionsState);
     }
 
     toggleGearOptions() {
@@ -1174,7 +1180,6 @@ class ModelOverPiker {
                 this.panelSelections[2].selectedIndex = 0;
             }
         } else {
-            console.log("None");
             this.panelSelections[2].selectedIndex = 0;
             this.panelSelections[3].selectedIndex = 0;
         }
@@ -2596,7 +2601,10 @@ class ControllerOverPiker {
 
     reloadControllerModel(version) {
         //The model is reloaded in the controller and the view here
-        this.onOptionsChanged(this.model.panelOptions);
+        this.onOptionsChanged(
+            this.model.panelOptions,
+            this.model.gearOptionsState
+        );
         this.onSelectedHeroesChanged(
             this.model.teams,
             this.model.selectedHeroes
