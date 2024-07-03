@@ -1756,9 +1756,15 @@ class ViewOverPiker {
         //This show hidden options
         this.gearIcon = this.createElement("i");
         //Bootstrap Icons
-        this.gearIcon.classList.add("bi", "bi-gear-fill", "cursor-pointer", "px-1", "rounded-lg");
+        this.gearIcon.classList.add(
+            "bi",
+            "bi-gear-fill",
+            "cursor-pointer",
+            "px-1",
+            "rounded-lg"
+        );
 
-        if(gearOptionsState){
+        if (gearOptionsState) {
             this.gearIcon.classList.add("bg-[#294452]");
         }
         this.checkboxPanel.append(this.gearIcon);
