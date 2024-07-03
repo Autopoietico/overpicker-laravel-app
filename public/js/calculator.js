@@ -740,6 +740,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "",
                 options: ["None"],
+                hidden: false,
             },
             {
                 text: "Map",
@@ -747,6 +748,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "selection-map",
                 options: ["None"],
+                hidden: false,
             },
             {
                 text: "Point",
@@ -754,6 +756,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "",
                 options: ["None"],
+                hidden: false,
             },
             {
                 text: "A/D",
@@ -761,6 +764,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "",
                 options: ["None"],
+                hidden: false,
             },
         ];
 
@@ -1089,24 +1093,28 @@ class ModelOverPiker {
         this.onSelectedHeroesChanged = callback;
     }
 
-    _commitOptions(panelOptions, gearOptionsState) {
+    _commitOptions(panelOptions, panelSelections, gearOptionsState) {
         //Save the changes of panelOptions on the local storage
-        this.onOptionsChanged(panelOptions, gearOptionsState);
+        this.onOptionsChanged(panelOptions, panelSelections, gearOptionsState);
         localStorage.setItem("panelOptions", JSON.stringify(panelOptions));
     }
 
-    _commitGearOptions(panelOptions, gearOptionsState) {
+    _commitGearOptions(panelOptions, panelSelections, gearOptionsState) {
         //Save the changes of panelOptions on the local storage
-        this.onGearStateChanged(panelOptions, gearOptionsState);
+        this.onGearStateChanged(
+            panelOptions,
+            panelSelections,
+            gearOptionsState
+        );
         localStorage.setItem(
             "gearOptionsState",
             JSON.stringify(gearOptionsState)
         );
     }
 
-    _commitSelections(panelSelections) {
+    _commitSelections(panelSelections, gearOptionsState) {
         //Save the changes of panelSelections on the local storage
-        this.onSelectionsChanged(panelSelections);
+        this.onSelectionsChanged(panelSelections, gearOptionsState);
         localStorage.setItem(
             "panelSelections",
             JSON.stringify(panelSelections)
@@ -1132,13 +1140,21 @@ class ModelOverPiker {
                 : option
         );
 
-        this._commitOptions(this.panelOptions, this.gearOptionsState);
+        this._commitOptions(
+            this.panelOptions,
+            this.panelSelections,
+            this.gearOptionsState
+        );
     }
 
     toggleGearOptions() {
         this.gearOptionsState = !this.gearOptionsState;
 
-        this._commitGearOptions(this.panelOptions, this.gearOptionsState);
+        this._commitGearOptions(
+            this.panelOptions,
+            this.panelSelections,
+            this.gearOptionsState
+        );
     }
 
     //Selected option in the panel are saved here
@@ -1185,7 +1201,7 @@ class ModelOverPiker {
         }
 
         this.loadMapSelections();
-        this._commitSelections(this.panelSelections);
+        this._commitSelections(this.panelSelections, this.gearOptionsState);
     }
 
     filterHero(nick, team) {
@@ -1703,6 +1719,7 @@ class ViewOverPiker {
     }
 
     createSingleOption(option, index) {
+        //Label enclose the elements
         const optionLabel = this.createElement("label");
         optionLabel.classList.add("flex");
 
@@ -1733,6 +1750,44 @@ class ViewOverPiker {
         return optionLabel;
     }
 
+    createSingleSelect(selector) {
+        const select = this.createElement("select", "", selector.id);
+        select.classList.add(
+            "bg-[#1C2E37]",
+            "border",
+            "border-white",
+            "rounded-md",
+            "sm:mr-0.5",
+            "md:mr-1",
+            "lg:mr-1.5"
+        );
+
+        selector.options.forEach((option) => {
+            const optionElement = this.createElement("option");
+
+            optionElement.value = getSelectValue(option);
+            optionElement.textContent = option;
+
+            select.append(optionElement);
+        });
+
+        select.selectedIndex = selector.selectedIndex;
+
+        return select;
+    }
+
+    createSingleSelectSpan(selector) {
+        //Add a special class for selectors that have long names
+        const selectorSpan = this.createElement("span", selector.class);
+        selectorSpan.classList.add("sm:mr-0.5", "md:mr-1", "lg:mr-1.5");
+
+        //The text don't have a html label
+        selectorSpan.classList.add("selection-span", "font-bold");
+        selectorSpan.textContent = selector.text + ":";
+
+        return selectorSpan;
+    }
+
     displayOptions(panelOptions, gearOptionsState) {
         while (this.checkboxPanel.firstChild) {
             this.checkboxPanel.removeChild(this.checkboxPanel.firstChild);
@@ -1741,7 +1796,7 @@ class ViewOverPiker {
         let index = 0;
         //Create panel options nodes
         panelOptions.forEach((option) => {
-            //Label enclose the elements
+            //Check if is an hidden option
             if (!gearOptionsState && !option.hidden) {
                 this.checkboxPanel.append(
                     this.createSingleOption(option, index)
@@ -1765,50 +1820,34 @@ class ViewOverPiker {
         );
 
         if (gearOptionsState) {
-            this.gearIcon.classList.add("bg-[#294452]");
+            this.gearIcon.classList.add("bg-[#294452]", "border");
         }
         this.checkboxPanel.append(this.gearIcon);
     }
 
-    displaySelections(panelSelections) {
+    displaySelections(panelSelections, gearOptionsState) {
         while (this.selectionPanel.firstChild) {
             this.selectionPanel.removeChild(this.selectionPanel.firstChild);
         }
 
         //Create panel selection nodes
         panelSelections.forEach((selector) => {
-            //Add a special class for selectors that have long names
-            const selectorSpan = this.createElement("span", selector.class);
-            selectorSpan.classList.add("sm:mr-0.5", "md:mr-1", "lg:mr-1.5");
-
-            const select = this.createElement("select", "", selector.id);
-            select.classList.add(
-                "bg-[#1C2E37]",
-                "border",
-                "border-white",
-                "rounded-md",
-                "sm:mr-0.5",
-                "md:mr-1",
-                "lg:mr-1.5"
-            );
-
-            //The text don't have a html label
-            selectorSpan.classList.add("selection-span", "font-bold");
-            selectorSpan.textContent = selector.text + ":";
-
-            selector.options.forEach((option) => {
-                const optionElement = this.createElement("option");
-
-                optionElement.value = getSelectValue(option);
-                optionElement.textContent = option;
-
-                select.append(optionElement);
-            });
-
-            select.selectedIndex = selector.selectedIndex;
-
-            this.selectionPanel.append(selectorSpan);
-            this.selectionPanel.append(select);
+            //Check if is an hidden selection
+            if (!gearOptionsState && !selector.hidden && selector.options) {
+                this.selectionPanel.append(
+                    this.createSingleSelectSpan(selector)
+                );
+                this.selectionPanel.append(this.createSingleSelect(selector));
+            } else if (
+                gearOptionsState &&
+                selector.hidden &&
+                selector.options
+            ) {
+                this.selectionPanel.append(
+                    this.createSingleSelectSpan(selector)
+                );
+                this.selectionPanel.append(this.createSingleSelect(selector));
+            }
         });
     }
 
@@ -2536,25 +2575,31 @@ class ControllerOverPiker {
         //Bind View with Model
         this.onOptionsChanged(
             this.model.panelOptions,
+            this.model.panelSelections,
             this.model.gearOptionsState
         );
         this.onSelectedHeroesChanged(
             this.model.teams,
             this.model.selectedHeroes
         );
-        this.onSelectionsChanged(this.model.panelSelections);
+        this.onSelectionsChanged(
+            this.model.panelSelections,
+            this.model.gearOptionsState
+        );
     }
 
-    onOptionsChanged = (panelOptions, gearOptionsState) => {
+    onOptionsChanged = (panelOptions, panelSelections, gearOptionsState) => {
         this.view.displayOptions(panelOptions, gearOptionsState);
+        this.view.displaySelections(panelSelections, gearOptionsState);
     };
 
-    onGearStateChanged = (panelOptions, gearOptionsState) => {
+    onGearStateChanged = (panelOptions, panelSelections, gearOptionsState) => {
         this.view.displayOptions(panelOptions, gearOptionsState);
+        this.view.displaySelections(panelSelections, gearOptionsState);
     };
 
-    onSelectionsChanged = (panelSelections) => {
-        this.view.displaySelections(panelSelections);
+    onSelectionsChanged = (panelSelections, gearOptionsState) => {
+        this.view.displaySelections(panelSelections, gearOptionsState);
     };
 
     onSelectedHeroesChanged = (teams, selectedHeroes) => {
@@ -2619,7 +2664,10 @@ class ControllerOverPiker {
             this.model.teams,
             this.model.selectedHeroes
         );
-        this.onSelectionsChanged(this.model.panelSelections);
+        this.onSelectionsChanged(
+            this.model.panelSelections,
+            this.model.gearOptionsState
+        );
         this.view.updateVersion(version);
     }
 }
