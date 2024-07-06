@@ -1698,7 +1698,7 @@ class ViewOverPiker {
 
             const img = heroIMG;
             img.classList.add("h-14", "justify-self-center");
-            img.alt = hero + " white schematic face";
+            img.alt = hero + " icon";
 
             if (!noRound) {
                 img.classList.add("rounded-t-lg");
