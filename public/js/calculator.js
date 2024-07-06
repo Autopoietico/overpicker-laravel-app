@@ -1796,8 +1796,15 @@ class ViewOverPiker {
         return selectorSpan;
     }
 
-    getIMGandNotRound(iconOption, teams, team, hero, enemyEcho, bestCopyHeroes, notRoundParam) {
-
+    getIMGandNotRound(
+        iconOption,
+        teams,
+        team,
+        hero,
+        enemyEcho,
+        bestCopyHeroes,
+        notRoundParam
+    ) {
         let IMGRound = [];
         let heroIMG;
         let notRound = notRoundParam;
@@ -1975,7 +1982,15 @@ class ViewOverPiker {
                 value = teams[team].heroes[hero].value;
 
                 //This get the img and the value of notRound
-                let IMGRound = this.getIMGandNotRound(iconOption, teams, team, hero, enemyEcho, bestCopyHeroes, notRound)
+                let IMGRound = this.getIMGandNotRound(
+                    iconOption,
+                    teams,
+                    team,
+                    hero,
+                    enemyEcho,
+                    bestCopyHeroes,
+                    notRound
+                );
 
                 heroIMG = IMGRound["heroIMG"];
                 notRound = IMGRound["notRound"];
@@ -2005,7 +2020,15 @@ class ViewOverPiker {
                 value = teams[team].heroes[hero].value;
 
                 //This get the img and the value of notRound
-                let IMGRound = this.getIMGandNotRound(iconOption, teams, team, hero, enemyEcho, bestCopyHeroes, notRound)
+                let IMGRound = this.getIMGandNotRound(
+                    iconOption,
+                    teams,
+                    team,
+                    hero,
+                    enemyEcho,
+                    bestCopyHeroes,
+                    notRound
+                );
 
                 heroIMG = IMGRound["heroIMG"];
                 notRound = IMGRound["notRound"];
