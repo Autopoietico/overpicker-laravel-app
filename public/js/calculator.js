@@ -766,6 +766,14 @@ class ModelOverPiker {
                 options: ["None"],
                 hidden: false,
             },
+            {
+                text: "Hero Icons",
+                id: getSelectValue("Hero Icons") + "-select",
+                selectedIndex: 0,
+                class: "",
+                options: ["None"],
+                hidden: true,
+            },
         ];
 
         this.checkFiveVFive();
@@ -1640,7 +1648,7 @@ class ViewOverPiker {
         return element;
     }
 
-    createHeroFigure(hero, team, value, heroIMG, noRound) {
+    createHeroFigure(hero, team, value, heroIMG, notRound) {
         const figure = this.createElement("figure", "hero-value");
 
         figure.classList.add(
@@ -1700,7 +1708,7 @@ class ViewOverPiker {
             img.classList.add("h-14", "justify-self-center");
             img.alt = hero + " icon";
 
-            if (!noRound) {
+            if (!notRound) {
                 img.classList.add("rounded-t-lg");
             }
 
@@ -1786,6 +1794,37 @@ class ViewOverPiker {
         selectorSpan.textContent = selector.text + ":";
 
         return selectorSpan;
+    }
+
+    getIMGandNotRound(iconOption, teams, team, hero, enemyEcho, bestCopyHeroes, notRoundParam) {
+
+        let IMGRound = [];
+        let heroIMG;
+        let notRound = notRoundParam;
+
+        if (iconOption) {
+            heroIMG = teams[team].heroes[hero].getIMG("white-img");
+        } else {
+            heroIMG = teams[team].heroes[hero].getIMG("profile-img");
+        }
+
+        if (enemyEcho) {
+            for (let bch in bestCopyHeroes) {
+                if (bestCopyHeroes[bch] == hero) {
+                    if (iconOption) {
+                        heroIMG = teams[team].heroes[hero].getIMG("echo-img");
+                    } else {
+                        heroIMG =
+                            teams[team].heroes[hero].getIMG("prof-echo-img");
+                        notRound = true;
+                    }
+                }
+            }
+        }
+
+        IMGRound["heroIMG"] = heroIMG;
+        IMGRound["notRound"] = notRound;
+        return IMGRound;
     }
 
     displayOptions(panelOptions, gearOptionsState) {
@@ -1935,28 +1974,11 @@ class ViewOverPiker {
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
 
-                if (iconOption) {
-                    heroIMG = teams[team].heroes[hero].getIMG("white-img");
-                } else {
-                    heroIMG = teams[team].heroes[hero].getIMG("profile-img");
-                }
+                //This get the img and the value of notRound
+                let IMGRound = this.getIMGandNotRound(iconOption, teams, team, hero, enemyEcho, bestCopyHeroes, notRound)
 
-                if (enemyEcho) {
-                    for (let bch in bestCopyHeroes) {
-                        if (bestCopyHeroes[bch] == hero) {
-                            if (iconOption) {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG("echo-img");
-                            } else {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG(
-                                        "prof-echo-img"
-                                    );
-                                notRound = true;
-                            }
-                        }
-                    }
-                }
+                heroIMG = IMGRound["heroIMG"];
+                notRound = IMGRound["notRound"];
             }
 
             const figure = this.createHeroFigure(
@@ -1977,33 +1999,16 @@ class ViewOverPiker {
             let heroIMG = "";
             let enemyEcho = teams["Blue"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
-            let noRound = false;
+            let notRound = false;
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
 
-                if (iconOption) {
-                    heroIMG = teams[team].heroes[hero].getIMG("white-img");
-                } else {
-                    heroIMG = teams[team].heroes[hero].getIMG("profile-img");
-                }
+                //This get the img and the value of notRound
+                let IMGRound = this.getIMGandNotRound(iconOption, teams, team, hero, enemyEcho, bestCopyHeroes, notRound)
 
-                if (enemyEcho) {
-                    for (let bch in bestCopyHeroes) {
-                        if (bestCopyHeroes[bch] == hero) {
-                            if (iconOption) {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG("echo-img");
-                            } else {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG(
-                                        "prof-echo-img"
-                                    );
-                                noRound = true;
-                            }
-                        }
-                    }
-                }
+                heroIMG = IMGRound["heroIMG"];
+                notRound = IMGRound["notRound"];
             }
 
             const figure = this.createHeroFigure(
@@ -2011,7 +2016,7 @@ class ViewOverPiker {
                 team,
                 value,
                 heroIMG,
-                noRound
+                notRound
             );
             this.teamRedComposition.append(figure);
         }
