@@ -446,7 +446,7 @@ class ModelTeam {
             let echoURL = APIData.findElement(
                 APIData.heroIMG,
                 this.heroes[h].name,
-                "echo-img"
+                "white-echo-img"
             );
             let profileURL = APIData.findElement(
                 APIData.heroIMG,
@@ -456,13 +456,37 @@ class ModelTeam {
             let profEchoURL = APIData.findElement(
                 APIData.heroIMG,
                 this.heroes[h].name,
-                "prof-echo-img"
+                "profile-echo-img"
+            );
+            let artURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "art-img"
+            );
+            let artEchoURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "art-echo-img"
+            );
+            let sideURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "side-img"
+            );
+            let sideEchoURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "side-echo-img"
             );
 
             this.heroes[h].addIMG(whiteURL, "white-img");
             this.heroes[h].addIMG(echoURL, "echo-img");
             this.heroes[h].addIMG(profileURL, "profile-img");
-            this.heroes[h].addIMG(profEchoURL, "prof-echo-img");
+            this.heroes[h].addIMG(profEchoURL, "profile-echo-img");
+            this.heroes[h].addIMG(artURL, "art-img");
+            this.heroes[h].addIMG(artEchoURL, "art-echo-img");
+            this.heroes[h].addIMG(sideURL, "side-img");
+            this.heroes[h].addIMG(sideEchoURL, "side-echo-img");
         }
     }
 
@@ -718,12 +742,6 @@ class ModelOverPiker {
                 state: true,
                 hidden: true,
             },
-            {
-                text: "Hero Icons",
-                id: `cb${getSelectValue("Hero Icons")}`,
-                state: false,
-                hidden: false,
-            },
         ];
 
         //Hiden Options panel state
@@ -771,7 +789,7 @@ class ModelOverPiker {
                 id: getSelectValue("Hero Icons") + "-select",
                 selectedIndex: 0,
                 class: "",
-                options: ["None"],
+                options: ["White", "Profile", "Art", "Side"],
                 hidden: true,
             },
         ];
@@ -796,12 +814,12 @@ class ModelOverPiker {
     }
 
     checkFullOptions() {
-        if (!this.panelOptions[4]) {
-            this.panelOptions[4] = {
-                text: "Hero Icons",
-                id: `cb${getSelectValue("Hero Icons")}`,
+        if (!this.panelOptions[3]) {
+            this.panelOptions[3] = {
+                text: "Hero Rotation",
+                id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
-                hidden: false,
+                hidden: true,
             };
         }
     }
@@ -1177,6 +1195,7 @@ class ModelOverPiker {
                           selectedIndex: newSelIndex,
                           class: selector.class,
                           options: selector.options,
+                          hidden: selector.hidden,
                       }
                     : selector
             );
@@ -1808,22 +1827,22 @@ class ViewOverPiker {
         let IMGRound = [];
         let heroIMG;
         let notRound = notRoundParam;
+        const iconOptionSelect = getSelectValue(iconOption) + "-img";
+        const iconOptionEchoSelect = getSelectValue(iconOption) + "-echo-img";
 
-        if (iconOption) {
-            heroIMG = teams[team].heroes[hero].getIMG("white-img");
-        } else {
-            heroIMG = teams[team].heroes[hero].getIMG("profile-img");
-        }
+        heroIMG = teams[team].heroes[hero].getIMG(iconOptionSelect);
 
         if (enemyEcho) {
             for (let bch in bestCopyHeroes) {
                 if (bestCopyHeroes[bch] == hero) {
-                    if (iconOption) {
-                        heroIMG = teams[team].heroes[hero].getIMG("echo-img");
-                    } else {
-                        heroIMG =
-                            teams[team].heroes[hero].getIMG("prof-echo-img");
+                    if (iconOption != "White") {
                         notRound = true;
+                    }
+                    const echoIMG =
+                        teams[team].heroes[hero].getIMG(iconOptionEchoSelect);
+
+                    if (echoIMG) {
+                        heroIMG = echoIMG;
                     }
                 }
             }
@@ -1875,20 +1894,16 @@ class ViewOverPiker {
         while (this.selectionPanel.firstChild) {
             this.selectionPanel.removeChild(this.selectionPanel.firstChild);
         }
-
         //Create panel selection nodes
         panelSelections.forEach((selector) => {
             //Check if is an hidden selection
-            if (!gearOptionsState && !selector.hidden && selector.options) {
+
+            if (!gearOptionsState && !selector.hidden) {
                 this.selectionPanel.append(
                     this.createSingleSelectSpan(selector)
                 );
                 this.selectionPanel.append(this.createSingleSelect(selector));
-            } else if (
-                gearOptionsState &&
-                selector.hidden &&
-                selector.options
-            ) {
+            } else if (gearOptionsState && selector.hidden) {
                 this.selectionPanel.append(
                     this.createSingleSelectSpan(selector)
                 );
@@ -2282,23 +2297,16 @@ class ViewOverPiker {
                 if (!hero.selected) {
                     let figHeroOption;
 
-                    if (iconOption) {
-                        figHeroOption = this.createHeroFigure(
-                            hero.name,
-                            t,
-                            hero.value,
-                            hero.getIMG("white-img"),
-                            notRound
-                        );
-                    } else {
-                        figHeroOption = this.createHeroFigure(
-                            hero.name,
-                            t,
-                            hero.value,
-                            hero.getIMG("profile-img"),
-                            notRound
-                        );
-                    }
+                    const iconOptionSelect =
+                        getSelectValue(iconOption) + "-img";
+
+                    figHeroOption = this.createHeroFigure(
+                        hero.name,
+                        t,
+                        hero.value,
+                        hero.getIMG(iconOptionSelect),
+                        notRound
+                    );
 
                     const figHero = figHeroOption;
 
@@ -2631,7 +2639,8 @@ class ControllerOverPiker {
     };
 
     onSelectedHeroesChanged = (teams, selectedHeroes) => {
-        let iconOption = this.model.panelOptions[4].state;
+        const selectedIcon = this.model.panelSelections[4].selectedIndex;
+        let iconOption = this.model.panelSelections[4].options[selectedIcon];
         this.view.displayTeams(teams, selectedHeroes, iconOption);
     };
 
