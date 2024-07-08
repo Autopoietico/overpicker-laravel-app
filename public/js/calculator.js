@@ -1846,11 +1846,11 @@ class ViewOverPiker {
                         if (bestCopyHeroes[bch] == hero) {
                             if (iconOption) {
                                 heroIMG =
-                                    teams[team].heroes[hero].getIMG("echo-img");
+                                    teams[team].heroes[hero].getIMG("white-echo-img");
                             } else {
                                 heroIMG =
                                     teams[team].heroes[hero].getIMG(
-                                        "prof-echo-img"
+                                        "profile-echo-img"
                                     );
                                 notRound = true;
                             }
@@ -1893,11 +1893,11 @@ class ViewOverPiker {
                         if (bestCopyHeroes[bch] == hero) {
                             if (iconOption) {
                                 heroIMG =
-                                    teams[team].heroes[hero].getIMG("echo-img");
+                                    teams[team].heroes[hero].getIMG("white-echo-img");
                             } else {
                                 heroIMG =
                                     teams[team].heroes[hero].getIMG(
-                                        "prof-echo-img"
+                                        "profile-echo-img"
                                     );
                                 noRound = true;
                             }
