@@ -715,9 +715,75 @@ class ModelOverPiker {
             Red: new ModelTeam("Red"),
         };
 
-        this.panelOptions = JSON.parse(
-            localStorage.getItem("panelOptions")
+        this.panelOptions =
+            JSON.parse(localStorage.getItem("panelOptions")) ||
+            this.buildPanelOptions();
+
+        //Hiden Options panel state
+        this.gearOptionsState = false;
+
+        this.checkFullOptions();
+
+        this.panelSelections =
+            JSON.parse(localStorage.getItem("panelSelections")) ||
+            this.buildPanelSelections();
+
+        this.checkFiveVFive();
+        this.checkHiddenState();
+
+        this.selectedHeroes = JSON.parse(
+            localStorage.getItem("selectedHeroes")
         ) || [
+            {
+                team: "Blue",
+                selectedHeroes: ["None", "None", "None", "None", "None"],
+            },
+            {
+                team: "Red",
+                selectedHeroes: ["None", "None", "None", "None", "None"],
+            },
+        ];
+
+        //The pre-saved APIdata from localstorage are loaded first into the model before calling the API
+        this.APIData.loadLocalStorage(this);
+    }
+
+    checkFullOptions() {
+        if (!this.panelOptions[3]) {
+            this.panelOptions[3] = {
+                text: "Hero Rotation",
+                id: `cb${getSelectValue("Hero Rotation")}`,
+                state: true,
+                hidden: true,
+            };
+        }
+    }
+
+    checkFiveVFive() {
+        let tempSelectedHeroes = JSON.parse(
+            localStorage.getItem("selectedHeroes")
+        );
+        if (tempSelectedHeroes) {
+            let teamSize = tempSelectedHeroes[0].selectedHeroes.length;
+
+            if (teamSize > 5) {
+                localStorage.removeItem("selectedHeroes");
+            }
+        }
+    }
+
+    checkHiddenState() {
+        if (!this.panelOptions[2].hidden) {
+            debugger;
+            localStorage.removeItem("panelOptions");
+            localStorage.removeItem("panelSelection");
+            this.panelOptions = this.buildPanelOptions();
+            this.panelSelections = this.buildPanelSelections();
+        }
+    }
+
+    buildPanelOptions() {
+        const panelOptions = [
             {
                 text: "Role Lock",
                 id: `cb${getSelectValue("Role Lock")}`,
@@ -744,14 +810,11 @@ class ModelOverPiker {
             },
         ];
 
-        //Hiden Options panel state
-        this.gearOptionsState = false;
+        return panelOptions;
+    }
 
-        this.checkFullOptions();
-
-        this.panelSelections = JSON.parse(
-            localStorage.getItem("panelSelections")
-        ) || [
+    buildPanelSelections() {
+        const panelSelections = [
             {
                 text: "Tier",
                 id: getSelectValue("Tier") + "-select",
@@ -794,47 +857,7 @@ class ModelOverPiker {
             },
         ];
 
-        this.checkFiveVFive();
-
-        this.selectedHeroes = JSON.parse(
-            localStorage.getItem("selectedHeroes")
-        ) || [
-            {
-                team: "Blue",
-                selectedHeroes: ["None", "None", "None", "None", "None"],
-            },
-            {
-                team: "Red",
-                selectedHeroes: ["None", "None", "None", "None", "None"],
-            },
-        ];
-
-        //The pre-saved APIdata from localstorage are loaded first into the model before calling the API
-        this.APIData.loadLocalStorage(this);
-    }
-
-    checkFullOptions() {
-        if (!this.panelOptions[3]) {
-            this.panelOptions[3] = {
-                text: "Hero Rotation",
-                id: `cb${getSelectValue("Hero Rotation")}`,
-                state: true,
-                hidden: true,
-            };
-        }
-    }
-
-    checkFiveVFive() {
-        let tempSelectedHeroes = JSON.parse(
-            localStorage.getItem("selectedHeroes")
-        );
-        if (tempSelectedHeroes) {
-            let teamSize = tempSelectedHeroes[0].selectedHeroes.length;
-
-            if (teamSize > 5) {
-                localStorage.removeItem("selectedHeroes");
-            }
-        }
+        return panelSelections;
     }
 
     buildMapPool() {
