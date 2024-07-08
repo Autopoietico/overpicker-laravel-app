@@ -446,7 +446,7 @@ class ModelTeam {
             let echoURL = APIData.findElement(
                 APIData.heroIMG,
                 this.heroes[h].name,
-                "white-echo-img"
+                "white-white-echo-img"
             );
             let profileURL = APIData.findElement(
                 APIData.heroIMG,
@@ -456,13 +456,37 @@ class ModelTeam {
             let profEchoURL = APIData.findElement(
                 APIData.heroIMG,
                 this.heroes[h].name,
-                "profile-echo-img"
+                "profileile-echo-img"
+            );
+            let artURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "art-img"
+            );
+            let artEchoURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "art-echo-img"
+            );
+            let sideURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "side-img"
+            );
+            let sideEchoURL = APIData.findElement(
+                APIData.heroIMG,
+                this.heroes[h].name,
+                "side-echo-img"
             );
 
             this.heroes[h].addIMG(whiteURL, "white-img");
             this.heroes[h].addIMG(echoURL, "white-echo-img");
             this.heroes[h].addIMG(profileURL, "profile-img");
             this.heroes[h].addIMG(profEchoURL, "profile-echo-img");
+            this.heroes[h].addIMG(artURL, "art-img");
+            this.heroes[h].addIMG(artEchoURL, "art-echo-img");
+            this.heroes[h].addIMG(sideURL, "side-img");
+            this.heroes[h].addIMG(sideEchoURL, "side-echo-img");
         }
     }
 
@@ -649,7 +673,6 @@ class ModelTeam {
     }
 
     isRoleFiltered(role) {
-
         //Check if Hero is filtered and avoid cleaning the role that don't belongs to the hero
         let isFiltered = false;
 
@@ -699,28 +722,30 @@ class ModelOverPiker {
                 text: "Role Lock",
                 id: `cb${getSelectValue("Role Lock")}`,
                 state: true,
+                hidden: false,
             },
             {
                 text: "Tier Mode",
                 id: `cb${getSelectValue("Tier Mode")}`,
                 state: true,
+                hidden: false,
             },
             {
                 text: "Map Pools",
                 id: `cb${getSelectValue("Map Pools")}`,
                 state: true,
+                hidden: true,
             },
             {
                 text: "Hero Rotation",
                 id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
-            },
-            {
-                text: "Hero Icons",
-                id: `cb${getSelectValue("Hero Icons")}`,
-                state: false,
+                hidden: true,
             },
         ];
+
+        //Hiden Options panel state
+        this.gearOptionsState = false;
 
         this.checkFullOptions();
 
@@ -733,6 +758,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "",
                 options: ["None"],
+                hidden: false,
             },
             {
                 text: "Map",
@@ -740,6 +766,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "selection-map",
                 options: ["None"],
+                hidden: false,
             },
             {
                 text: "Point",
@@ -747,6 +774,7 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "",
                 options: ["None"],
+                hidden: false,
             },
             {
                 text: "A/D",
@@ -754,6 +782,15 @@ class ModelOverPiker {
                 selectedIndex: 0,
                 class: "",
                 options: ["None"],
+                hidden: false,
+            },
+            {
+                text: "Hero Icons",
+                id: getSelectValue("Hero Icons") + "-select",
+                selectedIndex: 0,
+                class: "",
+                options: ["White", "Profile", "Art", "Side"],
+                hidden: true,
             },
         ];
 
@@ -777,11 +814,12 @@ class ModelOverPiker {
     }
 
     checkFullOptions() {
-        if (!this.panelOptions[4]) {
-            this.panelOptions[4] = {
-                text: "Hero Icons",
-                id: `cb${getSelectValue("Hero Icons")}`,
+        if (!this.panelOptions[3]) {
+            this.panelOptions[3] = {
+                text: "Hero Rotation",
+                id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
+                hidden: true,
             };
         }
     }
@@ -1069,6 +1107,10 @@ class ModelOverPiker {
         this.onOptionsChanged = callback;
     }
 
+    bindOptionGearChanged(callback) {
+        this.onGearStateChanged = callback;
+    }
+
     bindSelectionsChanged(callback) {
         this.onSelectionsChanged = callback;
     }
@@ -1077,15 +1119,28 @@ class ModelOverPiker {
         this.onSelectedHeroesChanged = callback;
     }
 
-    _commitOptions(panelOptions) {
+    _commitOptions(panelOptions, panelSelections, gearOptionsState) {
         //Save the changes of panelOptions on the local storage
-        this.onOptionsChanged(panelOptions);
+        this.onOptionsChanged(panelOptions, panelSelections, gearOptionsState);
         localStorage.setItem("panelOptions", JSON.stringify(panelOptions));
     }
 
-    _commitSelections(panelSelections) {
+    _commitGearOptions(panelOptions, panelSelections, gearOptionsState) {
+        //Save the changes of panelOptions on the local storage
+        this.onGearStateChanged(
+            panelOptions,
+            panelSelections,
+            gearOptionsState
+        );
+        localStorage.setItem(
+            "gearOptionsState",
+            JSON.stringify(gearOptionsState)
+        );
+    }
+
+    _commitSelections(panelSelections, gearOptionsState) {
         //Save the changes of panelSelections on the local storage
-        this.onSelectionsChanged(panelSelections);
+        this.onSelectionsChanged(panelSelections, gearOptionsState);
         localStorage.setItem(
             "panelSelections",
             JSON.stringify(panelSelections)
@@ -1102,11 +1157,30 @@ class ModelOverPiker {
     toggleOptionPanel(id) {
         this.panelOptions = this.panelOptions.map((option) =>
             option.id === id
-                ? { text: option.text, id: option.id, state: !option.state }
+                ? {
+                      text: option.text,
+                      id: option.id,
+                      state: !option.state,
+                      hidden: option.hidden,
+                  }
                 : option
         );
 
-        this._commitOptions(this.panelOptions);
+        this._commitOptions(
+            this.panelOptions,
+            this.panelSelections,
+            this.gearOptionsState
+        );
+    }
+
+    toggleGearOptions() {
+        this.gearOptionsState = !this.gearOptionsState;
+
+        this._commitGearOptions(
+            this.panelOptions,
+            this.panelSelections,
+            this.gearOptionsState
+        );
     }
 
     //Selected option in the panel are saved here
@@ -1121,6 +1195,7 @@ class ModelOverPiker {
                           selectedIndex: newSelIndex,
                           class: selector.class,
                           options: selector.options,
+                          hidden: selector.hidden,
                       }
                     : selector
             );
@@ -1148,13 +1223,12 @@ class ModelOverPiker {
                 this.panelSelections[2].selectedIndex = 0;
             }
         } else {
-            console.log("None");
             this.panelSelections[2].selectedIndex = 0;
             this.panelSelections[3].selectedIndex = 0;
         }
 
         this.loadMapSelections();
-        this._commitSelections(this.panelSelections);
+        this._commitSelections(this.panelSelections, this.gearOptionsState);
     }
 
     filterHero(nick, team) {
@@ -1219,7 +1293,10 @@ class ModelOverPiker {
                 this.loadSelectedHeroes();
                 this._commitSelectedHeroes(this.teams, this.selectedHeroes);
             }
-            if (this.teams[team].getRoleAmount(role) <= 1 && role == "Support") {
+            if (
+                this.teams[team].getRoleAmount(role) <= 1 &&
+                role == "Support"
+            ) {
                 this.selectedHeroes = this.selectedHeroes.map(function (
                     selector
                 ) {
@@ -1590,7 +1667,7 @@ class ViewOverPiker {
         return element;
     }
 
-    createHeroFigure(hero, team, value, heroIMG, noRound) {
+    createHeroFigure(hero, team, value, heroIMG, notRound) {
         const figure = this.createElement("figure", "hero-value");
 
         figure.classList.add(
@@ -1648,9 +1725,9 @@ class ViewOverPiker {
 
             const img = heroIMG;
             img.classList.add("h-14", "justify-self-center");
-            img.alt = hero + " white schematic face";
+            img.alt = hero + " icon";
 
-            if (!noRound) {
+            if (!notRound) {
                 img.classList.add("rounded-t-lg");
             }
 
@@ -1668,86 +1745,170 @@ class ViewOverPiker {
         return element;
     }
 
-    displayOptions(panelOptions) {
+    createSingleOption(option, index) {
+        //Label enclose the elements
+        const optionLabel = this.createElement("label");
+        optionLabel.classList.add("flex");
+
+        if (index % 2 == 0) {
+            optionLabel.classList.add("text-left");
+        } else {
+            optionLabel.classList.add(
+                "text-right",
+                "flex-row-reverse",
+                "sm:text-left",
+                "sm:flex-row"
+            );
+        }
+
+        index++;
+
+        const checkbox = this.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = option.state;
+        checkbox.id = option.id;
+
+        const span = this.createElement("span");
+        span.classList.add("mx-1");
+        span.textContent = option.text;
+
+        optionLabel.append(checkbox, span);
+
+        return optionLabel;
+    }
+
+    createSingleSelect(selector) {
+        const select = this.createElement("select", "", selector.id);
+        select.classList.add(
+            "bg-[#1C2E37]",
+            "border",
+            "border-white",
+            "rounded-md",
+            "sm:mr-0.5",
+            "md:mr-1",
+            "lg:mr-1.5"
+        );
+
+        selector.options.forEach((option) => {
+            const optionElement = this.createElement("option");
+
+            optionElement.value = getSelectValue(option);
+            optionElement.textContent = option;
+
+            select.append(optionElement);
+        });
+
+        select.selectedIndex = selector.selectedIndex;
+
+        return select;
+    }
+
+    createSingleSelectSpan(selector) {
+        //Add a special class for selectors that have long names
+        const selectorSpan = this.createElement("span", selector.class);
+        selectorSpan.classList.add("sm:mr-0.5", "md:mr-1", "lg:mr-1.5");
+
+        //The text don't have a html label
+        selectorSpan.classList.add("selection-span", "font-bold");
+        selectorSpan.textContent = selector.text + ":";
+
+        return selectorSpan;
+    }
+
+    getIMGandNotRound(
+        iconOption,
+        teams,
+        team,
+        hero,
+        enemyEcho,
+        bestCopyHeroes,
+        notRoundParam
+    ) {
+        let IMGRound = [];
+        let heroIMG;
+        let notRound = notRoundParam;
+        const iconOptionSelect = getSelectValue(iconOption) + "-img";
+        const iconOptionEchoSelect = getSelectValue(iconOption) + "-echo-img";
+
+        heroIMG = teams[team].heroes[hero].getIMG(iconOptionSelect);
+
+        if (enemyEcho) {
+            for (let bch in bestCopyHeroes) {
+                if (bestCopyHeroes[bch] == hero) {
+                    if (iconOption != "White") {
+                        notRound = true;
+                    }
+                    const echoIMG =
+                        teams[team].heroes[hero].getIMG(iconOptionEchoSelect);
+
+                    if (echoIMG) {
+                        heroIMG = echoIMG;
+                    }
+                }
+            }
+        }
+
+        IMGRound["heroIMG"] = heroIMG;
+        IMGRound["notRound"] = notRound;
+        return IMGRound;
+    }
+
+    displayOptions(panelOptions, gearOptionsState) {
         while (this.checkboxPanel.firstChild) {
             this.checkboxPanel.removeChild(this.checkboxPanel.firstChild);
         }
 
         let index = 0;
-
         //Create panel options nodes
         panelOptions.forEach((option) => {
-            //Label enclose the elements
-            const optionLabel = this.createElement("label");
-            optionLabel.classList.add("flex");
-
-            if (index % 2 == 0) {
-                optionLabel.classList.add("text-left");
-            } else {
-                optionLabel.classList.add(
-                    "text-right",
-                    "flex-row-reverse",
-                    "sm:text-left",
-                    "sm:flex-row"
+            //Check if is an hidden option
+            if (!gearOptionsState && !option.hidden) {
+                this.checkboxPanel.append(
+                    this.createSingleOption(option, index)
+                );
+            } else if (gearOptionsState && option.hidden) {
+                this.checkboxPanel.append(
+                    this.createSingleOption(option, index)
                 );
             }
-
-            index++;
-
-            const checkbox = this.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = option.state;
-            checkbox.id = option.id;
-
-            const span = this.createElement("span");
-            span.classList.add("mx-1");
-            span.textContent = option.text;
-
-            optionLabel.append(checkbox, span);
-
-            this.checkboxPanel.append(optionLabel);
         });
+
+        //This show hidden options
+        this.gearIcon = this.createElement("i");
+        //Bootstrap Icons
+        this.gearIcon.classList.add(
+            "bi",
+            "bi-gear-fill",
+            "cursor-pointer",
+            "px-1",
+            "rounded-lg"
+        );
+
+        if (gearOptionsState) {
+            this.gearIcon.classList.add("bg-[#294452]", "border");
+        }
+        this.checkboxPanel.append(this.gearIcon);
     }
 
-    displaySelections(panelSelections) {
+    displaySelections(panelSelections, gearOptionsState) {
         while (this.selectionPanel.firstChild) {
             this.selectionPanel.removeChild(this.selectionPanel.firstChild);
         }
-
         //Create panel selection nodes
         panelSelections.forEach((selector) => {
-            //Add a special class for selectors that have long names
-            const selectorSpan = this.createElement("span", selector.class);
-            selectorSpan.classList.add("sm:mr-0.5", "md:mr-1", "lg:mr-1.5");
+            //Check if is an hidden selection
 
-            const select = this.createElement("select", "", selector.id);
-            select.classList.add(
-                "bg-[#1C2E37]",
-                "border",
-                "border-white",
-                "rounded-md",
-                "sm:mr-0.5",
-                "md:mr-1",
-                "lg:mr-1.5"
-            );
-
-            //The text don't have a html label
-            selectorSpan.classList.add("selection-span", "font-bold");
-            selectorSpan.textContent = selector.text + ":";
-
-            selector.options.forEach((option) => {
-                const optionElement = this.createElement("option");
-
-                optionElement.value = getSelectValue(option);
-                optionElement.textContent = option;
-
-                select.append(optionElement);
-            });
-
-            select.selectedIndex = selector.selectedIndex;
-
-            this.selectionPanel.append(selectorSpan);
-            this.selectionPanel.append(select);
+            if (!gearOptionsState && !selector.hidden) {
+                this.selectionPanel.append(
+                    this.createSingleSelectSpan(selector)
+                );
+                this.selectionPanel.append(this.createSingleSelect(selector));
+            } else if (gearOptionsState && selector.hidden) {
+                this.selectionPanel.append(
+                    this.createSingleSelectSpan(selector)
+                );
+                this.selectionPanel.append(this.createSingleSelect(selector));
+            }
         });
     }
 
@@ -1835,28 +1996,19 @@ class ViewOverPiker {
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
 
-                if (iconOption) {
-                    heroIMG = teams[team].heroes[hero].getIMG("white-img");
-                } else {
-                    heroIMG = teams[team].heroes[hero].getIMG("profile-img");
-                }
+                //This get the img and the value of notRound
+                let IMGRound = this.getIMGandNotRound(
+                    iconOption,
+                    teams,
+                    team,
+                    hero,
+                    enemyEcho,
+                    bestCopyHeroes,
+                    notRound
+                );
 
-                if (enemyEcho) {
-                    for (let bch in bestCopyHeroes) {
-                        if (bestCopyHeroes[bch] == hero) {
-                            if (iconOption) {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG("white-echo-img");
-                            } else {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG(
-                                        "profile-echo-img"
-                                    );
-                                notRound = true;
-                            }
-                        }
-                    }
-                }
+                heroIMG = IMGRound["heroIMG"];
+                notRound = IMGRound["notRound"];
             }
 
             const figure = this.createHeroFigure(
@@ -1877,33 +2029,24 @@ class ViewOverPiker {
             let heroIMG = "";
             let enemyEcho = teams["Blue"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
-            let noRound = false;
+            let notRound = false;
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
 
-                if (iconOption) {
-                    heroIMG = teams[team].heroes[hero].getIMG("white-img");
-                } else {
-                    heroIMG = teams[team].heroes[hero].getIMG("profile-img");
-                }
+                //This get the img and the value of notRound
+                let IMGRound = this.getIMGandNotRound(
+                    iconOption,
+                    teams,
+                    team,
+                    hero,
+                    enemyEcho,
+                    bestCopyHeroes,
+                    notRound
+                );
 
-                if (enemyEcho) {
-                    for (let bch in bestCopyHeroes) {
-                        if (bestCopyHeroes[bch] == hero) {
-                            if (iconOption) {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG("white-echo-img");
-                            } else {
-                                heroIMG =
-                                    teams[team].heroes[hero].getIMG(
-                                        "profile-echo-img"
-                                    );
-                                noRound = true;
-                            }
-                        }
-                    }
-                }
+                heroIMG = IMGRound["heroIMG"];
+                notRound = IMGRound["notRound"];
             }
 
             const figure = this.createHeroFigure(
@@ -1911,7 +2054,7 @@ class ViewOverPiker {
                 team,
                 value,
                 heroIMG,
-                noRound
+                notRound
             );
             this.teamRedComposition.append(figure);
         }
@@ -2154,23 +2297,16 @@ class ViewOverPiker {
                 if (!hero.selected) {
                     let figHeroOption;
 
-                    if (iconOption) {
-                        figHeroOption = this.createHeroFigure(
-                            hero.name,
-                            t,
-                            hero.value,
-                            hero.getIMG("white-img"),
-                            notRound
-                        );
-                    } else {
-                        figHeroOption = this.createHeroFigure(
-                            hero.name,
-                            t,
-                            hero.value,
-                            hero.getIMG("profile-img"),
-                            notRound
-                        );
-                    }
+                    const iconOptionSelect =
+                        getSelectValue(iconOption) + "-img";
+
+                    figHeroOption = this.createHeroFigure(
+                        hero.name,
+                        t,
+                        hero.value,
+                        hero.getIMG(iconOptionSelect),
+                        notRound
+                    );
 
                     const figHero = figHeroOption;
 
@@ -2239,6 +2375,14 @@ class ViewOverPiker {
             if (event.target.type == "checkbox") {
                 const id = event.target.id;
                 handler(id);
+            }
+        });
+    }
+
+    bindGearOptions(handler) {
+        this.checkboxPanel.addEventListener("click", (event) => {
+            if (event.target.classList.contains("bi-gear-fill")) {
+                handler();
             }
         });
     }
@@ -2450,7 +2594,9 @@ class ControllerOverPiker {
 
         //Bind controller with the Option panel
         this.model.bindOptionChanged(this.onOptionsChanged);
+        this.model.bindOptionGearChanged(this.onGearStateChanged);
         this.view.bindToggleOptions(this.handleToggleOptions);
+        this.view.bindGearOptions(this.handleGearOptions);
 
         //Bind controller with the Selection panel
         this.model.bindSelectionsChanged(this.onSelectionsChanged);
@@ -2463,24 +2609,38 @@ class ControllerOverPiker {
         this.view.bindSelectedHeroes(this.handleSelectedHeroes);
 
         //Bind View with Model
-        this.onOptionsChanged(this.model.panelOptions);
+        this.onOptionsChanged(
+            this.model.panelOptions,
+            this.model.panelSelections,
+            this.model.gearOptionsState
+        );
         this.onSelectedHeroesChanged(
             this.model.teams,
             this.model.selectedHeroes
         );
-        this.onSelectionsChanged(this.model.panelSelections);
+        this.onSelectionsChanged(
+            this.model.panelSelections,
+            this.model.gearOptionsState
+        );
     }
 
-    onOptionsChanged = (panelOptions) => {
-        this.view.displayOptions(panelOptions);
+    onOptionsChanged = (panelOptions, panelSelections, gearOptionsState) => {
+        this.view.displayOptions(panelOptions, gearOptionsState);
+        this.view.displaySelections(panelSelections, gearOptionsState);
     };
 
-    onSelectionsChanged = (panelSelections) => {
-        this.view.displaySelections(panelSelections);
+    onGearStateChanged = (panelOptions, panelSelections, gearOptionsState) => {
+        this.view.displayOptions(panelOptions, gearOptionsState);
+        this.view.displaySelections(panelSelections, gearOptionsState);
+    };
+
+    onSelectionsChanged = (panelSelections, gearOptionsState) => {
+        this.view.displaySelections(panelSelections, gearOptionsState);
     };
 
     onSelectedHeroesChanged = (teams, selectedHeroes) => {
-        let iconOption = this.model.panelOptions[4].state;
+        const selectedIcon = this.model.panelSelections[4].selectedIndex;
+        let iconOption = this.model.panelSelections[4].options[selectedIcon];
         this.view.displayTeams(teams, selectedHeroes, iconOption);
     };
 
@@ -2508,6 +2668,10 @@ class ControllerOverPiker {
         this.model.editSelectedHeroes(); //This recharge the heroes if TierMode or Hero Rotation is activated
     };
 
+    handleGearOptions = () => {
+        this.model.toggleGearOptions();
+    };
+
     handleFilter = (nick, team) => {
         this.model.filterHero(nick, team);
         this.model.editSelectedHeroes();
@@ -2529,12 +2693,18 @@ class ControllerOverPiker {
 
     reloadControllerModel(version) {
         //The model is reloaded in the controller and the view here
-        this.onOptionsChanged(this.model.panelOptions);
+        this.onOptionsChanged(
+            this.model.panelOptions,
+            this.model.gearOptionsState
+        );
         this.onSelectedHeroesChanged(
             this.model.teams,
             this.model.selectedHeroes
         );
-        this.onSelectionsChanged(this.model.panelSelections);
+        this.onSelectionsChanged(
+            this.model.panelSelections,
+            this.model.gearOptionsState
+        );
         this.view.updateVersion(version);
     }
 }
