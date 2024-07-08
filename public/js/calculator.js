@@ -789,7 +789,7 @@ class ModelOverPiker {
                 id: getSelectValue("Hero Icons") + "-select",
                 selectedIndex: 0,
                 class: "",
-                options: ["White", "Profile", "Art", "Side"],
+                options: ["Profile", "Art", "White", "Side"],
                 hidden: true,
             },
         ];
