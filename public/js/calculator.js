@@ -779,6 +779,13 @@ class ModelOverPiker {
             this.panelOptions = this.buildPanelOptions();
             this.panelSelections = this.buildPanelSelections();
         }
+
+        if (!this.panelSelections[4]) {
+            localStorage.removeItem("panelOptions");
+            localStorage.removeItem("panelSelection");
+            this.panelOptions = this.buildPanelOptions();
+            this.panelSelections = this.buildPanelSelections();
+        }
     }
 
     buildPanelOptions() {
@@ -808,7 +815,7 @@ class ModelOverPiker {
                 hidden: true,
             },
         ];
-
+        localStorage.setItem("panelOptions", JSON.stringify(panelOptions));
         return panelOptions;
     }
 
@@ -855,7 +862,10 @@ class ModelOverPiker {
                 hidden: true,
             },
         ];
-
+        localStorage.setItem(
+            "panelSelections",
+            JSON.stringify(panelSelections)
+        );
         return panelSelections;
     }
 
@@ -2661,9 +2671,9 @@ class ControllerOverPiker {
     };
 
     onSelectedHeroesChanged = (teams, selectedHeroes) => {
-        let selectedIcon = 0
-        if(this.model.panelSelections[4].selectedIndex){
-            selectedIcon = this.model.panelSelections[4].selectedIndex
+        let selectedIcon = 0;
+        if (this.model.panelSelections[4]) {
+            selectedIcon = this.model.panelSelections[4].selectedIndex;
         }
         let iconOption = this.model.panelSelections[4].options[selectedIcon];
         this.view.displayTeams(teams, selectedHeroes, iconOption);
