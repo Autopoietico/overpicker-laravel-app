@@ -2661,7 +2661,10 @@ class ControllerOverPiker {
     };
 
     onSelectedHeroesChanged = (teams, selectedHeroes) => {
-        const selectedIcon = this.model.panelSelections[4].selectedIndex;
+        let selectedIcon = 0
+        if(this.model.panelSelections[4].selectedIndex){
+            selectedIcon = this.model.panelSelections[4].selectedIndex
+        }
         let iconOption = this.model.panelSelections[4].options[selectedIcon];
         this.view.displayTeams(teams, selectedHeroes, iconOption);
     };
