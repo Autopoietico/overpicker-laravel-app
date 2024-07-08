@@ -446,7 +446,7 @@ class ModelTeam {
             let echoURL = APIData.findElement(
                 APIData.heroIMG,
                 this.heroes[h].name,
-                "white-white-echo-img"
+                "white-echo-img"
             );
             let profileURL = APIData.findElement(
                 APIData.heroIMG,
@@ -456,7 +456,7 @@ class ModelTeam {
             let profEchoURL = APIData.findElement(
                 APIData.heroIMG,
                 this.heroes[h].name,
-                "profileile-echo-img"
+                "profile-echo-img"
             );
             let artURL = APIData.findElement(
                 APIData.heroIMG,
