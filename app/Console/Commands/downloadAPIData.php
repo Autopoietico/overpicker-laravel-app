@@ -40,7 +40,7 @@ class downloadAPIData extends Command
         if ($heroes_data) {
             $hero_file = storage_path('/api/hero-data/hero-info.json');
             file_put_contents($hero_file, $heroes_data);
-            $this->info('Hero Info donwloaded succesfully in: ' . $hero_file);
+            $this->info('Hero Info downloaded succesfully in: ' . $hero_file);
         } else {
             $this->error('Error getting the Hero Info data');
         }
@@ -48,7 +48,7 @@ class downloadAPIData extends Command
         if ($tiers_data) {
             $tiers_file = storage_path('/api/hero-data/hero-tiers.json');
             file_put_contents($tiers_file, $tiers_data);
-            $this->info('Tiers Info donwloaded succesfully in: ' . $tiers_file);
+            $this->info('Tiers Info downloaded succesfully in: ' . $tiers_file);
         } else {
             $this->error('Error getting the Tiers Info data');
         }
@@ -56,7 +56,7 @@ class downloadAPIData extends Command
         if ($img_data) {
             $img_file = storage_path('/api/hero-data/hero-img.json');
             file_put_contents($img_file, $img_data);
-            $this->info('HeroIMG Info donwloaded succesfully in: ' . $img_file);
+            $this->info('HeroIMG Info downloaded succesfully in: ' . $img_file);
         } else {
             $this->error('Error getting the HeroIMG Info data');
         }
@@ -64,7 +64,7 @@ class downloadAPIData extends Command
         if ($version_data) {
             $version_file = storage_path('/api/version.json');
             file_put_contents($version_file, $version_data);
-            $this->info('Version Info donwloaded succesfully in: ' . $img_file);
+            $this->info('Version Info downloaded succesfully in: ' . $img_file);
         } else {
             $this->error('Error getting the Version Info data');
         }
