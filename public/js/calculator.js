@@ -6,7 +6,7 @@ gain something in the process is a plus.
 Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
 */
 
-const LASTDATAUPDATE = "2024-07-08";
+const LASTDATAUPDATE = "2024-07-10";
 
 //////////////////////
 // Miscelaneus
@@ -1926,7 +1926,7 @@ class ViewOverPiker {
         while (this.selectionPanel.firstChild) {
             this.selectionPanel.removeChild(this.selectionPanel.firstChild);
         }
-        
+
         //Create panel selection nodes
         panelSelections.forEach((selector) => {
             //Check if is an hidden selection
