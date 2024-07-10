@@ -1926,10 +1926,10 @@ class ViewOverPiker {
         while (this.selectionPanel.firstChild) {
             this.selectionPanel.removeChild(this.selectionPanel.firstChild);
         }
+        
         //Create panel selection nodes
         panelSelections.forEach((selector) => {
             //Check if is an hidden selection
-
             if (!gearOptionsState && !selector.hidden) {
                 this.selectionPanel.append(
                     this.createSingleSelectSpan(selector)
@@ -2730,6 +2730,7 @@ class ControllerOverPiker {
         //The model is reloaded in the controller and the view here
         this.onOptionsChanged(
             this.model.panelOptions,
+            this.model.panelSelections,
             this.model.gearOptionsState
         );
         this.onSelectedHeroesChanged(
