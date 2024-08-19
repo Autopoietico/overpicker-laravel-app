@@ -985,6 +985,8 @@ class ModelOverPiker {
                 } else if (map.type == "Push") {
                     this.panelSelections[3].options = ["Push"];
                     this.panelSelections[3].selectedIndex = 0;
+                } else if (map.type == "Clash") {
+                    this.panelSelections[3].options = ["A-Team", "E-Team"];
                 } else {
                     this.panelSelections[3].options = ["Attack", "Defense"];
                 }
@@ -1072,7 +1074,7 @@ class ModelOverPiker {
             this.teams["Blue"].selectedHeroes
         );
 
-        //When blue team attack, red team deffend and viceversa
+        //When blue team attack, red team deffends and viceversa
         if (adc == "Attack") {
             this.teams["Red"].calcScores(
                 tier,
@@ -1086,7 +1088,7 @@ class ModelOverPiker {
                 tier,
                 map,
                 point,
-                "Defense",
+                adc,
                 pointType,
                 this.teams["Red"].selectedHeroes
             );
@@ -1103,7 +1105,41 @@ class ModelOverPiker {
                 tier,
                 map,
                 point,
-                "Attack",
+                adc,
+                pointType,
+                this.teams["Red"].selectedHeroes
+            );
+        } else if (adc == "A-Team") {
+            this.teams["Red"].calcScores(
+                tier,
+                map,
+                point,
+                "E-Team",
+                pointType,
+                this.teams["Blue"].selectedHeroes
+            );
+            this.teams["Blue"].calcEchoScores(
+                tier,
+                map,
+                point,
+                adc,
+                pointType,
+                this.teams["Red"].selectedHeroes
+            );
+        } else if (adc == "A-Team") {
+            this.teams["Red"].calcScores(
+                tier,
+                map,
+                point,
+                "A-Team",
+                pointType,
+                this.teams["Blue"].selectedHeroes
+            );
+            this.teams["Blue"].calcEchoScores(
+                tier,
+                map,
+                point,
+                adc,
                 pointType,
                 this.teams["Red"].selectedHeroes
             );
@@ -1125,6 +1161,8 @@ class ModelOverPiker {
                 this.teams["Red"].selectedHeroes
             );
         }
+
+        
     }
 
     checkEchoOnTeams() {
