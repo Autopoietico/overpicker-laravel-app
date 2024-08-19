@@ -36,10 +36,11 @@
 <script defer src="js/calculator.js"></script>
 <script>
     // JavaScript to close the alert when the close button is clicked
-    document
+    /* document
         .getElementById("closeAlert")
         .addEventListener("click", function () {
             document.getElementById("alert").style.display = "none";
         });
+    */
 </script>
 @endsection
