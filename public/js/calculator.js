@@ -245,6 +245,10 @@ class ModelMapType {
     getType(point) {
         this.pointsType[point];
     }
+
+    getPointsLenght() {
+        return this.pointsType.length;
+    }
 }
 
 class ModelMap {
@@ -1161,8 +1165,6 @@ class ModelOverPiker {
                 this.teams["Red"].selectedHeroes
             );
         }
-
-        
     }
 
     checkEchoOnTeams() {
@@ -1286,11 +1288,13 @@ class ModelOverPiker {
         pointNumber = this.panelSelections[2].selectedIndex;
 
         if (map != "None") {
+            //This avoid problems when maps have different amount of points
             mapType = this.maps[map].type;
 
-            //Assault only has two point but some maps have 3 points, this avoid problems when you switch maps
-            if (mapType == "Assault" && pointNumber > 1) {
-                this.panelSelections[2].selectedIndex = 0;
+            let points = this.mapTypes[mapType].getPointsLenght() - 1;
+
+            if (points < pointNumber) {
+                this.panelSelections[2].selectedIndex = points;
             }
         } else {
             this.panelSelections[2].selectedIndex = 0;
