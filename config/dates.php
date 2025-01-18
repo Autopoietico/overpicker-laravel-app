@@ -6,6 +6,6 @@ $data_obj = json_decode($data_version, true);
 
 return [
     'LAST_DATA_UPDATE' => $data_obj["last-update"],
-    'COPY_DATE' => "2024",
+    'COPY_DATE' => "2025",
     'PRIVACY_DATE' => date("Y")
 ];
