@@ -6,7 +6,7 @@ gain something in the process is a plus.
 Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
 */
 
-const LASTDATAUPDATE = "2025-01-18";
+const LASTUPDATE = "2025-01-19";
 
 //////////////////////
 // Miscelaneus
@@ -728,6 +728,8 @@ class ModelOverPiker {
             Red: new ModelTeam("Red"),
         };
 
+        this.checkDate();
+
         this.panelOptions =
             JSON.parse(localStorage.getItem("panelOptions")) ||
             this.buildPanelOptions();
@@ -759,6 +761,16 @@ class ModelOverPiker {
 
         //The pre-saved APIdata from localstorage are loaded first into the model before calling the API
         this.APIData.loadLocalStorage(this);
+    }
+
+    checkDate() {
+        //To avoid problems with data previously stored in the local storage, we check the date of the last 
+        // update and clear the local storage if the date is different
+        let savedDate = localStorage.getItem("savedDate");
+        if(savedDate != LASTUPDATE){
+            localStorage.clear();
+        }
+        localStorage.setItem("savedDate", LASTUPDATE);
     }
 
     checkFullOptions() {
