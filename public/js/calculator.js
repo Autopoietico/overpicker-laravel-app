@@ -706,6 +706,15 @@ class ModelTeam {
 
 class ModelOverPiker {
     constructor() {
+
+        //Consts
+        this.ROLE_LOCK = 0;
+        this.TIER_MODE = 1;
+        this.FIVE_VS_FIVE = 2;
+        this.MAP_POOLS = 3;
+        this.HERO_ROTATION = 4;
+
+        //General
         this.APIData = new ModelAPI();
 
         this.maps = [];
@@ -753,8 +762,8 @@ class ModelOverPiker {
     }
 
     checkFullOptions() {
-        if (!this.panelOptions[3]) {
-            this.panelOptions[3] = {
+        if (!this.panelOptions[this.HERO_ROTATION]) {
+            this.panelOptions[this.HERO_ROTATION] = {
                 text: "Hero Rotation",
                 id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
@@ -777,7 +786,7 @@ class ModelOverPiker {
     }
 
     checkHiddenState() {
-        if (!this.panelOptions[2].hidden) {
+        if (!this.panelOptions[this.MAP_POOLS].hidden) {
             localStorage.removeItem("panelOptions");
             localStorage.removeItem("panelSelection");
             this.panelOptions = this.buildPanelOptions();
@@ -803,6 +812,12 @@ class ModelOverPiker {
             {
                 text: "Tier Mode",
                 id: `cb${getSelectValue("Tier Mode")}`,
+                state: true,
+                hidden: false,
+            },
+            {
+                text: "5Vs5",
+                id: `cb${getSelectValue("5Vs5")}`,
                 state: true,
                 hidden: false,
             },
@@ -946,7 +961,7 @@ class ModelOverPiker {
             this.panelSelections[1].options = ["None"];
 
             for (let m in this.maps) {
-                let mapPoolsOn = this.panelOptions[2].state;
+                let mapPoolsOn = this.panelOptions[this.MAP_POOLS].state;
 
                 //Check map pools
                 if (this.maps[m].onPool && mapPoolsOn) {
@@ -1023,7 +1038,7 @@ class ModelOverPiker {
 
     calcTeamScores() {
         //We get the other selected values, map, point, etc
-        let isTierSelected = this.panelOptions[1].state;
+        let isTierSelected = this.panelOptions[this.TIER_MODE].state;
         let tier = "None";
         let map = "None";
         let point = "None";
@@ -1311,7 +1326,7 @@ class ModelOverPiker {
 
     editSelectedHeroes(team, hero, role) {
         //If Role Lock selected and role exists
-        if (this.panelOptions[0].state && role) {
+        if (this.panelOptions[this.ROLE_LOCK].state && role) {
             //If Role Lock selected check amount of Tank, Damage and Supports to fill 1Tank-2Damage-2Supports
             if (this.teams[team].getRoleAmount(role) <= 0 && role == "Tank") {
                 this.selectedHeroes = this.selectedHeroes.map(function (
