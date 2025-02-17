@@ -707,7 +707,7 @@ class ModelTeam {
 class ModelOverPiker {
     constructor() {
 
-        //Consts
+        //Panel Select Consts
         this.ROLE_LOCK = 0;
         this.TIER_MODE = 1;
         this.FIVE_VS_FIVE = 2;
@@ -743,7 +743,7 @@ class ModelOverPiker {
             JSON.parse(localStorage.getItem("panelSelections")) ||
             this.buildPanelSelections();
 
-        this.checkFiveVFive();
+        this.checkTeamSize();
         this.checkHiddenState();
 
         this.selectedHeroes = JSON.parse(
@@ -784,14 +784,17 @@ class ModelOverPiker {
         }
     }
 
-    checkFiveVFive() {
+    checkTeamSize() {
+        let isFiveVsFive = this.panelOptions[this.FIVE_VS_FIVE].state;
+
         let tempSelectedHeroes = JSON.parse(
             localStorage.getItem("selectedHeroes")
         );
+
         if (tempSelectedHeroes) {
             let teamSize = tempSelectedHeroes[0].selectedHeroes.length;
 
-            if (teamSize > 5) {
+            if (teamSize == 6 && isFiveVsFive) {
                 localStorage.removeItem("selectedHeroes");
             }
         }
