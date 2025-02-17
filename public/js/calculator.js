@@ -706,7 +706,6 @@ class ModelTeam {
 
 class ModelOverPiker {
     constructor() {
-
         //Panel Select Consts
         this.ROLE_LOCK = 0;
         this.TIER_MODE = 1;
@@ -746,6 +745,7 @@ class ModelOverPiker {
         this.checkTeamSize();
         this.checkHiddenState();
 
+        //This map the size of the teams and the heroes selected in the team panel, initial selection is "None" for all heroes and 5v5
         this.selectedHeroes = JSON.parse(
             localStorage.getItem("selectedHeroes")
         ) || [
@@ -764,10 +764,10 @@ class ModelOverPiker {
     }
 
     checkDate() {
-        //To avoid problems with data previously stored in the local storage, we check the date of the last 
+        //To avoid problems with data previously stored in the local storage, we check the date of the last
         // update and clear the local storage if the date is different
         let savedDate = localStorage.getItem("savedDate");
-        if(savedDate != LASTUPDATE){
+        if (savedDate != LASTUPDATE) {
             localStorage.clear();
         }
         localStorage.setItem("savedDate", LASTUPDATE);
@@ -785,6 +785,7 @@ class ModelOverPiker {
     }
 
     checkTeamSize() {
+        //Make a general reset if localstorage is different to the actual teamsize
         let isFiveVsFive = this.panelOptions[this.FIVE_VS_FIVE].state;
 
         let tempSelectedHeroes = JSON.parse(
@@ -795,6 +796,8 @@ class ModelOverPiker {
             let teamSize = tempSelectedHeroes[0].selectedHeroes.length;
 
             if (teamSize == 6 && isFiveVsFive) {
+                localStorage.removeItem("selectedHeroes");
+            } else if (teamSize == 5 && !isFiveVsFive) {
                 localStorage.removeItem("selectedHeroes");
             }
         }
