@@ -1288,7 +1288,7 @@ class ModelOverPiker {
         );
     }
 
-    //Selected option in the panel are saved here
+    //Selected option in the panel (Like map selections or icons) are saved here
     editSelected(id, newSelIndex) {
         //Adding +1 because this recieve an index, any index even zero
         if (id && newSelIndex + 1) {
@@ -1342,11 +1342,35 @@ class ModelOverPiker {
         this.teams[team].filterHero(nick);
     }
 
+    switchTeamSize() {
+        this.selectedHeroes.forEach((team) => {
+            if (
+                this.panelOptions[this.FIVE_VS_FIVE].state &&
+                team.selectedHeroes.length == 6
+            ) {
+                team.selectedHeroes.pop();
+            } else if (
+                !this.panelOptions[this.FIVE_VS_FIVE].state &&
+                team.selectedHeroes.length == 5
+            ) {
+                team.selectedHeroes.push("None");
+            }
+        });
+
+        this.loadSelectedHeroes();
+        this._commitSelectedHeroes(this.teams, this.selectedHeroes);
+    }
+
     editSelectedHeroes(team, hero, role) {
         //If Role Lock selected and role exists
         if (this.panelOptions[this.ROLE_LOCK].state && role) {
-            //If Role Lock selected check amount of Tank, Damage and Supports to fill 1Tank-2Damage-2Supports
-            if (this.teams[team].getRoleAmount(role) <= 0 && role == "Tank") {
+            //If Role Lock selected check amount of Tank, Damage and Supports to fill 1Tank-2Damage-2Supports or 2tanks if 6vs6
+            let maxTanks = this.panelOptions[this.FIVE_VS_FIVE].state ? 0 : 1; //0 = 1 tank, 1 = 2 tanks
+
+            if (
+                this.teams[team].getRoleAmount(role) <= maxTanks &&
+                role == "Tank"
+            ) {
                 this.selectedHeroes = this.selectedHeroes.map(function (
                     selector
                 ) {
@@ -2774,6 +2798,7 @@ class ControllerOverPiker {
 
     handleToggleOptions = (id) => {
         this.model.toggleOptionPanel(id);
+        this.model.switchTeamSize(); //This switch the Team size if 5v5 is selected or not
         this.model.editSelected(); //This recharge the options if map pools are selected
         this.model.editSelectedHeroes(); //This recharge the heroes if TierMode or Hero Rotation is activated
     };
