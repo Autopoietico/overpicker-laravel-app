@@ -6,7 +6,7 @@ gain something in the process is a plus.
 Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
 */
 
-const LASTUPDATE = "2025-02-19";
+const LASTUPDATE = "2025-03-16";
 
 //////////////////////
 // Miscelaneus
@@ -17,6 +17,18 @@ const getSelectValue = function (name) {
     let selectValue = name.replace(/\s+/g, "-");
     return selectValue.toLowerCase();
 };
+
+//////////////////////
+// Miscelaneus
+//////////////////////
+
+const TIER_MIN = 5;
+const COUNTER_WEIGHT = 1 / 5;
+const MIN_COUNTER_VALUE = 4;
+const SINERGY_WEIGHT = 1 / 2;
+const MIN_SINERGY_VALUE = 10;
+const MAPAD_WEIGHT = 1 / 2;
+const MIN_MAPAD_VALUE = 45;
 
 //////////////////////
 // API METHODS
@@ -300,7 +312,6 @@ class ModelHero {
     addSynergies(synergies) {
         this.synergies = synergies[this.name];
     }
-
     addMaps(maps) {
         let heroMaps = maps[this.name];
 
@@ -322,76 +333,149 @@ class ModelHero {
         return this.IMG[type];
     }
 
-    getSinergyValue(alliedHeroes, isEchoValue) {
+    getSinergyValue(alliedHeroes, isWeighted, isEchoValue) {
         let sinergyValue = 0;
 
         for (let ah in alliedHeroes) {
             let alliedHero = alliedHeroes[ah];
 
             if (alliedHero != this.name && !isEchoValue) {
-                sinergyValue += this.synergies[alliedHero];
+                if (isWeighted) {
+                    sinergyValue +=
+                        this.synergies[alliedHero] * SINERGY_WEIGHT +
+                        MIN_SINERGY_VALUE;
+                } else {
+                    sinergyValue += this.synergies[alliedHero];
+                }
             } else if (isEchoValue && alliedHero != "Echo") {
                 //With Echo can happen that a team can have the same two heroes at the same time for a moment
                 //Also Echo can't have sinergy with herself
-                sinergyValue += this.synergies[alliedHero];
+                if (isWeighted) {
+                    sinergyValue +=
+                        this.synergies[alliedHero] * SINERGY_WEIGHT +
+                        MIN_SINERGY_VALUE;
+                } else {
+                    sinergyValue += this.synergies[alliedHero];
+                }
             }
         }
 
         return sinergyValue;
     }
 
-    getCounterValue(enemyHeroes) {
+    getCounterValue(enemyHeroes, isWeighted) {
         let counterValue = 0;
 
         for (let eh in enemyHeroes) {
             let enemyHero = enemyHeroes[eh];
 
             if (enemyHero != this.name) {
-                counterValue += this.counters[enemyHero];
+                if (isWeighted) {
+                    counterValue +=
+                        this.counters[enemyHero] * COUNTER_WEIGHT +
+                        MIN_COUNTER_VALUE;
+                } else {
+                    counterValue += this.counters[enemyHero];
+                }
             }
         }
 
         return counterValue;
     }
 
-    calcScore(tier, map, point, adc, pointType, alliedHeroes, enemyHeroes) {
+    calcScore(
+        tier,
+        map,
+        point,
+        adc,
+        pointType,
+        alliedHeroes,
+        enemyHeroes,
+        isWeighted
+    ) {
         this.value = 0;
 
         if (map != "None") {
-            this.value += this.maps[adc][map][point]; //Point Value
+            if (isWeighted) {
+                this.value +=
+                    this.maps[adc][map][point] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Point Value
+            } else {
+                this.value += this.maps[adc][map][point]; //Point Value
+            }
         }
 
         if (adc != "None" && pointType != "None") {
             if (pointType == "Control" || pointType == "Flashpoint") {
-                this.value += this.adc[pointType]; //Control or Flashpoint Value
+                if (isWeighted) {
+                    this.value +=
+                        this.adc[pointType] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                } else {
+                    this.value += this.adc[pointType]; //Control or Flashpoint Value
+                }
             } else if (pointType == "Push") {
-                this.value += this.adc[adc][point]; //Push Value
+                if (isWeighted) {
+                    this.value +=
+                        this.adc[adc][point] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Push Value
+                } else {
+                    this.value += this.adc[adc][point]; //Push Value
+                }
             } else {
-                this.value += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
+                if (isWeighted) {
+                    this.value +=
+                        this.adc[adc][pointType][point] * MAPAD_WEIGHT +
+                        MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
+                } else {
+                    this.value += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
+                }
             }
         }
 
-        this.value += this.getSinergyValue(alliedHeroes); //Synergies Values
-        this.value += this.getCounterValue(enemyHeroes); //Counters Values
+        this.value += this.getSinergyValue(alliedHeroes, isWeighted); //Synergies Values
+        this.value += this.getCounterValue(enemyHeroes, isWeighted); //Counters Values
 
         if (tier != "None") {
-            this.value += this.tiers[tier]; //Tier Value
+            if (isWeighted) {
+                this.value += this.tiers[tier] + TIER_MIN; //Tier Value + Min Value
+            } else {
+                this.value += this.tiers[tier]; //Tier Value
+            }
         }
     }
 
-    calcEchoScore(tier, map, point, adc, pointType, alliedHeroes, enemyHeroes) {
+    calcEchoScore(
+        tier,
+        map,
+        point,
+        adc,
+        pointType,
+        alliedHeroes,
+        enemyHeroes,
+        isWeighted
+    ) {
         let isEchoValue = true;
 
         this.echoValue = 0;
 
         if (this.name != "Echo" && this.selected) {
             if (map != "None") {
-                this.echoValue += this.maps[adc][map][point]; //Point Value
+                if (isWeighted) {
+                    this.echoValue +=
+                        this.maps[adc][map][point] * MAPAD_WEIGHT +
+                        MIN_MAPAD_VALUE; //Point Value
+                } else {
+                    this.echoValue += this.maps[adc][map][point]; //Point Value
+                }
             }
 
             if (adc != "None" && pointType != "None") {
                 if (pointType == "Control" || pointType == "Flashpoint") {
-                    this.echoValue += this.adc[pointType]; //Control or Flashpoint Value
+                    if (isWeighted) {
+                        this.echoValue +=
+                            this.adc[pointType] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                    } else {
+                        this.echoValue += this.adc[pointType]; //Control or Flashpoint Value
+                    }
                 } else if (pointType == "Push") {
                     if (point == "Ally") {
                         point = "Enemy";
@@ -399,17 +483,37 @@ class ModelHero {
                         point = "Ally";
                     }
 
-                    this.echoValue += this.adc[adc][point]; //Push Value
+                    if (isWeighted) {
+                        this.echoValue +=
+                            this.adc[adc][point] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Push Value
+                    } else {
+                        this.echoValue += this.adc[adc][point]; //Push Value
+                    }
                 } else {
-                    this.echoValue += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
+                    if (isWeighted) {
+                        this.echoValue +=
+                            this.adc[adc][pointType][point] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
+                    } else {
+                        this.echoValue += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
+                    }
                 }
             }
 
-            this.echoValue += this.getSinergyValue(enemyHeroes, isEchoValue); //Synergie Values but with enemy heroes for echo targets
-            this.echoValue += this.getCounterValue(alliedHeroes); //Counter Values but with allied heroes for echo targets
+            this.echoValue += this.getSinergyValue(
+                enemyHeroes,
+                isWeighted,
+                isEchoValue
+            ); //Synergie Values but with enemy heroes for echo targets
+            this.echoValue += this.getCounterValue(alliedHeroes, isWeighted); //Counter Values but with allied heroes for echo targets
 
             if (tier != "None") {
-                this.echoValue += this.tiers[tier]; //Tier Value
+                if (isWeighted) {
+                    this.echoValue += this.tiers[tier] + TIER_MIN; //Tier Value + Min Value
+                } else {
+                    this.echoValue += this.tiers[tier]; //Tier Value
+                }
             }
         } else if (this.name == "Echo") {
             this.echoValue = -20;
@@ -576,7 +680,7 @@ class ModelTeam {
         }
     }
 
-    calcScores(tier, map, point, adc, pointType, enemyHeroes) {
+    calcScores(tier, map, point, adc, pointType, enemyHeroes, isWeighted) {
         let alliedHeroes = this.selectedHeroes;
 
         this.resetValues();
@@ -591,7 +695,8 @@ class ModelTeam {
                 adc,
                 pointType,
                 alliedHeroes,
-                enemyHeroes
+                enemyHeroes,
+                isWeighted
             );
 
             if (isHeroSelected) {
@@ -600,7 +705,7 @@ class ModelTeam {
         }
     }
 
-    calcEchoScores(tier, map, point, adc, pointType, enemyHeroes) {
+    calcEchoScores(tier, map, point, adc, pointType, enemyHeroes, isWeighted) {
         let alliedHeroes = this.selectedHeroes;
 
         this.resetEchoValues();
@@ -616,7 +721,8 @@ class ModelTeam {
                     adc,
                     pointType,
                     alliedHeroes,
-                    enemyHeroes
+                    enemyHeroes,
+                    isWeighted
                 );
             }
         }
@@ -712,6 +818,7 @@ class ModelOverPiker {
         this.FIVE_VS_FIVE = 2;
         this.MAP_POOLS = 3;
         this.HERO_ROTATION = 4;
+        this.WEIGHTED_SCORES = 5;
 
         //General
         this.APIData = new ModelAPI();
@@ -849,6 +956,12 @@ class ModelOverPiker {
                 text: "Hero Rotation",
                 id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
+                hidden: true,
+            },
+            {
+                text: "Weighted Scores",
+                id: `cb${getSelectValue("Weighted Scores")}`,
+                state: false,
                 hidden: true,
             },
         ];
@@ -1064,6 +1177,7 @@ class ModelOverPiker {
         let mapType = "None";
         let pointType = "None";
         let pointNumber = 0;
+        let isWeighted = this.panelOptions[this.WEIGHTED_SCORES].state;
 
         map =
             this.panelSelections[1].options[
@@ -1100,7 +1214,8 @@ class ModelOverPiker {
             point,
             adc,
             pointType,
-            this.teams["Red"].selectedHeroes
+            this.teams["Red"].selectedHeroes,
+            isWeighted
         );
         this.teams["Red"].calcEchoScores(
             tier,
@@ -1108,7 +1223,8 @@ class ModelOverPiker {
             point,
             adc,
             pointType,
-            this.teams["Blue"].selectedHeroes
+            this.teams["Blue"].selectedHeroes,
+            isWeighted
         );
 
         //When blue team attack, red team deffends and viceversa
@@ -1119,7 +1235,8 @@ class ModelOverPiker {
                 point,
                 "Defense",
                 pointType,
-                this.teams["Blue"].selectedHeroes
+                this.teams["Blue"].selectedHeroes,
+                isWeighted
             );
             this.teams["Blue"].calcEchoScores(
                 tier,
@@ -1127,7 +1244,8 @@ class ModelOverPiker {
                 point,
                 adc,
                 pointType,
-                this.teams["Red"].selectedHeroes
+                this.teams["Red"].selectedHeroes,
+                isWeighted
             );
         } else if (adc == "Defense") {
             this.teams["Red"].calcScores(
@@ -1136,7 +1254,8 @@ class ModelOverPiker {
                 point,
                 "Attack",
                 pointType,
-                this.teams["Blue"].selectedHeroes
+                this.teams["Blue"].selectedHeroes,
+                isWeighted
             );
             this.teams["Blue"].calcEchoScores(
                 tier,
@@ -1144,7 +1263,8 @@ class ModelOverPiker {
                 point,
                 adc,
                 pointType,
-                this.teams["Red"].selectedHeroes
+                this.teams["Red"].selectedHeroes,
+                isWeighted
             );
         } else if (adc == "A-Team") {
             this.teams["Red"].calcScores(
@@ -1153,7 +1273,8 @@ class ModelOverPiker {
                 point,
                 "E-Team",
                 pointType,
-                this.teams["Blue"].selectedHeroes
+                this.teams["Blue"].selectedHeroes,
+                isWeighted
             );
             this.teams["Blue"].calcEchoScores(
                 tier,
@@ -1161,7 +1282,8 @@ class ModelOverPiker {
                 point,
                 adc,
                 pointType,
-                this.teams["Red"].selectedHeroes
+                this.teams["Red"].selectedHeroes,
+                isWeighted
             );
         } else if (adc == "A-Team") {
             this.teams["Red"].calcScores(
@@ -1170,7 +1292,8 @@ class ModelOverPiker {
                 point,
                 "A-Team",
                 pointType,
-                this.teams["Blue"].selectedHeroes
+                this.teams["Blue"].selectedHeroes,
+                isWeighted
             );
             this.teams["Blue"].calcEchoScores(
                 tier,
@@ -1178,7 +1301,8 @@ class ModelOverPiker {
                 point,
                 adc,
                 pointType,
-                this.teams["Red"].selectedHeroes
+                this.teams["Red"].selectedHeroes,
+                isWeighted
             );
         } else {
             this.teams["Red"].calcScores(
@@ -1187,7 +1311,8 @@ class ModelOverPiker {
                 point,
                 adc,
                 pointType,
-                this.teams["Blue"].selectedHeroes
+                this.teams["Blue"].selectedHeroes,
+                isWeighted
             );
             this.teams["Blue"].calcEchoScores(
                 tier,
@@ -1195,7 +1320,8 @@ class ModelOverPiker {
                 point,
                 adc,
                 pointType,
-                this.teams["Red"].selectedHeroes
+                this.teams["Red"].selectedHeroes,
+                isWeighted
             );
         }
     }
