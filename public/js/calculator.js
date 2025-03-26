@@ -369,14 +369,12 @@ class ModelHero {
         for (let eh in enemyHeroes) {
             let enemyHero = enemyHeroes[eh];
 
-            if (enemyHero != this.name) {
-                if (isWeighted) {
-                    counterValue +=
-                        this.counters[enemyHero] * COUNTER_WEIGHT +
-                        MIN_COUNTER_VALUE;
-                } else {
-                    counterValue += this.counters[enemyHero];
-                }
+            if (isWeighted) {
+                counterValue +=
+                    this.counters[enemyHero] * COUNTER_WEIGHT +
+                    MIN_COUNTER_VALUE;
+            } else {
+                counterValue += this.counters[enemyHero];
             }
         }
 
