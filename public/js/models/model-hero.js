@@ -139,11 +139,27 @@ class ModelHero {
         if (map != "None") {
             // Check if point is "none" to use map-level score
             if (point === "none") {
-                if (isWeighted) {
-                    this.value +=
-                        this.maps["Maps"][map] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Map Level Value
+                if (this.maps["Maps"] && this.maps["Maps"][map] !== undefined) {
+                    // Use map-level score if available
+                    if (isWeighted) {
+                        this.value +=
+                            this.maps["Maps"][map] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Map Level Value
+                    } else {
+                        this.value += this.maps["Maps"][map]; //Map Level Value
+                    }
                 } else {
-                    this.value += this.maps["Maps"][map]; //Map Level Value
+                    // Fallback: use the first point's score if map-level score is not available
+                    let firstPoint = Object.keys(this.maps[adc][map])[0];
+                    if (firstPoint) {
+                        if (isWeighted) {
+                            this.value +=
+                                this.maps[adc][map][firstPoint] * MAPAD_WEIGHT +
+                                MIN_MAPAD_VALUE; //First Point Value
+                        } else {
+                            this.value += this.maps[adc][map][firstPoint]; //First Point Value
+                        }
+                    }
                 }
             } else {
                 if (isWeighted) {
@@ -212,12 +228,32 @@ class ModelHero {
             if (map != "None") {
                 // Check if point is "none" to use map-level score
                 if (point === "none") {
-                    if (isWeighted) {
-                        this.echoValue +=
-                            this.maps["Maps"][map] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Map Level Value
+                    if (
+                        this.maps["Maps"] &&
+                        this.maps["Maps"][map] !== undefined
+                    ) {
+                        // Use map-level score if available
+                        if (isWeighted) {
+                            this.echoValue +=
+                                this.maps["Maps"][map] * MAPAD_WEIGHT +
+                                MIN_MAPAD_VALUE; //Map Level Value
+                        } else {
+                            this.echoValue += this.maps["Maps"][map]; //Map Level Value
+                        }
                     } else {
-                        this.echoValue += this.maps["Maps"][map]; //Map Level Value
+                        // Fallback: use the first point's score if map-level score is not available
+                        let firstPoint = Object.keys(this.maps[adc][map])[0];
+                        if (firstPoint) {
+                            if (isWeighted) {
+                                this.echoValue +=
+                                    this.maps[adc][map][firstPoint] *
+                                        MAPAD_WEIGHT +
+                                    MIN_MAPAD_VALUE; //First Point Value
+                            } else {
+                                this.echoValue +=
+                                    this.maps[adc][map][firstPoint]; //First Point Value
+                            }
+                        }
                     }
                 } else {
                     if (isWeighted) {
