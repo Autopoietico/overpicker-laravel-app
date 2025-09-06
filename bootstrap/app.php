@@ -1,5 +1,8 @@
 <?php
 
+// Suppress deprecation warnings in production
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
