@@ -664,7 +664,20 @@ class ModelOverPiker {
             this.panelSelections[3].selectedIndex = 0;
         }
 
+        // Save the current point selection before rebuilding options
+        let currentPoint = this.panelSelections[2].options[pointNumber];
+
         this.loadMapSelections();
+
+        // Restore the point selection after rebuilding options if it still exists
+        if (map != "None" && currentPoint) {
+            let pointIndex =
+                this.panelSelections[2].options.indexOf(currentPoint);
+            if (pointIndex !== -1) {
+                this.panelSelections[2].selectedIndex = pointIndex;
+            }
+        }
+
         this._commitSelections(this.panelSelections, this.gearOptionsState);
     }
 
