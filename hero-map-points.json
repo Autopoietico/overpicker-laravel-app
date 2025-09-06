@@ -1,0 +1,128 @@
+{
+    "Ana": {
+        "Attack": {
+            "Hanamura": {
+                "A": 0,
+                "B": 10
+            },
+            "Horizon Lunar Colony": {
+                "A": 10,
+                "B": 10
+            },
+            "Circuit Royal": {
+                "A": 10,
+                "B": 0,
+                "C": 10
+            },
+            "Dorado": {
+                "A": 0,
+                "B": 0,
+                "C": 0
+            }
+        },
+        "Defense": {
+            "Hanamura": {
+                "A": 10,
+                "B": 10
+            },
+            "Horizon Lunar Colony": {
+                "A": 0,
+                "B": 10
+            },
+            "Circuit Royal": {
+                "A": 10,
+                "B": 10,
+                "C": 10
+            },
+            "Dorado": {
+                "A": 10,
+                "B": 10,
+                "C": 0
+            }
+        },
+        "Push": {
+            "Colosseo": {
+                "Ally": 10,
+                "Mid": 10,
+                "Enemy": 0
+            },
+            "Esperança": {
+                "Ally": 10,
+                "Mid": 10,
+                "Enemy": 0
+            }
+        },
+        "Flashpoint": {
+            "New Junk City": {
+                "Arena": 10,
+                "Ducts": 10,
+                "Refinery": 0,
+                "Junkyard": 10,
+                "Bomb Flats": 0
+            },
+            "Aatlis": {
+                "Station": 10,
+                "Bazaar": 0,
+                "Resort": 0,
+                "Town Center": 0,
+                "Garden": 0
+            }
+        },
+        "A-Team": {
+            "Hanaoka": {
+                "A": 0,
+                "B": 0,
+                "C": 0,
+                "D": 10,
+                "E": 10
+            },
+            "Throne of Anubis": {
+                "A": 20,
+                "B": 0,
+                "C": 0,
+                "D": 0,
+                "E": 0
+            }
+        },
+        "E-Team": {
+            "Hanaoka": {
+                "A": 10,
+                "B": 10,
+                "C": 0,
+                "D": 0,
+                "E": 0
+            },
+            "Throne of Anubis": {
+                "A": 0,
+                "B": 0,
+                "C": 0,
+                "D": 0,
+                "E": 20
+            }
+        },
+        "Control": {
+            "Ilios": {
+                "Ruins": 10,
+                "Lighthouse": 0,
+                "Well": 0
+            },
+            "Lijiang Tower": {
+                "Night Market": 0,
+                "Garden": 0,
+                "Control Center": 10
+            }
+        },
+        "Maps": {
+            "Hanamura": 20,
+            "Horizon Lunar Colony": 20,
+            "Circuit Royale": 10,
+            "Dorado": 0,
+            "Colosseo": -10,
+            "Esperança": 0,
+            "Hanaoka": 20,
+            "Throne of Anubis": 10,
+            "Ilios": -20,
+            "Lijiang Tower": 0
+        }
+    }
+}

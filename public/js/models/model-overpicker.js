@@ -322,7 +322,8 @@ class ModelOverPiker {
                 const mapName = this.panelSelections[1].options[selIndex];
                 let map = this.maps[mapName];
 
-                this.panelSelections[2].options = [];
+                // Add "none" option for map-level scores
+                this.panelSelections[2].options = ["none"];
 
                 for (let p in map.points) {
                     this.panelSelections[2].options.push(map.points[p]);

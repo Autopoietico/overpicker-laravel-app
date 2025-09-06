@@ -137,11 +137,22 @@ class ModelHero {
         this.value = 0;
 
         if (map != "None") {
-            if (isWeighted) {
-                this.value +=
-                    this.maps[adc][map][point] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Point Value
+            // Check if point is "none" to use map-level score
+            if (point === "none") {
+                if (isWeighted) {
+                    this.value +=
+                        this.maps["Maps"][map] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Map Level Value
+                } else {
+                    this.value += this.maps["Maps"][map]; //Map Level Value
+                }
             } else {
-                this.value += this.maps[adc][map][point]; //Point Value
+                if (isWeighted) {
+                    this.value +=
+                        this.maps[adc][map][point] * MAPAD_WEIGHT +
+                        MIN_MAPAD_VALUE; //Point Value
+                } else {
+                    this.value += this.maps[adc][map][point]; //Point Value
+                }
             }
         }
 
@@ -199,12 +210,23 @@ class ModelHero {
 
         if (this.name != "Echo" && this.selected) {
             if (map != "None") {
-                if (isWeighted) {
-                    this.echoValue +=
-                        this.maps[adc][map][point] * MAPAD_WEIGHT +
-                        MIN_MAPAD_VALUE; //Point Value
+                // Check if point is "none" to use map-level score
+                if (point === "none") {
+                    if (isWeighted) {
+                        this.echoValue +=
+                            this.maps["Maps"][map] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Map Level Value
+                    } else {
+                        this.echoValue += this.maps["Maps"][map]; //Map Level Value
+                    }
                 } else {
-                    this.echoValue += this.maps[adc][map][point]; //Point Value
+                    if (isWeighted) {
+                        this.echoValue +=
+                            this.maps[adc][map][point] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Point Value
+                    } else {
+                        this.echoValue += this.maps[adc][map][point]; //Point Value
+                    }
                 }
             }
 
