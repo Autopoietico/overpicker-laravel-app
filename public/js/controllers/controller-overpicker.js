@@ -35,6 +35,9 @@ class ControllerOverPiker {
         this.model.bindSelectedHeroesChanged(this.onSelectedHeroesChanged);
         this.view.bindSelectedHeroes(this.handleSelectedHeroes);
 
+        //Bind controller with Border Rotation
+        this.view.bindBorderRotation(this.handleBorderRotation);
+
         //Bind View with Model
         this.onOptionsChanged(
             this.model.panelOptions,
@@ -115,6 +118,15 @@ class ControllerOverPiker {
 
     handleSelectedHeroes = (team, hero, role) => {
         this.model.editSelectedHeroes(team, hero, role);
+    };
+
+    handleBorderRotation = (team, hero) => {
+        this.model.rotateHeroBorder(team, hero);
+        // Refresh the display to show the updated border
+        this.onSelectedHeroesChanged(
+            this.model.teams,
+            this.model.selectedHeroes
+        );
     };
 
     loadAPIJSON(apiURL, jsonURL) {

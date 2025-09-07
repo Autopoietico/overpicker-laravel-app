@@ -322,7 +322,7 @@ class ViewOverPiker {
         return element;
     }
 
-    createHeroFigure(hero, team, value, heroIMG, notRound) {
+    createHeroFigure(hero, team, value, heroIMG, notRound, borderState = 0) {
         const figure = this.createElement("figure", "hero-value");
 
         figure.classList.add(
@@ -381,6 +381,15 @@ class ViewOverPiker {
             const img = heroIMG;
             img.classList.add("h-14", "justify-self-center");
             img.alt = hero + " icon";
+
+            // Add border classes based on borderState
+            if (borderState === 1) {
+                img.classList.add("border", "border-green-500");
+            } else if (borderState === 2) {
+                img.classList.add("border", "border-yellow-500");
+            } else if (borderState === 3) {
+                img.classList.add("border", "border-red-500");
+            }
 
             if (!notRound) {
                 img.classList.add("rounded-t-lg");
@@ -647,9 +656,11 @@ class ViewOverPiker {
             let enemyEcho = teams["Red"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
             let notRound = false;
+            let borderState = 0;
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
+                borderState = teams[team].heroes[hero].borderState;
 
                 //This get the img and the value of notRound
                 let IMGRound = this.getIMGandNotRound(
@@ -671,7 +682,8 @@ class ViewOverPiker {
                 team,
                 value,
                 heroIMG,
-                notRound
+                notRound,
+                borderState
             );
             this.teamBlueComposition.append(figure);
         }
@@ -685,9 +697,11 @@ class ViewOverPiker {
             let enemyEcho = teams["Blue"].hasEcho;
             let bestCopyHeroes = teams[team].bestCopyHeroes;
             let notRound = false;
+            let borderState = 0;
 
             if (hero != "None") {
                 value = teams[team].heroes[hero].value;
+                borderState = teams[team].heroes[hero].borderState;
 
                 //This get the img and the value of notRound
                 let IMGRound = this.getIMGandNotRound(
@@ -709,7 +723,8 @@ class ViewOverPiker {
                 team,
                 value,
                 heroIMG,
-                notRound
+                notRound,
+                borderState
             );
             this.teamRedComposition.append(figure);
         }
@@ -960,7 +975,8 @@ class ViewOverPiker {
                         t,
                         hero.value,
                         hero.getIMG(iconOptionSelect),
-                        notRound
+                        notRound,
+                        hero.borderState
                     );
 
                     const figHero = figHeroOption;
@@ -1069,6 +1085,9 @@ class ViewOverPiker {
     }
 
     bindSelectedHeroes(handler) {
+        // Add border rotation handler
+        this.onBorderRotation = null;
+
         this.teamBlueComposition.addEventListener("click", (event) => {
             let element;
             let team = "Blue";
@@ -1080,11 +1099,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero);
+                }
             }
         });
 
@@ -1100,11 +1124,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero, role);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero, role);
+                }
             }
         });
 
@@ -1120,11 +1149,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero, role);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero, role);
+                }
             }
         });
 
@@ -1140,11 +1174,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero, role);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero, role);
+                }
             }
         });
 
@@ -1159,11 +1198,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero);
+                }
             }
         });
 
@@ -1179,11 +1223,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero, role);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero, role);
+                }
             }
         });
 
@@ -1199,11 +1248,16 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero, role);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero, role);
+                }
             }
         });
 
@@ -1219,13 +1273,22 @@ class ViewOverPiker {
             }
 
             if (element) {
-                let hero;
+                let hero = element.getAttribute("data-name");
 
-                hero = element.getAttribute("data-name");
-
-                handler(team, hero, role);
+                // Check if Shift key is pressed for border rotation
+                if (event.shiftKey) {
+                    if (this.onBorderRotation) {
+                        this.onBorderRotation(team, hero);
+                    }
+                } else {
+                    handler(team, hero, role);
+                }
             }
         });
+    }
+
+    bindBorderRotation(handler) {
+        this.onBorderRotation = handler;
     }
 
     updateVersion(version) {

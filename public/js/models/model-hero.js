@@ -36,6 +36,7 @@ class ModelHero {
 
         this.selected = false;
         this.filtered = false;
+        this.borderState = 0; // 0 = no border, 1 = green, 2 = yellow, 3 = red
     }
 
     addIMG(IMGUrl, type) {

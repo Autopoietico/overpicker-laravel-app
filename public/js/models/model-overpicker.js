@@ -822,6 +822,14 @@ class ModelOverPiker {
             this._commitSelectedHeroes(this.teams, this.selectedHeroes);
         }
     }
+    rotateHeroBorder(team, heroName) {
+        // Rotate the border state for the specified hero
+        if (this.teams[team] && this.teams[team].heroes[heroName]) {
+            let hero = this.teams[team].heroes[heroName];
+            // Rotate through states: 0 (no border) -> 1 (green) -> 2 (yellow) -> 3 (red) -> 0 (no border)
+            hero.borderState = (hero.borderState + 1) % 4;
+        }
+    }
 }
 
 export default ModelOverPiker;
