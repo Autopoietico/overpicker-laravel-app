@@ -362,6 +362,15 @@ class ViewOverPiker {
                 "hover:-translate-y-1"
             );
 
+            // Add border classes based on borderState
+            if (borderState === 1) {
+                figure.classList.add("border", "border-green-500");
+            } else if (borderState === 2) {
+                figure.classList.add("border", "border-yellow-500");
+            } else if (borderState === 3) {
+                figure.classList.add("border", "border-red-500");
+            }
+
             figure.dataset.name = hero;
             figure.dataset.team = team;
 
@@ -381,15 +390,6 @@ class ViewOverPiker {
             const img = heroIMG;
             img.classList.add("h-14", "justify-self-center");
             img.alt = hero + " icon";
-
-            // Add border classes based on borderState
-            if (borderState === 1) {
-                img.classList.add("border", "border-green-500");
-            } else if (borderState === 2) {
-                img.classList.add("border", "border-yellow-500");
-            } else if (borderState === 3) {
-                img.classList.add("border", "border-red-500");
-            }
 
             if (!notRound) {
                 img.classList.add("rounded-t-lg");
