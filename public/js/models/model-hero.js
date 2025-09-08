@@ -137,7 +137,7 @@ class ModelHero {
         isWeighted
     ) {
         this.value = 0;
-
+        debugger;
         if (map != "None") {
             // Check if point is "None" to use map-level score
             if (point === "None") {
@@ -172,40 +172,41 @@ class ModelHero {
                     this.value += this.maps[adc][map][point]; //Point Value
                 }
             }
-        }
 
-        if (adc != "None" && pointType != "None" && point != "None") {
-            if (pointType == "Control" || pointType == "Flashpoint") {
+            if (adc != "None" && pointType != "None" && point != "None") {
+                if (pointType == "Control" || pointType == "Flashpoint") {
+                    if (isWeighted) {
+                        this.value +=
+                            this.adc["General"][pointType] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                    } else {
+                        this.value += this.adc["General"][pointType]; //Control or Flashpoint Value
+                    }
+                } else if (pointType == "Push") {
+                    if (isWeighted) {
+                        this.value +=
+                            this.adc[adc][point] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Push Value
+                    } else {
+                        this.value += this.adc[adc][point]; //Push Value
+                    }
+                } else {
+                    if (isWeighted) {
+                        this.value +=
+                            this.adc[adc][pointType][point] * MAPAD_WEIGHT +
+                            MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
+                    } else {
+                        this.value += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
+                    }
+                }
+            } else if (point === "None") {
                 if (isWeighted) {
                     this.value +=
-                        this.adc["General"][pointType] * MAPAD_WEIGHT +
-                        MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                        this.adc["General"][mapType] * MAPAD_WEIGHT +
+                        MIN_MAPAD_VALUE;
                 } else {
-                    this.value += this.adc["General"][pointType]; //Control or Flashpoint Value
+                    this.value += this.adc["General"][mapType];
                 }
-            } else if (pointType == "Push") {
-                if (isWeighted) {
-                    this.value +=
-                        this.adc[adc][point] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Push Value
-                } else {
-                    this.value += this.adc[adc][point]; //Push Value
-                }
-            } else {
-                if (isWeighted) {
-                    this.value +=
-                        this.adc[adc][pointType][point] * MAPAD_WEIGHT +
-                        MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
-                } else {
-                    this.value += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
-                }
-            }
-        } else if (point === "None") {
-            if (isWeighted) {
-                this.value +=
-                    this.adc["General"][mapType] * MAPAD_WEIGHT +
-                    MIN_MAPAD_VALUE;
-            } else {
-                this.value += this.adc["General"][mapType];
             }
         }
 
@@ -274,47 +275,47 @@ class ModelHero {
                         this.echoValue += this.maps[adc][map][point]; //Point Value
                     }
                 }
-            }
 
-            if (adc != "None" && pointType != "None" && point != "None") {
-                if (pointType == "Control" || pointType == "Flashpoint") {
+                if (adc != "None" && pointType != "None" && point != "None") {
+                    if (pointType == "Control" || pointType == "Flashpoint") {
+                        if (isWeighted) {
+                            this.echoValue +=
+                                this.adc["General"][pointType] * MAPAD_WEIGHT +
+                                MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                        } else {
+                            this.echoValue += this.adc["General"][pointType]; //Control or Flashpoint Value
+                        }
+                    } else if (pointType == "Push") {
+                        if (point == "Ally") {
+                            point = "Enemy";
+                        } else {
+                            point = "Ally";
+                        }
+
+                        if (isWeighted) {
+                            this.echoValue +=
+                                this.adc[adc][point] * MAPAD_WEIGHT +
+                                MIN_MAPAD_VALUE; //Push Value
+                        } else {
+                            this.echoValue += this.adc[adc][point]; //Push Value
+                        }
+                    } else {
+                        if (isWeighted) {
+                            this.echoValue +=
+                                this.adc[adc][pointType][point] * MAPAD_WEIGHT +
+                                MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
+                        } else {
+                            this.echoValue += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
+                        }
+                    }
+                } else if (point === "None") {
                     if (isWeighted) {
                         this.echoValue +=
-                            this.adc["General"][pointType] * MAPAD_WEIGHT +
+                            this.adc["General"][mapType] * MAPAD_WEIGHT +
                             MIN_MAPAD_VALUE; //Control or Flashpoint Value
                     } else {
-                        this.echoValue += this.adc["General"][pointType]; //Control or Flashpoint Value
+                        this.echoValue += this.adc["General"][mapType];
                     }
-                } else if (pointType == "Push") {
-                    if (point == "Ally") {
-                        point = "Enemy";
-                    } else {
-                        point = "Ally";
-                    }
-
-                    if (isWeighted) {
-                        this.echoValue +=
-                            this.adc[adc][point] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Push Value
-                    } else {
-                        this.echoValue += this.adc[adc][point]; //Push Value
-                    }
-                } else {
-                    if (isWeighted) {
-                        this.echoValue +=
-                            this.adc[adc][pointType][point] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
-                    } else {
-                        this.echoValue += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
-                    }
-                }
-            } else if (point === "None") {
-                if (isWeighted) {
-                    this.echoValue +=
-                        this.adc["General"][mapType] * MAPAD_WEIGHT +
-                        MIN_MAPAD_VALUE; //Control or Flashpoint Value
-                } else {
-                    this.echoValue += this.adc["General"][mapType];
                 }
             }
 
