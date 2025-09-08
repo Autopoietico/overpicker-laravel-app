@@ -168,7 +168,16 @@ class ModelTeam {
         }
     }
 
-    calcScores(tier, map, point, adc, pointType, enemyHeroes, isWeighted) {
+    calcScores(
+        tier,
+        map,
+        point,
+        adc,
+        mapType,
+        pointType,
+        enemyHeroes,
+        isWeighted
+    ) {
         let alliedHeroes = this.selectedHeroes;
 
         this.resetValues();
@@ -181,6 +190,7 @@ class ModelTeam {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 alliedHeroes,
                 enemyHeroes,

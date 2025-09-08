@@ -130,6 +130,7 @@ class ModelHero {
         map,
         point,
         adc,
+        mapType,
         pointType,
         alliedHeroes,
         enemyHeroes,
@@ -138,8 +139,8 @@ class ModelHero {
         this.value = 0;
 
         if (map != "None") {
-            // Check if point is "none" to use map-level score
-            if (point === "none") {
+            // Check if point is "None" to use map-level score
+            if (point === "None") {
                 if (this.maps["Maps"] && this.maps["Maps"][map] !== undefined) {
                     // Use map-level score if available
                     if (isWeighted) {
@@ -173,13 +174,14 @@ class ModelHero {
             }
         }
 
-        if (adc != "None" && pointType != "None") {
+        if (adc != "None" && pointType != "None" && point != "None") {
             if (pointType == "Control" || pointType == "Flashpoint") {
                 if (isWeighted) {
                     this.value +=
-                        this.adc[pointType] * MAPAD_WEIGHT + MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                        this.adc["General"][pointType] * MAPAD_WEIGHT +
+                        MIN_MAPAD_VALUE; //Control or Flashpoint Value
                 } else {
-                    this.value += this.adc[pointType]; //Control or Flashpoint Value
+                    this.value += this.adc["General"][pointType]; //Control or Flashpoint Value
                 }
             } else if (pointType == "Push") {
                 if (isWeighted) {
@@ -197,11 +199,18 @@ class ModelHero {
                     this.value += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
                 }
             }
+        } else if (point === "None") {
+            if (isWeighted) {
+                this.value +=
+                    this.adc["General"][mapType] * MAPAD_WEIGHT +
+                    MIN_MAPAD_VALUE;
+            } else {
+                this.value += this.adc["General"][mapType];
+            }
         }
 
         this.value += this.getSinergyValue(alliedHeroes, isWeighted); //Synergies Values
         this.value += this.getCounterValue(enemyHeroes, isWeighted); //Counters Values
-
         if (tier != "None") {
             if (isWeighted) {
                 this.value += this.tiers[tier] + TIER_MIN; //Tier Value + Min Value
@@ -228,7 +237,7 @@ class ModelHero {
         if (this.name != "Echo" && this.selected) {
             if (map != "None") {
                 // Check if point is "none" to use map-level score
-                if (point === "none") {
+                if (point === "None") {
                     if (
                         this.maps["Maps"] &&
                         this.maps["Maps"][map] !== undefined
@@ -267,14 +276,14 @@ class ModelHero {
                 }
             }
 
-            if (adc != "None" && pointType != "None") {
+            if (adc != "None" && pointType != "None" && point != "None") {
                 if (pointType == "Control" || pointType == "Flashpoint") {
                     if (isWeighted) {
                         this.echoValue +=
-                            this.adc[pointType] * MAPAD_WEIGHT +
+                            this.adc["General"][pointType] * MAPAD_WEIGHT +
                             MIN_MAPAD_VALUE; //Control or Flashpoint Value
                     } else {
-                        this.echoValue += this.adc[pointType]; //Control or Flashpoint Value
+                        this.echoValue += this.adc["General"][pointType]; //Control or Flashpoint Value
                     }
                 } else if (pointType == "Push") {
                     if (point == "Ally") {
@@ -298,6 +307,14 @@ class ModelHero {
                     } else {
                         this.echoValue += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
                     }
+                }
+            } else if (point === "None") {
+                if (isWeighted) {
+                    this.echoValue +=
+                        this.adc["General"][mapType] * MAPAD_WEIGHT +
+                        MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                } else {
+                    this.echoValue += this.adc["General"][mapType];
                 }
             }
 

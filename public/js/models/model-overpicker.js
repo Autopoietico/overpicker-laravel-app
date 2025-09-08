@@ -323,7 +323,7 @@ class ModelOverPiker {
                 let map = this.maps[mapName];
 
                 // Add "none" option for map-level scores
-                this.panelSelections[2].options = ["none"];
+                this.panelSelections[2].options = ["None"];
 
                 for (let p in map.points) {
                     this.panelSelections[2].options.push(map.points[p]);
@@ -393,15 +393,17 @@ class ModelOverPiker {
             ];
         pointNumber = this.panelSelections[2].selectedIndex;
 
+        point = this.panelSelections[2].options[pointNumber];
+
         if (map != "None") {
             mapType = this.maps[map].type;
 
             //The map type depend from the map, but also for the point (first point in Hybrid is assault)
-            pointNumber = this.panelSelections[2].selectedIndex;
+            if (pointNumber != 0) {
+                pointNumber = this.panelSelections[2].selectedIndex - 1; //Since the adition of the option "None" for points this -1 is necesary
+            }
             pointType = this.mapTypes[mapType].pointsType[pointNumber];
         }
-
-        point = this.panelSelections[2].options[pointNumber];
 
         //Even if a tier is selected we don't want to send it to the teams when the tier option is no selected
         if (isTierSelected) {
@@ -417,6 +419,7 @@ class ModelOverPiker {
             map,
             point,
             adc,
+            mapType,
             pointType,
             this.teams["Red"].selectedHeroes,
             isWeighted
@@ -426,6 +429,7 @@ class ModelOverPiker {
             map,
             point,
             adc,
+            mapType,
             pointType,
             this.teams["Blue"].selectedHeroes,
             isWeighted
@@ -438,6 +442,7 @@ class ModelOverPiker {
                 map,
                 point,
                 "Defense",
+                mapType,
                 pointType,
                 this.teams["Blue"].selectedHeroes,
                 isWeighted
@@ -457,6 +462,7 @@ class ModelOverPiker {
                 map,
                 point,
                 "Attack",
+                mapType,
                 pointType,
                 this.teams["Blue"].selectedHeroes,
                 isWeighted
@@ -476,6 +482,7 @@ class ModelOverPiker {
                 map,
                 point,
                 "E-Team",
+                mapType,
                 pointType,
                 this.teams["Blue"].selectedHeroes,
                 isWeighted
@@ -495,6 +502,7 @@ class ModelOverPiker {
                 map,
                 point,
                 "A-Team",
+                mapType,
                 pointType,
                 this.teams["Blue"].selectedHeroes,
                 isWeighted
@@ -514,6 +522,7 @@ class ModelOverPiker {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 this.teams["Blue"].selectedHeroes,
                 isWeighted
