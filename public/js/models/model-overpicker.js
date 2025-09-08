@@ -452,6 +452,7 @@ class ModelOverPiker {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 this.teams["Red"].selectedHeroes,
                 isWeighted
@@ -472,6 +473,7 @@ class ModelOverPiker {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 this.teams["Red"].selectedHeroes,
                 isWeighted
@@ -492,6 +494,7 @@ class ModelOverPiker {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 this.teams["Red"].selectedHeroes,
                 isWeighted
@@ -512,6 +515,7 @@ class ModelOverPiker {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 this.teams["Red"].selectedHeroes,
                 isWeighted
@@ -532,6 +536,7 @@ class ModelOverPiker {
                 map,
                 point,
                 adc,
+                mapType,
                 pointType,
                 this.teams["Red"].selectedHeroes,
                 isWeighted

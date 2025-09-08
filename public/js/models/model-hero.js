@@ -137,7 +137,7 @@ class ModelHero {
         isWeighted
     ) {
         this.value = 0;
-        debugger;
+
         if (map != "None") {
             // Check if point is "None" to use map-level score
             if (point === "None") {
@@ -226,6 +226,7 @@ class ModelHero {
         map,
         point,
         adc,
+        mapType,
         pointType,
         alliedHeroes,
         enemyHeroes,

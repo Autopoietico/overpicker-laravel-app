@@ -203,7 +203,16 @@ class ModelTeam {
         }
     }
 
-    calcEchoScores(tier, map, point, adc, pointType, enemyHeroes, isWeighted) {
+    calcEchoScores(
+        tier,
+        map,
+        point,
+        adc,
+        mapType,
+        pointType,
+        enemyHeroes,
+        isWeighted
+    ) {
         let alliedHeroes = this.selectedHeroes;
 
         this.resetEchoValues();
@@ -217,6 +226,7 @@ class ModelTeam {
                     map,
                     point,
                     adc,
+                    mapType,
                     pointType,
                     alliedHeroes,
                     enemyHeroes,
