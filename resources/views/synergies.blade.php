@@ -113,6 +113,42 @@
             </table>
         </div>
 
+        <!-- Synergies Legend -->
+        <div class="mt-8 p-4 bg-[#294452] rounded-lg max-w-2xl m-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+                <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center mb-1">
+                        <span class="font-bold text-white text-xs">20</span>
+                    </div>
+                    <span class="text-xs text-center">Must Pick</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 bg-green-400 rounded flex items-center justify-center mb-1">
+                        <span class="font-bold text-white text-xs">10</span>
+                    </div>
+                    <span class="text-xs text-center">Good Synergy</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 bg-gray-300 rounded flex items-center justify-center mb-1">
+                        <span class="font-bold text-white text-xs">0</span>
+                    </div>
+                    <span class="text-xs text-center">Decent</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 bg-red-200 rounded flex items-center justify-center mb-1">
+                        <span class="font-bold text-white text-xs">-10</span>
+                    </div>
+                    <span class="text-xs text-center">No Synergy</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center mb-1">
+                        <span class="font-bold text-white text-xs">-20</span>
+                    </div>
+                    <span class="text-xs text-center">Antisynergy</span>
+                </div>
+            </div>
+        </div>
+
         <div class="mt-4 text-center">
             <button id="resetFilter" class="px-4 py-2 bg-[#29452] text-white rounded hover:bg-gray-600">
                 Reset Filters
