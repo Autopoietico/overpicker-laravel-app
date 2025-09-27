@@ -13,24 +13,24 @@
             <p class="sm:text-lg">
                 This page shows the synergies between heroes in Overwatch.
                 The matrix displays how well each hero works with others.
+                The hero in the top is the hero already selected, the hero in the left is the recommended hero to pick.
             </p>
         </div>
 
         <!-- Synergies Matrix Table -->
         <div class="mt-10 text-center overflow-x-auto">
-            <h2 class="font-bold text-2xl mb-4 fjalla">Hero Synergies Matrix</h2>
             <table class="w-full min-w-max" id="synergiesTable">
                 <thead>
-                    <tr class="bg-white bg-color-text fjalla text-xl">
-                        <th class="p-2">Hero</th>
+                    <tr class=" fjalla text-xl">
+                        <th class="p-2 bg-white bg-color-text">Hero</th>
                         @foreach ($heroes as $hero)
                             @php
                                 $heroImage = $hero_images[$hero['name']] ?? 'images/assets/blank-hero.webp';
                                 $role = $hero_roles[$hero['name']] ?? 'Unknown';
                             @endphp
-                            <th class="p-2 text-xs sm:text-sm" data-hero="{{ $hero['name'] }}"
+                            <th class="p-2 text-xs sm:text-sm odd:bg-[#294452]" data-hero="{{ $hero['name'] }}"
                                 data-role="{{ $role }}" onclick="filterByHero('{{ $hero['name'] }}')">
-                                <div class="flex flex-col items-center cursor-pointer hover:bg-gray-200 rounded p-1">
+                                <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
                                     <img src="{{ $heroImage }}" alt="{{ $hero['name'] }} profile"
                                         class="w-8 h-8 rounded-lg">
                                     <span class="mt-1">{{ $hero['name'] }}</span>
@@ -61,7 +61,7 @@
                             data-role="{{ $role }}">
                             <td class="p-2" data-hero="{{ $heroName }}" data-role="{{ $role }}"
                                 onclick="filterByRowHero('{{ $heroName }}')">
-                                <div class="flex flex-col items-center cursor-pointer hover:bg-gray-200 rounded p-1">
+                                <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
                                     <img src="{{ $heroImage }}" alt="{{ $heroName }} profile"
                                         class="w-10 h-10 rounded-lg">
                                     <h4 class="text-xs abel font-medium truncate max-w-[80px]">
@@ -202,115 +202,6 @@
 
                     cell.style.display = showCell ? '' : 'none';
                 });
-
-                // Update visual indication for active filters
-                updateFilterIndicators();
-            }
-
-            // Function to update visual indicators for active filters
-            function updateFilterIndicators() {
-                // Reset all indicators
-                headerCells.forEach(cell => {
-                    cell.classList.remove('bg-yellow-200', 'bg-blue-200', 'bg-purple-200');
-                });
-
-                firstColumnCells.forEach(cell => {
-                    cell.classList.remove('bg-yellow-200', 'bg-blue-200', 'bg-purple-200');
-                });
-
-                // Highlight active column hero filter (header row)
-                if (activeColumnHeroFilter) {
-                    headerCells.forEach(cell => {
-                        if (cell.getAttribute('data-hero') === activeColumnHeroFilter) {
-                            cell.classList.add('bg-yellow-200');
-                        }
-                    });
-
-                    // Highlight corresponding row cells across all rows
-                    rows.forEach(row => {
-                        const cells = row.querySelectorAll('td:not(:first-child)');
-
-                        // Highlight the specific cell in the column
-                        cells.forEach((cell, index) => {
-                            const columnHero = headerCells[index].getAttribute('data-hero');
-                            if (columnHero === activeColumnHeroFilter) {
-                                cell.classList.add('bg-yellow-200');
-                            }
-                        });
-                    });
-
-                    // Highlight corresponding first column cell
-                    firstColumnCells.forEach(cell => {
-                        if (cell.getAttribute('data-hero') === activeColumnHeroFilter) {
-                            cell.classList.add('bg-yellow-200');
-                        }
-                    });
-                }
-
-                // Highlight active row hero filter (first column)
-                if (activeRowHeroFilter) {
-                    firstColumnCells.forEach(cell => {
-                        if (cell.getAttribute('data-hero') === activeRowHeroFilter) {
-                            cell.classList.add('bg-purple-200');
-                        }
-                    });
-
-                    // Highlight corresponding header cells across all columns
-                    headerCells.forEach(cell => {
-                        if (cell.getAttribute('data-hero') === activeRowHeroFilter) {
-                            cell.classList.add('bg-purple-200');
-                        }
-                    });
-                }
-
-                // Highlight active column role filter (roles clicked in header row)
-                if (activeColumnRoleFilter) {
-                    // Highlight header cells with matching role
-                    headerCells.forEach(cell => {
-                        if (cell.getAttribute('data-role') === activeColumnRoleFilter) {
-                            cell.classList.add('bg-blue-200');
-                        }
-                    });
-
-                    // Highlight corresponding cells in all rows
-                    rows.forEach(row => {
-                        const cells = row.querySelectorAll('td:not(:first-child)'); // Data cells only
-
-                        cells.forEach((cell, index) => {
-                            const columnRole = headerCells[index].getAttribute('data-role');
-                            if (columnRole === activeColumnRoleFilter) {
-                                cell.classList.add('bg-blue-200');
-                            }
-                        });
-                    });
-                }
-
-                // Highlight active row role filter (roles clicked in first column)
-                if (activeRowRoleFilter) {
-                    // Highlight first column cells with matching role
-                    firstColumnCells.forEach(cell => {
-                        if (cell.getAttribute('data-role') === activeRowRoleFilter) {
-                            cell.classList.add('bg-blue-200');
-                        }
-                    });
-
-                    // Highlight all cells in rows with matching role
-                    rows.forEach(row => {
-                        if (row.getAttribute('data-role') === activeRowRoleFilter) {
-                            // Highlight the first column cell
-                            const firstCell = row.querySelector('td:first-child');
-                            if (firstCell) {
-                                firstCell.classList.add('bg-blue-200');
-                            }
-
-                            // Highlight the row's data cells
-                            const cells = row.querySelectorAll('td:not(:first-child)');
-                            cells.forEach(cell => {
-                                cell.classList.add('bg-blue-200');
-                            });
-                        }
-                    });
-                }
             }
 
             // Function to filter by hero in header row (column filter)
@@ -343,7 +234,7 @@
                 const target = event.target;
                 const thElement = target.closest('th');
 
-                if (thElement && thElement.parentElement.tagName === 'THEAD') {
+                if (thElement && thElement.closest('thead')) {
                     // Role clicked in header row - affects columns
                     if (activeColumnRoleFilter === roleName) {
                         activeColumnRoleFilter = null; // Toggle off if already active
