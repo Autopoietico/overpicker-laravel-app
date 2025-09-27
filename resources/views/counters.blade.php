@@ -19,16 +19,16 @@
 
         <!-- Counters Matrix Table -->
         <div class="mt-10 text-center overflow-x-auto">
-            <table class="w-full min-w-max" id="countersTable">
+            <table class="w-full table-fixed mx-auto" id="countersTable">
                 <thead>
                     <tr class="fjalla text-xl">
-                        <th class="p-2 bg-white bg-color-text">Hero</th>
+                        <th class="p-2 bg-white bg-color-text w-32">Hero</th>
                         @foreach ($heroes as $hero)
                             @php
                                 $heroImage = $hero_images[$hero['name']] ?? 'images/assets/blank-hero.webp';
                                 $role = $hero_roles[$hero['name']] ?? 'Unknown';
                             @endphp
-                            <th class="p-2 text-xs sm:text-sm" data-hero="{{ $hero['name'] }}"
+                            <th class="p-2 text-xs sm:text-sm w-24" data-hero="{{ $hero['name'] }}"
                                 data-role="{{ $role }}" onclick="filterByHero('{{ $hero['name'] }}')">
                                 <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
                                     <img src="{{ $heroImage }}" alt="{{ $hero['name'] }} profile"
@@ -58,7 +58,7 @@
                             $heroImage = $hero_images[$heroName] ?? 'images/assets/blank-hero.webp';
                         @endphp
                         <tr class="hero-row" data-hero="{{ $heroName }}" data-role="{{ $role }}">
-                            <td class="p-2" data-hero="{{ $heroName }}" data-role="{{ $role }}"
+                            <td class="p-2 w-32" data-hero="{{ $heroName }}" data-role="{{ $role }}"
                                 onclick="filterByRowHero('{{ $heroName }}')">
                                 <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
                                     <img src="{{ $heroImage }}" alt="{{ $heroName }} profile"
@@ -100,7 +100,7 @@
                                         $bgColor = 'bg-red-600';
                                     }
                                 @endphp
-                                <td class="p-2 text-center">
+                                <td class="p-2 text-center w-24">
                                     <div
                                         class="w-10 h-10 flex items-center justify-center rounded mx-auto {{ $bgColor }}">
                                         <span class="font-bold text-white">{{ $value }}</span>
@@ -169,6 +169,8 @@
             const rows = document.querySelectorAll('#countersTable tbody tr');
             const headerCells = document.querySelectorAll('#countersTable thead th:not(:first-child)');
             const firstColumnCells = document.querySelectorAll('#countersTable tbody td:first-child');
+            const table = document.getElementById('countersTable');
+            const tableContainer = table.parentElement;
 
             // Function to apply alternating row colors
             function applyAlternatingRowColors() {
@@ -205,6 +207,26 @@
                         cell.style.backgroundColor = '#294452';
                     }
                 });
+            }
+
+            // Function to calculate and set table width based on visible columns
+            function setTableWidth() {
+                const visibleHeaderCells = Array.from(headerCells).filter(cell => cell.style.display !== 'none');
+                const visibleCount = visibleHeaderCells.length;
+
+                // Calculate the total width needed: first column (w-32 = 8rem = 128px) + visible columns (w-24 = 6rem = 96px each)
+                // Plus some padding for the first column content
+                const firstColumnWidth = 128; // w-32 = 8rem = 8*16px
+                const columnWidth = 96; // w-24 = 6rem = 6*16px
+                const totalWidth = firstColumnWidth + (visibleCount * columnWidth);
+
+                // Set the table width to prevent expansion
+                table.style.width = totalWidth + 'px';
+
+                // If there are no filtered columns, reset to full width
+                if (visibleCount === headerCells.length) {
+                    table.style.width = '100%';
+                }
             }
 
             // Function to filter the table
@@ -278,6 +300,9 @@
                 // Reapply alternating colors after filtering
                 applyAlternatingRowColors();
                 applyAlternatingColumnColors();
+
+                // Adjust table width based on visible columns to maintain fixed column widths
+                setTableWidth();
             }
 
             // Function to filter by hero in header row (column filter)
@@ -336,6 +361,8 @@
                 activeRowHeroFilter = null;
                 activeColumnRoleFilter = null;
                 activeRowRoleFilter = null;
+                // Reset table width to default
+                table.style.width = '100%';
                 applyFilters();
             });
 
