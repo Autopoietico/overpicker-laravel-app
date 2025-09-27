@@ -31,11 +31,15 @@ class downloadAPIData extends Command
         $url_tiers = "https://api.overpicker.com/hero-tiers";
         $url_img = "https://api.overpicker.com/hero-img";
         $url_version = "https://api.overpicker.com/version";
+        $url_synergies = "https://api.overpicker.com/hero-synergies";
+        $url_counters = "https://api.overpicker.com/hero-counters";
 
         $heroes_data = Http::get($url_heroes)->body();
         $tiers_data = Http::get($url_tiers)->body();
         $img_data = Http::get($url_img)->body();
         $version_data = Http::get($url_version)->body();
+        $synergies_data = Http::get($url_synergies)->body();
+        $counters_data = Http::get($url_counters)->body();
 
         if ($heroes_data) {
             $hero_file = storage_path('/api/hero-data/hero-info.json');
@@ -64,9 +68,25 @@ class downloadAPIData extends Command
         if ($version_data) {
             $version_file = storage_path('/api/version.json');
             file_put_contents($version_file, $version_data);
-            $this->info('Version Info downloaded succesfully in: ' . $img_file);
+            $this->info('Version Info downloaded succesfully in: ' . $version_file);
         } else {
             $this->error('Error getting the Version Info data');
+        }
+
+        if ($synergies_data) {
+            $synergies_file = storage_path('/api/hero-data/hero-synergies.json');
+            file_put_contents($synergies_file, $synergies_data);
+            $this->info('Hero Synergies downloaded succesfully in: ' . $synergies_file);
+        } else {
+            $this->error('Error getting the Hero Synergies data');
+        }
+
+        if ($counters_data) {
+            $counters_file = storage_path('/api/hero-data/hero-counters.json');
+            file_put_contents($counters_file, $counters_data);
+            $this->info('Hero Counters downloaded succesfully in: ' . $counters_file);
+        } else {
+            $this->error('Error getting the Hero Counters data');
         }
     }
 }
