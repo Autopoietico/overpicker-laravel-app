@@ -28,7 +28,7 @@
                                 $heroImage = $hero_images[$hero['name']] ?? 'images/assets/blank-hero.webp';
                                 $role = $hero_roles[$hero['name']] ?? 'Unknown';
                             @endphp
-                            <th class="p-2 text-xs sm:text-sm odd:bg-[#294452]" data-hero="{{ $hero['name'] }}"
+                            <th class="p-2 text-xs sm:text-sm" data-hero="{{ $hero['name'] }}"
                                 data-role="{{ $role }}" onclick="filterByHero('{{ $hero['name'] }}')">
                                 <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
                                     <img src="{{ $heroImage }}" alt="{{ $hero['name'] }} profile"
@@ -57,8 +57,7 @@
                             $role = $hero_roles[$heroName] ?? 'Unknown';
                             $heroImage = $hero_images[$heroName] ?? 'images/assets/blank-hero.webp';
                         @endphp
-                        <tr class="odd:bg-[#294452] hero-row" data-hero="{{ $heroName }}"
-                            data-role="{{ $role }}">
+                        <tr class="hero-row" data-hero="{{ $heroName }}" data-role="{{ $role }}">
                             <td class="p-2" data-hero="{{ $heroName }}" data-role="{{ $role }}"
                                 onclick="filterByRowHero('{{ $heroName }}')">
                                 <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
@@ -135,6 +134,43 @@
             const headerCells = document.querySelectorAll('#countersTable thead th:not(:first-child)');
             const firstColumnCells = document.querySelectorAll('#countersTable tbody td:first-child');
 
+            // Function to apply alternating row colors
+            function applyAlternatingRowColors() {
+                const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
+                visibleRows.forEach((row, index) => {
+                    // Apply background based on position in visible rows
+                    if (index % 2 === 0) {
+                        // Even index in visible array (0, 2, 4...) - keep default white
+                        row.style.backgroundColor = '';
+                    } else {
+                        // Odd index in visible array (1, 3, 5...) - apply blue
+                        row.style.backgroundColor = '#294452';
+                    }
+                });
+            }
+
+            // Function to apply alternating column colors
+            function applyAlternatingColumnColors() {
+                // Reset all column backgrounds first
+                headerCells.forEach(cell => {
+                    cell.style.backgroundColor = '';
+                });
+
+                // Get visible header cells
+                const visibleHeaderCells = Array.from(headerCells).filter(cell => cell.style.display !== 'none');
+
+                // Apply alternating colors to visible columns
+                visibleHeaderCells.forEach((cell, index) => {
+                    if (index % 2 === 0) {
+                        // Even index in visible array - apply default
+                        cell.style.backgroundColor = '';
+                    } else {
+                        // Odd index in visible array - apply blue
+                        cell.style.backgroundColor = '#294452';
+                    }
+                });
+            }
+
             // Function to filter the table
             function applyFilters() {
                 // Process rows
@@ -202,6 +238,10 @@
 
                     cell.style.display = showCell ? '' : 'none';
                 });
+
+                // Reapply alternating colors after filtering
+                applyAlternatingRowColors();
+                applyAlternatingColumnColors();
             }
 
             // Function to filter by hero in header row (column filter)
@@ -228,13 +268,11 @@
 
             // Function to filter by role
             window.filterByRole = function(roleName, event) {
-
                 event.stopPropagation(); // Prevent triggering the hero filter
 
                 // Determine if the role was clicked in header row (column filter) or first column (row filter)
                 const target = event.target;
                 const thElement = target.closest('th');
-
 
                 if (thElement && thElement.closest('thead')) {
                     console.log("Role clicked in header row");
