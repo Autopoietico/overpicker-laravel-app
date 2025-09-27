@@ -23,13 +23,14 @@
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/tiers">Tiers</a>
             </li>
             <li>
-                <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/tiers">Tiers</a>
-            </li>
-            <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/counters">Counters</a>
             </li>
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/synergies">Synergies</a>
+            </li>
+
+            <li>
+                <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/trackers">Trackers</a>
             </li>
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/sources">Sources</a>
