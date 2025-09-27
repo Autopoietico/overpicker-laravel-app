@@ -8,12 +8,12 @@
         </div>
     </section>
 
-    <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
-        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8">
+    <section class="mb-10 text-center sm:text-left text-sm">
+        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
             <p class="sm:text-lg">
-                This page shows the counters between heroes in Overwatch.
-                The matrix displays how well each hero counters others.
-                The hero in the top is the hero countered, the hero in the left is the countering hero.
+                This page shows the counters between heroes in Overwatch. The matrix displays how effectively each hero
+                counters another. The hero at the top is the one being countered, while the hero on the left is the
+                countering hero.
             </p>
         </div>
 

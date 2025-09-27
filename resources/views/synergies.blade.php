@@ -8,12 +8,13 @@
         </div>
     </section>
 
-    <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
-        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8">
+    <section class="mb-10 text-center sm:text-left text-sm">
+        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
             <p class="sm:text-lg">
-                This page shows the synergies between heroes in Overwatch.
-                The matrix displays how well each hero works with others.
-                The hero in the top is the hero already selected, the hero in the left is the recommended hero to pick.
+                This page shows the synergies between heroes in Overwatch. The matrix illustrates how well each hero works
+                with others. The hero at the top represents the one already selected, while the hero on the left is the
+                recommended pick.
+
             </p>
         </div>
 
