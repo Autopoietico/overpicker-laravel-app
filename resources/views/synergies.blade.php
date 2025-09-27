@@ -126,7 +126,8 @@
             // Current active filters
             let activeColumnHeroFilter = null; // For filtering by clicking header row heroes
             let activeRowHeroFilter = null; // For filtering by clicking first column heroes
-            let activeRoleFilter = null; // For filtering by role
+            let activeColumnRoleFilter = null; // For filtering columns by role (clicked in header row)
+            let activeRowRoleFilter = null; // For filtering rows by role (clicked in first column)
 
             // Elements
             const resetButton = document.getElementById('resetFilter');
@@ -148,8 +149,8 @@
                         showRow = false;
                     }
 
-                    // Apply role filter (only affects rows, not columns)
-                    if (activeRoleFilter && activeRoleFilter !== rowRole) {
+                    // Apply row role filter (when clicking role in first column)
+                    if (activeRowRoleFilter && activeRowRoleFilter !== rowRole) {
                         showRow = false;
                     }
 
@@ -163,6 +164,7 @@
 
                         cells.forEach((cell, index) => {
                             const columnHero = headerCells[index].getAttribute('data-hero');
+                            const columnRole = headerCells[index].getAttribute('data-role');
 
                             let showColumn = true;
 
@@ -171,19 +173,30 @@
                                 showColumn = false;
                             }
 
+                            // Apply column role filter (when clicking role in header row)
+                            if (activeColumnRoleFilter && activeColumnRoleFilter !== columnRole) {
+                                showColumn = false;
+                            }
+
                             cell.style.display = showColumn ? '' : 'none';
                         });
                     }
                 });
 
-                // Filter header cells (columns) - role filter does NOT affect columns
+                // Filter header cells (columns)
                 headerCells.forEach(cell => {
                     const cellHero = cell.getAttribute('data-hero');
+                    const cellRole = cell.getAttribute('data-role');
 
                     let showCell = true;
 
                     // Apply column hero filter only
                     if (activeColumnHeroFilter && activeColumnHeroFilter !== cellHero) {
+                        showCell = false;
+                    }
+
+                    // Apply column role filter only
+                    if (activeColumnRoleFilter && activeColumnRoleFilter !== cellRole) {
                         showCell = false;
                     }
 
@@ -250,25 +263,40 @@
                     });
                 }
 
-                // Highlight active role filter
-                if (activeRoleFilter) {
+                // Highlight active column role filter (roles clicked in header row)
+                if (activeColumnRoleFilter) {
                     // Highlight header cells with matching role
                     headerCells.forEach(cell => {
-                        if (cell.getAttribute('data-role') === activeRoleFilter) {
+                        if (cell.getAttribute('data-role') === activeColumnRoleFilter) {
                             cell.classList.add('bg-blue-200');
                         }
                     });
 
+                    // Highlight corresponding cells in all rows
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td:not(:first-child)'); // Data cells only
+
+                        cells.forEach((cell, index) => {
+                            const columnRole = headerCells[index].getAttribute('data-role');
+                            if (columnRole === activeColumnRoleFilter) {
+                                cell.classList.add('bg-blue-200');
+                            }
+                        });
+                    });
+                }
+
+                // Highlight active row role filter (roles clicked in first column)
+                if (activeRowRoleFilter) {
                     // Highlight first column cells with matching role
                     firstColumnCells.forEach(cell => {
-                        if (cell.getAttribute('data-role') === activeRoleFilter) {
+                        if (cell.getAttribute('data-role') === activeRowRoleFilter) {
                             cell.classList.add('bg-blue-200');
                         }
                     });
 
                     // Highlight all cells in rows with matching role
                     rows.forEach(row => {
-                        if (row.getAttribute('data-role') === activeRoleFilter) {
+                        if (row.getAttribute('data-role') === activeRowRoleFilter) {
                             // Highlight the first column cell
                             const firstCell = row.querySelector('td:first-child');
                             if (firstCell) {
@@ -311,10 +339,24 @@
             window.filterByRole = function(roleName, event) {
                 event.stopPropagation(); // Prevent triggering the hero filter
 
-                if (activeRoleFilter === roleName) {
-                    activeRoleFilter = null; // Toggle off if already active
+                // Determine if the role was clicked in header row (column filter) or first column (row filter)
+                const target = event.target;
+                const thElement = target.closest('th');
+
+                if (thElement && thElement.parentElement.tagName === 'THEAD') {
+                    // Role clicked in header row - affects columns
+                    if (activeColumnRoleFilter === roleName) {
+                        activeColumnRoleFilter = null; // Toggle off if already active
+                    } else {
+                        activeColumnRoleFilter = roleName;
+                    }
                 } else {
-                    activeRoleFilter = roleName;
+                    // Role clicked in first column - affects rows
+                    if (activeRowRoleFilter === roleName) {
+                        activeRowRoleFilter = null; // Toggle off if already active
+                    } else {
+                        activeRowRoleFilter = roleName;
+                    }
                 }
 
                 applyFilters();
@@ -324,7 +366,8 @@
             resetButton.addEventListener('click', function() {
                 activeColumnHeroFilter = null;
                 activeRowHeroFilter = null;
-                activeRoleFilter = null;
+                activeColumnRoleFilter = null;
+                activeRowRoleFilter = null;
                 applyFilters();
             });
 
