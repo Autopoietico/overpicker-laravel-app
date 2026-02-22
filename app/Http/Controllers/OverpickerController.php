@@ -133,14 +133,20 @@ class OverpickerController extends Controller
             $hero_images[$img["name"]] = $img["profile-img"];
         }
 
+        // Generate dynamic "Who counters [hero]" keywords
+        $whoCountersKeywords = [];
+        foreach ($heroes_obj as $hero) {
+            $whoCountersKeywords[] = 'who counters ' . strtolower($hero['name']) . ' overwatch';
+        }
+
         $title = ' - Hero Counters';
 
         $seo = [
-            'title' => 'OverPicker - Hero Counters',
-            'keywords' => 'overwatch, counters, counter picks, hero counters, counter picking, overpicker, counters list, hard counters, weak against',
-            'description' => 'Find out which heroes counter your enemy team in Overwatch. Complete list of hero counters to help you win more games.',
-            'og_title' => 'OverPicker - Hero Counters',
-            'og_description' => 'Find out which heroes counter your enemy team in Overwatch. Complete list of hero counters to help you win more games.',
+            'title' => 'Overwatch Hero Counters Chart – Complete Counter Matrix',
+            'keywords' => 'overwatch counters list, overwatch hero counters chart, ' . implode(', ', $whoCountersKeywords) . ', overwatch matchup chart, overwatch counter matrix',
+            'description' => 'View the complete Overwatch hero counters chart with our interactive counter matrix. Understand the -20 to 20 scoring system to find which heroes counter your enemies and win more games.',
+            'og_title' => 'Overwatch Hero Counters Chart – Complete Counter Matrix',
+            'og_description' => 'View the complete Overwatch hero counters chart with our interactive counter matrix. Understand the -20 to 20 scoring system to find which heroes counter your enemies.',
             'og_url' => 'https://overpicker.win/counters',
         ];
 

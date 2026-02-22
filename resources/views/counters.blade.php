@@ -3,17 +3,28 @@
     <section class="mt-12 flex justify-center sm:mt-16">
         <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
             <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
-                Hero Counters
+                Complete Overwatch Counter Chart
             </h1>
         </div>
     </section>
 
     <section class="mb-10 text-center sm:text-left text-sm">
         <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
-            <p class="sm:text-lg">
+            <p class="sm:text-lg mb-4">
                 This page shows the counters between heroes in Overwatch. The matrix displays how effectively each hero
                 counters another. The hero at the top is the one being countered, while the hero on the left is the
                 countering hero.
+            </p>
+            <p class="sm:text-lg mb-4">
+                <strong>How the Scoring System Works:</strong> Our Overwatch counter matrix uses a <strong>-20 to +20
+                    scale</strong>
+                to rate hero matchups. A score of <strong>+20</strong> (Hard Counter) means the hero on the left completely
+                dominates the hero at the top - ideal for counter-picking. A score of <strong>+10</strong> (Counter)
+                indicates
+                a favorable matchup. A score of <strong>0</strong> (Skill Match) means the outcome depends on player skill.
+                Scores of <strong>-10</strong> (No Counter) and <strong>-20</strong> (Not Recommended) indicate
+                disadvantageous
+                matchups where the hero is weak against the opponent.
             </p>
         </div>
 
