@@ -84,14 +84,21 @@ class OverpickerController extends Controller
             array_push($sorted_heroes, $item);
         }
 
+        // Get rank names from hero-tiers.json for dynamic keywords
+        $tiers_data = json_decode($data_tiers, true);
+        $rankKeywords = [];
+        foreach ($tiers_data as $rank) {
+            $rankKeywords[] = 'best heroes in ' . strtolower($rank['name']) . ' Overwatch';
+        }
+
         $title = ' - Tiers';
 
         $seo = [
-            'title' => 'OverPicker - Hero Tier List',
-            'keywords' => 'overwatch, tiers, tier list, hero tier, best heroes, top 500, hero ranking, overpicker, meta, strongest heroes',
-            'description' => 'View the complete Overwatch hero tier list based on Top 500 rankings. Find out which heroes are currently the strongest in the meta.',
-            'og_title' => 'OverPicker - Hero Tier List',
-            'og_description' => 'View the complete Overwatch hero tier list based on Top 500 rankings. Find out which heroes are currently the strongest in the meta.',
+            'title' => 'Overwatch Tier List by Rank – Competitive Meta Breakdown',
+            'keywords' => 'overwatch tier list competitive, overwatch best heroes by rank, overwatch meta tier list, ' . implode(', ', $rankKeywords) . ', overwatch ranked tier list, best heroes in low rank overwatch, best heroes in high rank overwatch, overwatch tier list by rank',
+            'description' => 'Explore our comprehensive Overwatch tier list by rank. Find the best heroes for Top 500, GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze ranks. Stay ahead of the meta with our competitive hero rankings.',
+            'og_title' => 'Overwatch Tier List by Rank – Competitive Meta Breakdown',
+            'og_description' => 'Explore our comprehensive Overwatch tier list by rank. Find the best heroes for Top 500, GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze ranks. Stay ahead of the meta with our competitive hero rankings.',
             'og_url' => 'https://overpicker.win/tiers',
         ];
 

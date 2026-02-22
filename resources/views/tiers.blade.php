@@ -3,8 +3,8 @@
     <section class="mt-12 flex justify-center sm:mt-16">
         <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
             <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
-                Overpicker Tiers
-                </h2>
+                Overwatch Competitive Tier List
+            </h1>
         </div>
     </section>
     <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
