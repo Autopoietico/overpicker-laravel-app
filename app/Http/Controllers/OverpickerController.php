@@ -20,9 +20,19 @@ class OverpickerController extends Controller
 
         $title = ' - Overwatch tool made to build Composition based in Counter and Synergies';
 
+        $seo = [
+            'title' => 'OverPicker - Overwatch Composition Builder',
+            'keywords' => 'overwatch, best, heroes, counters, synergies, pick, overpicker, composition, overpick, heropicker, maps, tiers, characters, champions, carry, ranked, attack, defense, builder, build, comp',
+            'description' => 'Find your best hero and Overwatch 2 composition, counter the enemy team, and find the best hero for every map',
+            'og_title' => 'Overpicker - Overwatch tool made to build Composition based in Counter and Synergies',
+            'og_description' => 'Find your best composition, counter the enemy comp, and find the best hero for every map in Overwatch.',
+            'og_url' => 'https://overpicker.win/',
+        ];
+
         return view('calculator', [
             'title' => $title,
             'dates' => $this->DATES,
+            'seo' => $seo,
         ]);
     }
     public function tiers()
@@ -76,11 +86,21 @@ class OverpickerController extends Controller
 
         $title = ' - Tiers';
 
+        $seo = [
+            'title' => 'OverPicker - Hero Tier List',
+            'keywords' => 'overwatch, tiers, tier list, hero tier, best heroes, top 500, hero ranking, overpicker, meta, strongest heroes',
+            'description' => 'View the complete Overwatch hero tier list based on Top 500 rankings. Find out which heroes are currently the strongest in the meta.',
+            'og_title' => 'OverPicker - Hero Tier List',
+            'og_description' => 'View the complete Overwatch hero tier list based on Top 500 rankings. Find out which heroes are currently the strongest in the meta.',
+            'og_url' => 'https://overpicker.win/tiers',
+        ];
+
         return view('tiers', [
             'title' => $title,
             'dates' => $this->DATES,
             'tiers' => $sorted_heroes,
-            'tierValues' => $tierValues
+            'tierValues' => $tierValues,
+            'seo' => $seo,
         ]);
     }
 
@@ -115,13 +135,23 @@ class OverpickerController extends Controller
 
         $title = ' - Hero Counters';
 
+        $seo = [
+            'title' => 'OverPicker - Hero Counters',
+            'keywords' => 'overwatch, counters, counter picks, hero counters, counter picking, overpicker, counters list, hard counters, weak against',
+            'description' => 'Find out which heroes counter your enemy team in Overwatch. Complete list of hero counters to help you win more games.',
+            'og_title' => 'OverPicker - Hero Counters',
+            'og_description' => 'Find out which heroes counter your enemy team in Overwatch. Complete list of hero counters to help you win more games.',
+            'og_url' => 'https://overpicker.win/counters',
+        ];
+
         return view('counters', [
             'title' => $title,
             'dates' => $this->DATES,
             'counters' => $counters_obj,
             'hero_roles' => $hero_roles,
             'hero_images' => $hero_images,
-            'heroes' => $heroes_obj
+            'heroes' => $heroes_obj,
+            'seo' => $seo,
         ]);
     }
 
@@ -156,13 +186,23 @@ class OverpickerController extends Controller
 
         $title = ' - Hero Synergies';
 
+        $seo = [
+            'title' => 'OverPicker - Hero Synergies',
+            'keywords' => 'overwatch, synergies, synergy, team synergy, hero synergies, combo, overpicker, best combo, team composition',
+            'description' => 'Find hero synergies and powerful combinations in Overwatch. Build the ultimate team composition with synergistic heroes.',
+            'og_title' => 'OverPicker - Hero Synergies',
+            'og_description' => 'Find hero synergies and powerful combinations in Overwatch. Build the ultimate team composition with synergistic heroes.',
+            'og_url' => 'https://overpicker.win/synergies',
+        ];
+
         return view('synergies', [
             'title' => $title,
             'dates' => $this->DATES,
             'synergies' => $synergies_obj,
             'hero_roles' => $hero_roles,
             'hero_images' => $hero_images,
-            'heroes' => $heroes_obj
+            'heroes' => $heroes_obj,
+            'seo' => $seo,
         ]);
     }
 
@@ -171,9 +211,19 @@ class OverpickerController extends Controller
 
         $title = ' - About';
 
+        $seo = [
+            'title' => 'OverPicker - About',
+            'keywords' => 'overpicker, about, about us, overwatch tools, hero picker, composition builder, about the project',
+            'description' => 'Learn more about OverPicker, the ultimate Overwatch composition builder tool. Find counters, synergies, and build better teams.',
+            'og_title' => 'OverPicker - About Us',
+            'og_description' => 'Learn more about OverPicker, the ultimate Overwatch composition builder tool. Find counters, synergies, and build better teams.',
+            'og_url' => 'https://overpicker.win/about',
+        ];
+
         return view('about', [
             'title' => $title,
             'dates' => $this->DATES,
+            'seo' => $seo,
         ]);
     }
 
@@ -182,9 +232,19 @@ class OverpickerController extends Controller
 
         $title = ' - Sources';
 
+        $seo = [
+            'title' => 'OverPicker - Sources',
+            'keywords' => 'overpicker, sources, data sources, api sources, overwatch data, hero data, resources',
+            'description' => 'View the data sources and resources used by OverPicker to provide hero counters, synergies, and tier information.',
+            'og_title' => 'OverPicker - Sources',
+            'og_description' => 'View the data sources and resources used by OverPicker to provide hero counters, synergies, and tier information.',
+            'og_url' => 'https://overpicker.win/sources',
+        ];
+
         return view('sources', [
             'title' => $title,
             'dates' => $this->DATES,
+            'seo' => $seo,
         ]);
     }
 
@@ -193,9 +253,19 @@ class OverpickerController extends Controller
 
         $title = ' - Privacy Policy';
 
+        $seo = [
+            'title' => 'OverPicker - Privacy Policy',
+            'keywords' => 'overpicker, privacy, privacy policy, data policy, cookies, tracking',
+            'description' => 'Read the privacy policy for OverPicker. Learn how we handle your data and protect your privacy.',
+            'og_title' => 'OverPicker - Privacy Policy',
+            'og_description' => 'Read the privacy policy for OverPicker. Learn how we handle your data and protect your privacy.',
+            'og_url' => 'https://overpicker.win/privacy',
+        ];
+
         return view('privacy', [
             'title' => $title,
             'dates' => $this->DATES,
+            'seo' => $seo,
         ]);
     }
 
@@ -204,9 +274,19 @@ class OverpickerController extends Controller
 
         $title = ' - Trackers';
 
+        $seo = [
+            'title' => 'OverPicker - Trackers',
+            'keywords' => 'overpicker, trackers, overwatch trackers, player trackers, stats, overwatch stats',
+            'description' => 'Track your Overwatch progress with recommended trackers and stats tools. Find the best resources to improve your gameplay.',
+            'og_title' => 'OverPicker - Trackers',
+            'og_description' => 'Track your Overwatch progress with recommended trackers and stats tools. Find the best resources to improve your gameplay.',
+            'og_url' => 'https://overpicker.win/trackers',
+        ];
+
         return view('trackers', [
             'title' => $title,
             'dates' => $this->DATES,
+            'seo' => $seo,
         ]);
     }
 }
