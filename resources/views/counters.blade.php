@@ -16,15 +16,26 @@
                 countering hero.
             </p>
             <p class="sm:text-lg mb-4">
-                <strong>How the Scoring System Works:</strong> Our Overwatch counter matrix uses a <strong>-20 to +20
-                    scale</strong>
-                to rate hero matchups. A score of <strong>+20</strong> (Hard Counter) means the hero on the left completely
-                dominates the hero at the top - ideal for counter-picking. A score of <strong>+10</strong> (Counter)
-                indicates
-                a favorable matchup. A score of <strong>0</strong> (Skill Match) means the outcome depends on player skill.
-                Scores of <strong>-10</strong> (No Counter) and <strong>-20</strong> (Not Recommended) indicate
-                disadvantageous
-                matchups where the hero is weak against the opponent.
+                <strong>How the Scoring System Works:</strong> Our Overwatch counter matrix uses a
+                <strong>-20 to +20 scale</strong> to rate hero matchups.
+
+                A score of
+                <strong class="bg-green-600 text-white px-1 rounded">+20</strong> (Hard Counter)
+                means the hero on the left completely dominates the hero at the top - ideal for counter-picking.
+
+                A score of
+                <strong class="bg-green-400 text-white px-1 rounded">+10</strong> (Counter)
+                indicates a favorable matchup.
+
+                A score of
+                <strong class="bg-gray-300 text-black px-1 rounded">0</strong> (Skill Match)
+                means the outcome depends on player skill.
+
+                Scores of
+                <strong class="bg-red-200 text-black px-1 rounded">-10</strong> (No Counter)
+                and
+                <strong class="bg-red-600 text-white px-1 rounded">-20</strong> (Not Recommended)
+                indicate disadvantageous matchups where the hero is weak against the opponent.
             </p>
         </div>
 

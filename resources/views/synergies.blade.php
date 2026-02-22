@@ -3,18 +3,39 @@
     <section class="mt-12 flex justify-center sm:mt-16">
         <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
             <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
-                Hero Synergies
+                Overwatch Synergy Chart & Best Hero Combos
             </h1>
         </div>
     </section>
 
     <section class="mb-10 text-center sm:text-left text-sm">
         <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
-            <p class="sm:text-lg">
-                This page shows the synergies between heroes in Overwatch. The matrix illustrates how well each hero works
-                with others. The hero at the top represents the one already selected, while the hero on the left is the
-                recommended pick.
+            <p class="sm:text-lg mb-4">
+                The matrix below illustrates how well each hero works with others. The hero at the top represents
+                the one already selected, while the hero on the left is the recommended pick.
+            </p>
+            <p class="sm:text-lg mb-4">
+                <strong>How the Scoring System Works:</strong> Our Overwatch synergy chart uses a
+                <strong>-20 to +20 scale</strong> to rate how well heroes perform together.
 
+                A score of
+                <strong class="bg-green-600 text-white px-1 rounded">+20</strong> (Must Pick)
+                means the heroes have exceptional synergy and can dominate when combined - ideal for coordinated team play.
+
+                A score of
+                <strong class="bg-green-400 text-white px-1 rounded">+10</strong> (Good Synergy)
+                indicates a strong pairing with complementary abilities.
+
+                A score of
+                <strong class="bg-gray-300 text-black px-1 rounded">0</strong> (Decent)
+                means neutral compatibility where performance depends mostly on execution.
+
+                Scores of
+                <strong class="bg-red-200 text-black px-1 rounded">-10</strong> (No Synergy)
+                and
+                <strong class="bg-red-600 text-white px-1 rounded">-20</strong> (Antisynergy)
+                indicate weak or harmful combinations where heroes fail to complement each other or can even hinder team
+                performance.
             </p>
         </div>
 
@@ -154,6 +175,17 @@
             <button id="resetFilter" class="px-4 py-2 bg-[#29452] text-white rounded hover:bg-gray-600">
                 Reset Filters
             </button>
+        </div>
+
+        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
+            <p class="sm:text-lg mb-4">
+                <strong>What is a Synergy in Overwatch?</strong><br>
+                A synergy in Overwatch refers to how well two or more heroes work together in a team composition.
+                Hero synergies occur when the abilities, playstyles, and strengths of different heroes complement each
+                other, creating combinations that are more powerful than the sum of their individual parts. For example,
+                heroes who can provide healing and damage amplification to allies create excellent synergies with heroes
+                who deal high damage output.
+            </p>
         </div>
     </section>
 

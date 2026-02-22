@@ -193,11 +193,11 @@ class OverpickerController extends Controller
         $title = ' - Hero Synergies';
 
         $seo = [
-            'title' => 'OverPicker - Hero Synergies',
-            'keywords' => 'overwatch, synergies, synergy, team synergy, hero synergies, combo, overpicker, best combo, team composition',
-            'description' => 'Find hero synergies and powerful combinations in Overwatch. Build the ultimate team composition with synergistic heroes.',
-            'og_title' => 'OverPicker - Hero Synergies',
-            'og_description' => 'Find hero synergies and powerful combinations in Overwatch. Build the ultimate team composition with synergistic heroes.',
+            'title' => 'Overwatch Hero Synergies – Best Hero Combinations',
+            'keywords' => 'overwatch hero synergies, best hero combinations overwatch, overwatch team synergy chart, overwatch comp synergy list, best duo picks overwatch, overwatch synergies, hero synergies, team synergy, overwatch combo, overwatch team composition',
+            'description' => 'Explore the Overwatch synergy chart to find the best hero combinations. Learn how the -20 to 20 scoring system works to build powerful team synergies and dominate your matches.',
+            'og_title' => 'Overwatch Hero Synergies – Best Hero Combinations',
+            'og_description' => 'Explore the Overwatch synergy chart to find the best hero combinations. Learn how the -20 to 20 scoring system works to build powerful team synergies and dominate your matches.',
             'og_url' => 'https://overpicker.win/synergies',
         ];
 
