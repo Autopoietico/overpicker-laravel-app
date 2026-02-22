@@ -11,21 +11,21 @@
     <nav class="w-full hidden sm:block">
         <ol class="grid grid-flow-col gap-x-4 text-2xl justify-center mt-1">
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="tiers"
-                    >Tiers</a
-                >
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="tiers">Tiers</a>
             </li>
             <li>
-                <a
-                    class="hover:bg-[#294452] px-2 py-1 rounded-lg"
-                    href="sources"
-                    >Sources</a
-                >
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="counters">Counters</a>
             </li>
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="about"
-                    >About</a
-                >
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="synergies">Synergies</a>
+            </li>
+            <li>
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="trackers">Trackers</a>
+            <li>
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="sources">Sources</a>
+            </li>
+            <li>
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="about">About</a>
             </li>
         </ol>
     </nav>
@@ -35,36 +35,19 @@
             <a href="about">By Autopoietico</a>
         </h2>
     </div>
-    <div
-        class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between"
-    >
-        <span class="footer-final-line-left">Last Update: {{$dates['LAST_DATA_UPDATE']}}</span>
-        <span>CC({{$dates['COPY_DATE']}})</span>
+    <div class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between">
+        <span class="footer-final-line-left">Last Update: {{ $dates['LAST_DATA_UPDATE'] }}</span>
+        <span>CC({{ $dates['COPY_DATE'] }})</span>
     </div>
     <div class="mt-3 grid grid-flow-col gap-x-5">
-        <a
-            href="https://discord.gg/PBfMUzz"
-            title="OW Picker Discord"
-            target="_blank"
-            ><img
-                class="w-12"
-                src="{{ asset('images/social/discord-brands.svg') }}"
-                alt="Discord Icon"
-        /></a>
-        <a
-            href="https://paypal.me/car930"
-            title="Paypal Account"
-            target="_blank"
-            ><img
-                class="w-12"
-                src="{{ asset('images/social/paypal-brands.svg') }}"
-                alt="PayPal Icon"
-        /></a>
+        <a href="https://discord.gg/PBfMUzz" title="OW Picker Discord" target="_blank"><img class="w-12"
+                src="{{ asset('images/social/discord-brands.svg') }}" alt="Discord Icon" /></a>
+        <a href="https://paypal.me/car930" title="Paypal Account" target="_blank"><img class="w-12"
+                src="{{ asset('images/social/paypal-brands.svg') }}" alt="PayPal Icon" /></a>
     </div>
-    <div
-        class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between"
-    >
-        <span class="footer-final-line-left"><a href="/privacy" class="underline decoration-amber-400">Privacy Policy</a></span>
+    <div class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between">
+        <span class="footer-final-line-left"><a href="/privacy" class="underline decoration-amber-400">Privacy
+                Policy</a></span>
         <span>This site is not affiliated with Overwatch or Blizzard Entertainment.</span>
     </div>
 </footer>

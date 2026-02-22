@@ -18,15 +18,15 @@ class OverpickerController extends Controller
     public function home()
     {
 
-        $title = ' - Overwatch tool made to build Composition based in Counter and Synergies';
+        $title = ' – Overwatch Hero Picker & Team Composition Calculator';
 
         $seo = [
-            'title' => 'OverPicker - Overwatch Composition Builder',
-            'keywords' => 'overwatch, best, heroes, counters, synergies, pick, overpicker, composition, overpick, heropicker, maps, tiers, characters, champions, carry, ranked, attack, defense, builder, build, comp',
-            'description' => 'Find your best hero and Overwatch 2 composition, counter the enemy team, and find the best hero for every map',
-            'og_title' => 'Overpicker - Overwatch tool made to build Composition based in Counter and Synergies',
-            'og_description' => 'Find your best composition, counter the enemy comp, and find the best hero for every map in Overwatch.',
-            'og_url' => 'https://overpicker.win/',
+            'title' => 'Overpicker – Overwatch Hero Picker & Team Composition Calculator',
+            'keywords' => 'overwatch hero picker, overwatch counter picker, overwatch team composition calculator, overwatch comp builder, overwatch draft tool, overwatch hero recommendation tool, overwatch composition analyzer, overwatch, best heroes, counters, synergies, pick, overpicker, composition, heropicker, maps, tiers',
+            'description' => 'Overpicker is an advanced Overwatch hero picker that analyzes team compositions, counters, and synergies to help you choose the best hero for competitive play.',
+            'og_title' => 'Overpicker – Overwatch Hero Picker & Team Composition Calculator',
+            'og_description' => 'Overpicker is an advanced Overwatch hero picker that analyzes team compositions, counters, and synergies to help you choose the best hero for competitive play.',
+            'og_url' => 'https://overpicker.com/',
         ];
 
         return view('calculator', [

@@ -53,7 +53,8 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="{{ $seo['og_url'] ?? 'https://overpicker.win/' }}" />
     {{-- Title --}}
-    <title>OverPicker {{ $title }}</title>
+    <title>{{ $seo['title'] ?? 'OverPicker' }}</title>
+    <meta name="title" content="{{ $seo['title'] ?? 'OverPicker' }}" />
     {{-- Fonts --}}
     <link href="https://fonts.googleapis.com/css?family=Abel|Fjalla+One|Poppins&display=swap" rel="stylesheet" />
     {{-- Styles --}} @vite('resources/css/app.css') {{-- Boostrap Icons --}}
@@ -63,7 +64,7 @@
 <body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12 relative">
     <x-home.header />
     @yield('content') @php$dates = include config_path('dates.php');
-            @endphp ?> ?>
+                @endphp ?> ?> ?>
     <x-home.footer :dates="$dates" />
 </body>
 
