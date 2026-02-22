@@ -22,13 +22,14 @@ const getSelectValue = function (name) {
 // Miscelaneus
 //////////////////////
 
-const TIER_MIN = 5;
-const COUNTER_WEIGHT = 1 / 5;
-const MIN_COUNTER_VALUE = 4;
-const SINERGY_WEIGHT = 1 / 2;
-const MIN_SINERGY_VALUE = 10;
-const MAPAD_WEIGHT = 1 / 2;
-const MIN_MAPAD_VALUE = 45;
+const TIER_MIN = -5;
+const TIER_WEIGHT = 2 / 10;
+const COUNTER_WEIGHT = 2 / 10;
+const MIN_COUNTER_VALUE = 20;
+const SINERGY_WEIGHT = 3 / 10;
+const MIN_SINERGY_VALUE = 20;
+const MAPAD_WEIGHT = 3 / 10;
+const MIN_MAPAD_VALUE = 20;
 
 //////////////////////
 // API METHODS
@@ -54,6 +55,7 @@ export {
     LASTUPDATE,
     getSelectValue,
     TIER_MIN,
+    TIER_WEIGHT,
     COUNTER_WEIGHT,
     MIN_COUNTER_VALUE,
     SINERGY_WEIGHT,

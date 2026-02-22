@@ -8,6 +8,7 @@ Feel free to alter this code to your liking, but please do not re-host it, do no
 
 import {
     TIER_MIN,
+    TIER_WEIGHT,
     COUNTER_WEIGHT,
     MIN_COUNTER_VALUE,
     SINERGY_WEIGHT,
@@ -86,8 +87,8 @@ class ModelHero {
             if (alliedHero != this.name && !isEchoValue) {
                 if (isWeighted) {
                     sinergyValue +=
-                        this.synergies[alliedHero] * SINERGY_WEIGHT +
-                        MIN_SINERGY_VALUE;
+                        (this.synergies[alliedHero] + MIN_SINERGY_VALUE) *
+                        SINERGY_WEIGHT;
                 } else {
                     sinergyValue += this.synergies[alliedHero];
                 }
@@ -96,8 +97,8 @@ class ModelHero {
                 //Also Echo can't have sinergy with herself
                 if (isWeighted) {
                     sinergyValue +=
-                        this.synergies[alliedHero] * SINERGY_WEIGHT +
-                        MIN_SINERGY_VALUE;
+                        (this.synergies[alliedHero] + MIN_SINERGY_VALUE) *
+                        SINERGY_WEIGHT;
                 } else {
                     sinergyValue += this.synergies[alliedHero];
                 }
@@ -115,8 +116,8 @@ class ModelHero {
 
             if (isWeighted) {
                 counterValue +=
-                    this.counters[enemyHero] * COUNTER_WEIGHT +
-                    MIN_COUNTER_VALUE;
+                    (this.counters[enemyHero] + MIN_COUNTER_VALUE) *
+                    COUNTER_WEIGHT;
             } else {
                 counterValue += this.counters[enemyHero];
             }
@@ -134,7 +135,7 @@ class ModelHero {
         pointType,
         alliedHeroes,
         enemyHeroes,
-        isWeighted
+        isWeighted,
     ) {
         this.value = 0;
 
@@ -145,8 +146,8 @@ class ModelHero {
                     // Use map-level score if available
                     if (isWeighted) {
                         this.value +=
-                            this.maps["Maps"][map] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Map Level Value
+                            (this.maps["Maps"][map] + MIN_MAPAD_VALUE) *
+                            MAPAD_WEIGHT; //Map Level Value
                     } else {
                         this.value += this.maps["Maps"][map]; //Map Level Value
                     }
@@ -156,8 +157,9 @@ class ModelHero {
                     if (firstPoint) {
                         if (isWeighted) {
                             this.value +=
-                                this.maps[adc][map][firstPoint] * MAPAD_WEIGHT +
-                                MIN_MAPAD_VALUE; //First Point Value
+                                (this.maps[adc][map][firstPoint] +
+                                    MIN_MAPAD_VALUE) *
+                                MAPAD_WEIGHT; //First Point Value
                         } else {
                             this.value += this.maps[adc][map][firstPoint]; //First Point Value
                         }
@@ -166,8 +168,8 @@ class ModelHero {
             } else {
                 if (isWeighted) {
                     this.value +=
-                        this.maps[adc][map][point] * MAPAD_WEIGHT +
-                        MIN_MAPAD_VALUE; //Point Value
+                        (this.maps[adc][map][point] + MIN_MAPAD_VALUE) *
+                        MAPAD_WEIGHT; //Point Value
                 } else {
                     this.value += this.maps[adc][map][point]; //Point Value
                 }
@@ -177,24 +179,25 @@ class ModelHero {
                 if (pointType == "Control" || pointType == "Flashpoint") {
                     if (isWeighted) {
                         this.value +=
-                            this.adc["General"][pointType] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                            (this.adc["General"][pointType] + MIN_MAPAD_VALUE) *
+                            MAPAD_WEIGHT; //Control or Flashpoint Value
                     } else {
                         this.value += this.adc["General"][pointType]; //Control or Flashpoint Value
                     }
                 } else if (pointType == "Push") {
                     if (isWeighted) {
                         this.value +=
-                            this.adc[adc][point] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Push Value
+                            (this.adc[adc][point] + MIN_MAPAD_VALUE) *
+                            MAPAD_WEIGHT; //Push Value
                     } else {
                         this.value += this.adc[adc][point]; //Push Value
                     }
                 } else {
                     if (isWeighted) {
                         this.value +=
-                            this.adc[adc][pointType][point] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
+                            (this.adc[adc][pointType][point] +
+                                MIN_MAPAD_VALUE) *
+                            MAPAD_WEIGHT; //Attack-Deffense-Control Value
                     } else {
                         this.value += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
                     }
@@ -202,8 +205,8 @@ class ModelHero {
             } else if (point === "None") {
                 if (isWeighted) {
                     this.value +=
-                        this.adc["General"][mapType] * MAPAD_WEIGHT +
-                        MIN_MAPAD_VALUE;
+                        (this.adc["General"][mapType] + MIN_MAPAD_VALUE) *
+                        MAPAD_WEIGHT;
                 } else {
                     this.value += this.adc["General"][mapType];
                 }
@@ -214,7 +217,7 @@ class ModelHero {
         this.value += this.getCounterValue(enemyHeroes, isWeighted); //Counters Values
         if (tier != "None") {
             if (isWeighted) {
-                this.value += this.tiers[tier] + TIER_MIN; //Tier Value + Min Value
+                this.value += (this.tiers[tier] + TIER_MIN) * TIER_WEIGHT; //Tier Value + Min Value
             } else {
                 this.value += this.tiers[tier]; //Tier Value
             }
@@ -230,7 +233,7 @@ class ModelHero {
         pointType,
         alliedHeroes,
         enemyHeroes,
-        isWeighted
+        isWeighted,
     ) {
         let isEchoValue = true;
 
@@ -247,8 +250,8 @@ class ModelHero {
                         // Use map-level score if available
                         if (isWeighted) {
                             this.echoValue +=
-                                this.maps["Maps"][map] * MAPAD_WEIGHT +
-                                MIN_MAPAD_VALUE; //Map Level Value
+                                (this.maps["Maps"][map] + MIN_MAPAD_VALUE) *
+                                MAPAD_WEIGHT; //Map Level Value
                         } else {
                             this.echoValue += this.maps["Maps"][map]; //Map Level Value
                         }
@@ -258,9 +261,9 @@ class ModelHero {
                         if (firstPoint) {
                             if (isWeighted) {
                                 this.echoValue +=
-                                    this.maps[adc][map][firstPoint] *
-                                        MAPAD_WEIGHT +
-                                    MIN_MAPAD_VALUE; //First Point Value
+                                    (this.maps[adc][map][firstPoint] +
+                                        MIN_MAPAD_VALUE) *
+                                    MAPAD_WEIGHT; //First Point Value
                             } else {
                                 this.echoValue +=
                                     this.maps[adc][map][firstPoint]; //First Point Value
@@ -270,8 +273,8 @@ class ModelHero {
                 } else {
                     if (isWeighted) {
                         this.echoValue +=
-                            this.maps[adc][map][point] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Point Value
+                            (this.maps[adc][map][point] + MIN_MAPAD_VALUE) *
+                            MAPAD_WEIGHT; //Point Value
                     } else {
                         this.echoValue += this.maps[adc][map][point]; //Point Value
                     }
@@ -281,8 +284,9 @@ class ModelHero {
                     if (pointType == "Control" || pointType == "Flashpoint") {
                         if (isWeighted) {
                             this.echoValue +=
-                                this.adc["General"][pointType] * MAPAD_WEIGHT +
-                                MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                                (this.adc["General"][pointType] +
+                                    MIN_MAPAD_VALUE) *
+                                MAPAD_WEIGHT; //Control or Flashpoint Value
                         } else {
                             this.echoValue += this.adc["General"][pointType]; //Control or Flashpoint Value
                         }
@@ -295,16 +299,17 @@ class ModelHero {
 
                         if (isWeighted) {
                             this.echoValue +=
-                                this.adc[adc][point] * MAPAD_WEIGHT +
-                                MIN_MAPAD_VALUE; //Push Value
+                                (this.adc[adc][point] + MIN_MAPAD_VALUE) *
+                                MAPAD_WEIGHT; //Push Value
                         } else {
                             this.echoValue += this.adc[adc][point]; //Push Value
                         }
                     } else {
                         if (isWeighted) {
                             this.echoValue +=
-                                this.adc[adc][pointType][point] * MAPAD_WEIGHT +
-                                MIN_MAPAD_VALUE; //Attack-Deffense-Control Value
+                                (this.adc[adc][pointType][point] +
+                                    MIN_MAPAD_VALUE) *
+                                MAPAD_WEIGHT; //Attack-Deffense-Control Value
                         } else {
                             this.echoValue += this.adc[adc][pointType][point]; //Attack-Deffense-Control Value
                         }
@@ -312,8 +317,8 @@ class ModelHero {
                 } else if (point === "None") {
                     if (isWeighted) {
                         this.echoValue +=
-                            this.adc["General"][mapType] * MAPAD_WEIGHT +
-                            MIN_MAPAD_VALUE; //Control or Flashpoint Value
+                            (this.adc["General"][mapType] + MIN_MAPAD_VALUE) *
+                            MAPAD_WEIGHT; //Control or Flashpoint Value
                     } else {
                         this.echoValue += this.adc["General"][mapType];
                     }
@@ -323,7 +328,7 @@ class ModelHero {
             this.echoValue += this.getSinergyValue(
                 enemyHeroes,
                 isWeighted,
-                isEchoValue
+                isEchoValue,
             ); //Synergie Values but with enemy heroes for echo targets
             this.echoValue += this.getCounterValue(alliedHeroes, isWeighted); //Counter Values but with allied heroes for echo targets
 
