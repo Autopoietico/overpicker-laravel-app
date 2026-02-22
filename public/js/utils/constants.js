@@ -23,12 +23,12 @@ const getSelectValue = function (name) {
 //////////////////////
 
 const TIER_MIN = -5;
-const TIER_WEIGHT = 2 / 10;
-const COUNTER_WEIGHT = 2 / 10;
+const TIER_WEIGHT = 1 / 10;
+const COUNTER_WEIGHT = 1 / 10;
 const MIN_COUNTER_VALUE = 20;
-const SINERGY_WEIGHT = 3 / 10;
+const SINERGY_WEIGHT = 2 / 10;
 const MIN_SINERGY_VALUE = 20;
-const MAPAD_WEIGHT = 3 / 10;
+const MAPAD_WEIGHT = 2 / 10;
 const MIN_MAPAD_VALUE = 20;
 
 //////////////////////
