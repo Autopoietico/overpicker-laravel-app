@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="google-site-verification" content="mUK2s_AhNRe8HHxU3C0R8WadVimZ5wfFEQiEGk28tR4" />
     <!--
             All this code is copyright Autopoietico, 2020-2023.
                 -This code includes a bit of snippets found on stackoverflow.com and others
