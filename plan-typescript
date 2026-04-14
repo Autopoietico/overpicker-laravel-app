@@ -1,0 +1,183 @@
+Plan: Migración de JavaScript a TypeScript
+Contexto
+El proyecto usa Vite únicamente para CSS (@vite('resources/css/app.css')). Los archivos JS se sirven directamente como estáticos desde public/js/ con <script src="js/calculator.js">.
+
+Para TypeScript hay que integrar los archivos JS dentro del pipeline de Vite, moviéndolos a resources/js/, para que Vite los compile automáticamente y el hot reload siga funcionando con php artisan serve + npm run dev.
+
+Paso 0 — Configuración inicial (hazlo antes de tocar cualquier archivo TS)
+1. Instalar TypeScript
+npm install --save-dev typescript
+Vite ya soporta TypeScript de forma nativa, no necesitas ts-loader ni babel.
+
+2. Crear tsconfig.json en la raíz del proyecto
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "lib": ["ES2020", "DOM"],
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["resources/js/**/*.ts"]
+}
+"strict": true → activa todos los chequeos de TypeScript. Es exigente pero es como se aprende bien.
+"noEmit": true → Vite hace la compilación; TypeScript solo chequea tipos.
+"lib": ["ES2020", "DOM"] → le dice a TS que existen document, localStorage, etc.
+3. Actualizar vite.config.js
+Abre vite.config.js y agrega los dos entry points nuevos:
+
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: [
+                'resources/css/app.css',
+                'resources/js/calculator.ts',   // ← nuevo
+                'resources/js/hamburger.ts',    // ← nuevo
+            ],
+            refresh: true,
+        }),
+    ],
+});
+4. Actualizar las etiquetas <script> en las Blade views
+En resources/views/calculator.blade.php (línea ~70), cambia:
+
+<!-- ANTES -->
+<script defer src="js/calculator.js" type="module"></script>
+
+<!-- DESPUÉS -->
+@vite('resources/js/calculator.ts')
+En resources/views/components/home/header.blade.php (línea ~44), cambia:
+
+<!-- ANTES -->
+<script defer src="js/hamburger.js"></script>
+
+<!-- DESPUÉS -->
+@vite('resources/js/hamburger.ts')
+La directiva @vite() agrega automáticamente defer y type="module". El hot reload funcionará igual que antes con npm run dev.
+
+5. Crear la estructura de carpetas en resources/js/
+resources/js/
+├── utils/
+├── api/
+├── models/
+├── views/
+├── controllers/
+├── calculator.ts
+└── hamburger.ts
+Orden de reescritura (de menor a mayor complejidad)
+Archivo 1 — utils/constants.ts (67 líneas)
+Conceptos TS que practicarás: const, tipos primitivos, exportar constantes tipadas, as const.
+
+Lo que hace: Define URLs, pesos del algoritmo de scoring, y la función helper getSelectValue().
+
+Lo más interesante: Aprenderás a tipar el retorno de una función:
+
+export function getSelectValue(value: string): string { ... }
+Archivo 2 — models/model-map.ts (19 líneas)
+Conceptos TS: Tu primera class tipada, el constructor con tipos, propiedades de clase.
+
+Lo que hace: Clase simple que guarda name, type, onPool, y points[].
+
+Lo más interesante: Aprenderás a tipar arrays:
+
+points: string[]
+Archivo 3 — models/model-map-type.ts (25 líneas)
+Conceptos TS: Similar a model-map, clase con array tipado. Refuerzo del paso anterior.
+
+Archivo 4 — models/model-tier.ts (35 líneas)
+Conceptos TS: Clase simple, refuerzo del patrón de clases con constructor.
+
+Archivo 5 — hamburger.ts (28 líneas)
+Conceptos TS: Manipulación del DOM con tipos, HTMLElement | null, el operador ?. (optional chaining).
+
+Lo que hace: Toggle del menú hamburguesa en mobile.
+
+Lo más interesante: TypeScript es muy estricto con el DOM. document.getElementById() devuelve HTMLElement | null, así que aprenderás a manejar ese null:
+
+const nav = document.getElementById('header-nav');
+nav?.classList.toggle('invisible'); // safe con ?.
+Archivo 6 — api/model-api.ts (188 líneas)
+Conceptos TS: interface para tipar los datos de la API, Promise<T>, fetch tipado, localStorage.
+
+Lo que hace: Llama a la API, cachea datos en localStorage, verifica versión.
+
+Lo más interesante: Definir interfaces para los datos JSON que vienen de la API:
+
+interface HeroInfo {
+  name: string;
+  role: string;
+  // ...
+}
+También async/await con tipos de retorno.
+
+Archivo 7 — models/model-hero.ts (348 líneas)
+Conceptos TS: Clases con métodos tipados, tipos de unión, Record<string, number>, lógica de scoring.
+
+Lo que hace: Modelo de un héroe con toda su lógica de puntuación (score, counters, synergies, maps).
+
+Lo más interesante: La función calcScore() tiene varios parámetros; tiparlo te forzará a entender exactamente qué datos recibe y qué devuelve.
+
+Archivo 8 — models/model-team.ts (321 líneas)
+Conceptos TS: Clases que usan otras clases tipadas (ModelHero[]), métodos que retornan objetos.
+
+Lo que hace: Administra los 5 héroes del equipo, calcula scores aggregados, filtra por nombre.
+
+Lo más interesante: Aprenderás Array<ModelHero> vs ModelHero[] y cómo tipar métodos que devuelven objetos complejos.
+
+Archivo 9 — views/view-overpicker.ts (1.301 líneas)
+Conceptos TS: El DOM fuertemente tipado, HTMLInputElement, HTMLSelectElement, HTMLDivElement, callbacks tipados, EventListener.
+
+Lo que hace: Crea y actualiza toda la UI — el panel de opciones, dropdowns, tarjetas de héroes, scores.
+
+Lo más interesante: Es el archivo más grande pero muy repetitivo una vez que entiendes el patrón. TypeScript te ayudará: si intentas hacer .value en un HTMLDivElement, te dará error en tiempo de compilación (no en el browser).
+
+Tip: puedes reescribirlo en secciones, empezando por los métodos más simples como displayTeamScores() antes de atacar displayHeroRoles().
+
+Archivo 10 — models/model-overpicker.ts (849 líneas)
+Conceptos TS: El modelo más complejo. Clases con muchas propiedades, callbacks como propiedades tipadas, patrones de observer.
+
+Lo que hace: El estado central de la app — opciones del panel, selecciones, héroes seleccionados, coordinación de todos los modelos.
+
+Lo más interesante: Aprenderás a tipar funciones como propiedades de clase (callbacks):
+
+onOptionChange: ((option: string, value: boolean) => void) | null = null;
+Archivo 11 — controllers/controller-overpicker.ts (156 líneas)
+Conceptos TS: Clases con dependencias inyectadas y tipadas, patrón MVC bien definido.
+
+Lo que hace: Conecta el modelo y la vista, maneja eventos del usuario.
+
+Lo más interesante: Aquí el tipado brilla: el constructor recibe ModelOverPicker y ViewOverPicker, y TypeScript te garantiza en todo momento qué métodos puedes llamar en cada uno.
+
+Archivo 12 — calculator.ts (32 líneas)
+Conceptos TS: El entry point. Solo importa y conecta todo.
+
+Lo que hace: Instancia el controller e inicia la carga de datos de la API.
+
+Este es el punto de llegada. Cuando este archivo compile sin errores y el browser funcione correctamente, habrás completado la migración.
+
+Cómo probar cada cambio
+Cada vez que termines un archivo:
+
+# Terminal 1
+php artisan serve
+
+# Terminal 2
+npm run dev
+Abre localhost:8000 y verifica que la calculadora sigue funcionando.
+
+Para ver errores de TypeScript sin ejecutar el código:
+
+npx tsc --noEmit
+Notas importantes
+No borres los archivos en public/js/ hasta terminar toda la migración. Mientras Vite procesa los nuevos .ts, los archivos .js siguen ahí. Una vez que Blade use @vite() en lugar de <script src="...">, puedes eliminarlos.
+
+Si Vite da un error de tipo TS, el hot reload se detiene. Corrígelo para que el servidor de desarrollo vuelva a funcionar.
+
+El orden importa: Si reescribes model-team.ts antes que model-hero.ts, la importación de ModelHero fallará porque aún es un .js. Sigue el orden del plan.
+
+Mientras migras archivo por archivo, los imports quedarán mezclados (TS importando JS). Eso es normal y Vite lo maneja bien — TypeScript puede importar archivos .js sin problema.
