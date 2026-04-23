@@ -28,6 +28,9 @@
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/synergies">Synergies</a>
             </li>
+            <li>
+                <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/maps">Maps</a>
+            </li>
 
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/trackers">Trackers</a>

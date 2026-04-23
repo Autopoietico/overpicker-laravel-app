@@ -24,6 +24,8 @@ Route::get('/counters', [OverpickerController::class, 'counters']);
 
 Route::get('/synergies', [OverpickerController::class, 'synergies']);
 
+Route::get('/maps', [OverpickerController::class, 'maps']);
+
 Route::get('/about', [OverpickerController::class, 'about']);
 
 Route::get('/sources', [OverpickerController::class, 'sources']);

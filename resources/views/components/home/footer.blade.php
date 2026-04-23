@@ -20,6 +20,9 @@
                 <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="synergies">Synergies</a>
             </li>
             <li>
+                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="maps">Maps</a>
+            </li>
+            <li>
                 <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="trackers">Trackers</a>
             <li>
                 <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="sources">Sources</a>

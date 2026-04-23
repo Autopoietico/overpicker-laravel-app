@@ -219,6 +219,132 @@ class OverpickerController extends Controller
         ]);
     }
 
+    public function maps()
+    {
+        $heroes_obj    = json_decode(file_get_contents(storage_path('/api/hero-data/hero-info.json')), true);
+        $img_obj       = json_decode(file_get_contents(storage_path('/api/hero-data/hero-img.json')), true);
+        $hero_maps_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-maps.json')), true);
+        $map_info_obj  = json_decode(file_get_contents(storage_path('/api/map-data/map-info.json')), true);
+        $map_type_obj  = json_decode(file_get_contents(storage_path('/api/map-data/map-type.json')), true);
+
+        $hero_roles = [];
+        foreach ($heroes_obj as $hero) {
+            $hero_roles[$hero['name']] = $hero['general_rol'];
+        }
+
+        $hero_images = [];
+        foreach ($img_obj as $img) {
+            $hero_images[$img['name']] = $img['profile-img'];
+        }
+
+        // Map types that have both Attack and Defense scores for every point
+        $dual_types = ['Assault', 'Escort', 'Hybrid'];
+
+        // Map type -> single data key in hero-maps.json
+        $single_key = [
+            'Push'       => 'Push',
+            'Control'    => 'Control',
+            'Flashpoint' => 'Flashpoint',
+            'Clash'      => 'Clash',
+        ];
+
+        $processed_data = [];
+        $map_list = [];
+
+        foreach ($map_info_obj as $mapInfo) {
+            if (!$mapInfo['onPool']) continue;
+
+            $mapName  = $mapInfo['name'];
+            $mapType  = $mapInfo['type'];
+            $points   = $mapInfo['points'];
+            $isDual   = in_array($mapType, $dual_types);
+
+            $columns = [];
+            foreach ($points as $pointName) {
+                $columns[] = ['pointName' => $pointName, 'dual' => $isDual];
+            }
+
+            $map_list[$mapType][] = $mapName;
+
+            $heroData = [];
+            foreach ($heroes_obj as $heroInfo) {
+                $heroName    = $heroInfo['name'];
+                if (!isset($hero_maps_obj[$heroName])) continue;
+                $heroMapData = $hero_maps_obj[$heroName];
+
+                $overall = $heroMapData['Maps'][$mapName] ?? null;
+                if ($overall === null) {
+                    $lookupKey = $isDual ? 'Attack' : ($single_key[$mapType] ?? 'Attack');
+                    if (isset($heroMapData[$lookupKey][$mapName])) {
+                        $vals    = array_values($heroMapData[$lookupKey][$mapName]);
+                        $overall = (int)(round(array_sum($vals) / count($vals) / 10) * 10);
+                    } else {
+                        $overall = 0;
+                    }
+                }
+
+                $pointScores = [];
+                foreach ($points as $pointName) {
+                    if ($isDual) {
+                        $pointScores[$pointName] = [
+                            'attack'  => $heroMapData['Attack'][$mapName][$pointName] ?? 0,
+                            'defense' => $heroMapData['Defense'][$mapName][$pointName] ?? 0,
+                        ];
+                    } else {
+                        $key = $single_key[$mapType] ?? 'Attack';
+                        $pointScores[$pointName] = [
+                            'score' => $heroMapData[$key][$mapName][$pointName] ?? 0,
+                        ];
+                    }
+                }
+
+                $heroData[$heroName] = ['overall' => $overall, 'points' => $pointScores];
+            }
+
+            $processed_data[$mapName] = [
+                'type'    => $mapType,
+                'points'  => $points,
+                'columns' => $columns,
+                'heroes'  => $heroData,
+            ];
+        }
+
+        $heroes_ordered = [];
+        foreach ($heroes_obj as $hero) {
+            if (isset($hero_maps_obj[$hero['name']])) {
+                $heroes_ordered[] = ['name' => $hero['name'], 'role' => $hero['general_rol']];
+            }
+        }
+
+        $mapKeywords = [];
+        foreach ($map_info_obj as $m) {
+            if ($m['onPool']) {
+                $mapKeywords[] = 'best heroes on ' . strtolower($m['name']) . ' overwatch';
+                $mapKeywords[] = 'overwatch ' . strtolower($m['name']) . ' hero picks';
+            }
+        }
+
+        $seo = [
+            'title'          => 'Overwatch Hero Performance by Map – Best Picks for Every Map',
+            'keywords'       => 'overwatch best heroes by map, overwatch map hero scores, overwatch map tier list, ' . implode(', ', $mapKeywords) . ', overwatch competitive map picks',
+            'description'    => 'Discover the best Overwatch heroes for every competitive map. See attack, defense, and per-point performance scores for all active maps including King\'s Row, Ilios, Colosseo and more.',
+            'og_title'       => 'Overwatch Hero Performance by Map – Best Picks for Every Map',
+            'og_description' => 'Discover the best Overwatch heroes for every map. See per-point attack and defense scores for all competitive maps.',
+            'og_url'         => 'https://overpicker.win/maps',
+        ];
+
+        return view('maps', [
+            'title'          => ' - Maps',
+            'dates'          => $this->DATES,
+            'seo'            => $seo,
+            'processed_data' => $processed_data,
+            'hero_roles'     => $hero_roles,
+            'hero_images'    => $hero_images,
+            'heroes_ordered' => $heroes_ordered,
+            'map_list'       => $map_list,
+        ]);
+    }
+
     public function about()
     {
 
