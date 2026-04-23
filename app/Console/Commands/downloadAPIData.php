@@ -33,6 +33,9 @@ class downloadAPIData extends Command
         $url_version = "https://api.overpicker.com/version";
         $url_synergies = "https://api.overpicker.com/hero-synergies";
         $url_counters = "https://api.overpicker.com/hero-counters";
+        $url_maps = "https://api.overpicker.com/hero-maps";
+        $url_map_info = "https://api.overpicker.com/map-info";
+        $url_map_type = "https://api.overpicker.com/map-type";
 
         $heroes_data = Http::get($url_heroes)->body();
         $tiers_data = Http::get($url_tiers)->body();
@@ -40,6 +43,9 @@ class downloadAPIData extends Command
         $version_data = Http::get($url_version)->body();
         $synergies_data = Http::get($url_synergies)->body();
         $counters_data = Http::get($url_counters)->body();
+        $maps_data = Http::get($url_maps)->body();
+        $map_info_data = Http::get($url_map_info)->body();
+        $map_type_data = Http::get($url_map_type)->body();
 
         if ($heroes_data) {
             $hero_file = storage_path('/api/hero-data/hero-info.json');
@@ -87,6 +93,30 @@ class downloadAPIData extends Command
             $this->info('Hero Counters downloaded succesfully in: ' . $counters_file);
         } else {
             $this->error('Error getting the Hero Counters data');
+        }
+
+        if ($maps_data) {
+            $maps_file = storage_path('/api/hero-data/hero-maps.json');
+            file_put_contents($maps_file, $maps_data);
+            $this->info('Hero Maps downloaded succesfully in: ' . $maps_file);
+        } else {
+            $this->error('Error getting the Hero Maps data');
+        }
+
+        if ($map_info_data) {
+            $map_info_file = storage_path('/api/map-data/map-info.json');
+            file_put_contents($map_info_file, $map_info_data);
+            $this->info('Map Info downloaded succesfully in: ' . $map_info_file);
+        } else {
+            $this->error('Error getting the Map Info data');
+        }
+
+        if ($map_type_data) {
+            $map_type_file = storage_path('/api/map-data/map-type.json');
+            file_put_contents($map_type_file, $map_type_data);
+            $this->info('Map Type downloaded succesfully in: ' . $map_type_file);
+        } else {
+            $this->error('Error getting the Map Type data');
         }
     }
 }
