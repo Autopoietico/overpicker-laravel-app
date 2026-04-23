@@ -105,6 +105,9 @@ class downloadAPIData extends Command
 
         if ($map_info_data) {
             $map_info_file = storage_path('/api/map-data/map-info.json');
+            if (!is_dir(dirname($map_info_file))) {
+                mkdir(dirname($map_info_file), 0755, true);
+            }
             file_put_contents($map_info_file, $map_info_data);
             $this->info('Map Info downloaded succesfully in: ' . $map_info_file);
         } else {
