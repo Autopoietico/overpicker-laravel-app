@@ -11,8 +11,8 @@
     <section class="mb-10 text-center sm:text-left text-sm">
         <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
             <p class="sm:text-lg mb-4">
-                The matrix below illustrates how well each hero works with others. The hero at the top represents
-                the one already selected, while the hero on the left is the recommended pick.
+                Select your hero to see which heroes synergize best with them, ranked from strongest to weakest synergy.
+                Use the role filters to narrow down results by Tank, Damage, or Support.
             </p>
             <p class="sm:text-lg mb-4">
                 <strong>How the Scoring System Works:</strong> Our Overwatch synergy chart uses a
@@ -39,99 +39,74 @@
             </p>
         </div>
 
-        <!-- Synergies Matrix Table -->
-        <div class="mt-10 text-center overflow-x-auto">
-            <table class="w-full table-fixed mx-auto" id="synergiesTable">
+        <!-- Hero Selector Strip -->
+        <div class="mt-6 max-w-4xl m-auto">
+            <p class="fjalla text-xl uppercase mb-2">Select Your Hero:</p>
+            <div class="overflow-x-auto pb-2">
+                <div class="flex gap-2 flex-nowrap">
+                    @foreach ($heroes as $hero)
+                        @php
+                            $heroImage = $hero_images[$hero['name']] ?? 'images/assets/blank-hero.webp';
+                            $role = $hero_roles[$hero['name']] ?? 'Unknown';
+                        @endphp
+                        <button
+                            class="hero-selector-btn flex flex-col items-center p-1 rounded-lg bg-[#294452] hover:bg-[#3a5a6a] cursor-pointer min-w-[60px] transition-all"
+                            data-hero="{{ $hero['name'] }}"
+                            data-role="{{ $role }}"
+                            onclick="selectHero('{{ $hero['name'] }}')"
+                        >
+                            <img src="{{ $heroImage }}" alt="{{ $hero['name'] }}" class="w-10 h-10 rounded-lg">
+                            <span class="text-xs abel truncate max-w-[58px] mt-0.5 leading-tight">{{ $hero['name'] }}</span>
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Filters -->
+        <div class="mt-4 max-w-4xl m-auto flex flex-wrap items-center gap-3">
+            <button onclick="filterByRole('Tank', event)"
+                class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                data-role="Tank">
+                <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-5 h-5">
+                <span class="fjalla text-sm uppercase">Tank</span>
+            </button>
+            <button onclick="filterByRole('Damage', event)"
+                class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                data-role="Damage">
+                <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-5 h-5">
+                <span class="fjalla text-sm uppercase">Damage</span>
+            </button>
+            <button onclick="filterByRole('Support', event)"
+                class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                data-role="Support">
+                <img src="\images\assets\support.webp" alt="Support Icon" class="w-5 h-5">
+                <span class="fjalla text-sm uppercase">Support</span>
+            </button>
+            <button id="resetFilter"
+                class="px-3 py-2 bg-[#294452] text-white rounded-lg hover:bg-gray-600 fjalla text-sm uppercase">
+                Reset
+            </button>
+        </div>
+
+        <!-- Hero info line -->
+        <div id="heroInfo" class="mt-3 max-w-4xl m-auto text-sm text-slate-400"></div>
+
+        <!-- Empty state -->
+        <div id="emptyState" class="mt-16 mb-16 text-center text-slate-400 text-lg fjalla">
+            Select a hero above to see their best synergies.
+        </div>
+
+        <!-- Results Table -->
+        <div class="mt-6 text-center overflow-x-auto" id="tableWrapper" style="display:none">
+            <table class="mx-auto" id="synergiesTable">
                 <thead>
-                    <tr class=" fjalla text-xl">
-                        <th class="p-2 bg-white bg-color-text w-32">Hero</th>
-                        @foreach ($heroes as $hero)
-                            @php
-                                $heroImage = $hero_images[$hero['name']] ?? 'images/assets/blank-hero.webp';
-                                $role = $hero_roles[$hero['name']] ?? 'Unknown';
-                            @endphp
-                            <th class="p-2 text-xs sm:text-sm w-24" data-hero="{{ $hero['name'] }}"
-                                data-role="{{ $role }}" onclick="filterByHero('{{ $hero['name'] }}')">
-                                <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
-                                    <img src="{{ $heroImage }}" alt="{{ $hero['name'] }} profile"
-                                        class="w-8 h-8 rounded-lg">
-                                    <span class="mt-1">{{ $hero['name'] }}</span>
-                                    <div class="text-xs mt-1">
-                                        @if ($role == 'Tank')
-                                            <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-4 h-4 inline"
-                                                onclick="filterByRole('Tank', event)">
-                                        @elseif($role == 'Damage')
-                                            <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-4 h-4 inline"
-                                                onclick="filterByRole('Damage', event)">
-                                        @elseif($role == 'Support')
-                                            <img src="\images\assets\support.webp" alt="Support Icon" class="w-4 h-4 inline"
-                                                onclick="filterByRole('Support', event)">
-                                        @endif
-                                    </div>
-                                </div>
-                            </th>
-                        @endforeach
+                    <tr class="fjalla text-base">
+                        <th class="p-2 w-32 text-left">Hero</th>
+                        <th class="p-2 w-20 text-center">Synergy</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($synergies as $heroName => $synergyData)
-                        @php
-                            $role = $hero_roles[$heroName] ?? 'Unknown';
-                            $heroImage = $hero_images[$heroName] ?? 'images/assets/blank-hero.webp';
-                        @endphp
-                        <tr class="hero-row" data-hero="{{ $heroName }}" data-role="{{ $role }}">
-                            <td class="p-2 w-32" data-hero="{{ $heroName }}" data-role="{{ $role }}"
-                                onclick="filterByRowHero('{{ $heroName }}')">
-                                <div class="flex flex-col items-center cursor-pointer hover:bg-gray-500 rounded p-1">
-                                    <img src="{{ $heroImage }}" alt="{{ $heroName }} profile"
-                                        class="w-10 h-10 rounded-lg">
-                                    <h4 class="text-xs abel font-medium truncate max-w-[80px]">
-                                        {{ $heroName }}
-                                    </h4>
-                                    <div class="text-xs mt-1">
-                                        @if ($role == 'Tank')
-                                            <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-6 h-6 inline"
-                                                onclick="filterByRole('Tank', event)">
-                                        @elseif($role == 'Damage')
-                                            <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-6 h-6 inline"
-                                                onclick="filterByRole('Damage', event)">
-                                        @elseif($role == 'Support')
-                                            <img src="\images\assets\support.webp" alt="Support Icon" class="w-6 h-6 inline"
-                                                onclick="filterByRole('Support', event)">
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-                            @foreach ($heroes as $columnHero)
-                                @php
-                                    $value = $synergyData[$columnHero['name']] ?? 0;
-                                    $bgColor = '';
-                                    if ($value >= 20) {
-                                        $bgColor = 'bg-green-600';
-                                    } elseif ($value >= 10) {
-                                        $bgColor = 'bg-green-400';
-                                    } elseif ($value > 0) {
-                                        $bgColor = 'bg-green-200';
-                                    } elseif ($value == 0) {
-                                        $bgColor = 'bg-gray-300';
-                                    } elseif ($value >= -10) {
-                                        $bgColor = 'bg-red-200';
-                                    } elseif ($value >= -20) {
-                                        $bgColor = 'bg-red-400';
-                                    } else {
-                                        $bgColor = 'bg-red-600';
-                                    }
-                                @endphp
-                                <td class="p-2 text-center w-24">
-                                    <div
-                                        class="w-10 h-10 flex items-center justify-center rounded mx-auto {{ $bgColor }}">
-                                        <span class="font-bold text-white">{{ $value }}</span>
-                                    </div>
-                                </td>
-                            @endforeach
-                        </tr>
-                    @endforeach
-                </tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
 
@@ -171,12 +146,6 @@
             </div>
         </div>
 
-        <div class="mt-4 text-center">
-            <button id="resetFilter" class="px-4 py-2 bg-[#29452] text-white rounded hover:bg-gray-600">
-                Reset Filters
-            </button>
-        </div>
-
         <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
             <p class="sm:text-lg mb-4">
                 <strong>What is a Synergy in Overwatch?</strong><br>
@@ -190,216 +159,123 @@
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Current active filters
-            let activeColumnHeroFilter = null; // For filtering by clicking header row heroes
-            let activeRowHeroFilter = null; // For filtering by clicking first column heroes
-            let activeColumnRoleFilter = null; // For filtering columns by role (clicked in header row)
-            let activeRowRoleFilter = null; // For filtering rows by role (clicked in first column)
+        const synergyMatrix = @json($synergies);
+        const heroImages = @json($hero_images);
+        const heroRoles = @json($hero_roles);
+        const heroMeta = @json($heroes);
 
-            // Elements
-            const resetButton = document.getElementById('resetFilter');
-            const rows = document.querySelectorAll('#synergiesTable tbody tr');
-            const headerCells = document.querySelectorAll('#synergiesTable thead th:not(:first-child)');
-            const firstColumnCells = document.querySelectorAll('#synergiesTable tbody td:first-child');
-            const table = document.getElementById('synergiesTable');
-            const tableContainer = table.parentElement;
+        let selectedHero = null;
+        let activeRoleFilter = null;
 
-            // Function to apply alternating row colors
-            function applyAlternatingRowColors() {
-                const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
-                visibleRows.forEach((row, index) => {
-                    // Apply background based on position in visible rows
-                    if (index % 2 === 0) {
-                        // Even index in visible array (0, 2, 4...) - keep default white
-                        row.style.backgroundColor = '';
-                    } else {
-                        // Odd index in visible array (1, 3, 5...) - apply blue
-                        row.style.backgroundColor = '#294452';
-                    }
-                });
-            }
+        function getScoreClass(value) {
+            if (value >= 20) return 'bg-green-600';
+            if (value >= 10) return 'bg-green-400';
+            if (value > 0)  return 'bg-green-200';
+            if (value === 0) return 'bg-gray-300';
+            if (value >= -10) return 'bg-red-200';
+            return 'bg-red-600';
+        }
 
-            // Function to apply alternating column colors
-            function applyAlternatingColumnColors() {
-                // Reset all column backgrounds first
-                headerCells.forEach(cell => {
-                    cell.style.backgroundColor = '';
-                });
+        function getRoleIcon(role) {
+            const icons = { Tank: '\\images\\assets\\tank.webp', Damage: '\\images\\assets\\damage.webp', Support: '\\images\\assets\\support.webp' };
+            return icons[role] || '';
+        }
 
-                // Get visible header cells
-                const visibleHeaderCells = Array.from(headerCells).filter(cell => cell.style.display !== 'none');
+        function showEmptyState() {
+            document.getElementById('emptyState').style.display = '';
+            document.getElementById('tableWrapper').style.display = 'none';
+            document.getElementById('heroInfo').textContent = '';
+        }
 
-                // Apply alternating colors to visible columns
-                visibleHeaderCells.forEach((cell, index) => {
-                    if (index % 2 === 0) {
-                        // Even index in visible array - apply default
-                        cell.style.backgroundColor = '';
-                    } else {
-                        // Odd index in visible array - apply blue
-                        cell.style.backgroundColor = '#294452';
-                    }
-                });
-            }
+        function renderTable() {
+            if (!selectedHero) { showEmptyState(); return; }
 
-            // Function to calculate and set table width based on visible columns
-            function setTableWidth() {
-                const visibleHeaderCells = Array.from(headerCells).filter(cell => cell.style.display !== 'none');
-                const visibleCount = visibleHeaderCells.length;
+            const selectedData = synergyMatrix[selectedHero] ?? {};
 
-                // Calculate the total width needed: first column (w-32 = 8rem = 128px) + visible columns (w-24 = 6rem = 96px each)
-                // Plus some padding for the first column content
-                const firstColumnWidth = 128; // w-32 = 8rem = 8*16px
-                const columnWidth = 96; // w-24 = 6rem = 6*16px
-                const totalWidth = firstColumnWidth + (visibleCount * columnWidth);
+            const entries = heroMeta
+                .filter(h => h.name !== selectedHero)
+                .map(h => ({
+                    name: h.name,
+                    role: heroRoles[h.name] ?? 'Unknown',
+                    image: heroImages[h.name] ?? 'images/assets/blank-hero.webp',
+                    score: selectedData[h.name] !== undefined ? selectedData[h.name] : 0
+                }))
+                .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
 
-                // Set the table width to prevent expansion
-                table.style.width = totalWidth + 'px';
+            const filtered = activeRoleFilter ? entries.filter(e => e.role === activeRoleFilter) : entries;
 
-                // If there are no filtered columns, reset to full width
-                if (visibleCount === headerCells.length) {
-                    table.style.width = '100%';
-                }
-            }
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
 
-            // Function to filter the table
-            function applyFilters() {
-                // Process rows
-                rows.forEach(row => {
-                    const rowHero = row.getAttribute('data-hero');
-                    const rowRole = row.getAttribute('data-role');
+            filtered.forEach((entry, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hero-row';
+                tr.dataset.role = entry.role;
+                if (index % 2 === 1) tr.style.backgroundColor = '#294452';
 
-                    let showRow = true;
+                const roleIcon = getRoleIcon(entry.role);
+                const scoreClass = getScoreClass(entry.score);
 
-                    // Apply row hero filter (when clicking hero in first column)
-                    if (activeRowHeroFilter && activeRowHeroFilter !== rowHero) {
-                        showRow = false;
-                    }
-
-                    // Apply row role filter (when clicking role in first column)
-                    if (activeRowRoleFilter && activeRowRoleFilter !== rowRole) {
-                        showRow = false;
-                    }
-
-                    // Apply row visibility
-                    row.style.display = showRow ? '' : 'none';
-
-                    // If row is visible, determine which columns to show
-                    if (showRow) {
-                        const cells = row.querySelectorAll(
-                            'td:not(:first-child)'); // Exclude first cell (hero name)
-
-                        cells.forEach((cell, index) => {
-                            const columnHero = headerCells[index].getAttribute('data-hero');
-                            const columnRole = headerCells[index].getAttribute('data-role');
-
-                            let showColumn = true;
-
-                            // Apply column hero filter (when clicking hero in header row)
-                            if (activeColumnHeroFilter && activeColumnHeroFilter !== columnHero) {
-                                showColumn = false;
-                            }
-
-                            // Apply column role filter (when clicking role in header row)
-                            if (activeColumnRoleFilter && activeColumnRoleFilter !== columnRole) {
-                                showColumn = false;
-                            }
-
-                            cell.style.display = showColumn ? '' : 'none';
-                        });
-                    }
-                });
-
-                // Filter header cells (columns)
-                headerCells.forEach(cell => {
-                    const cellHero = cell.getAttribute('data-hero');
-                    const cellRole = cell.getAttribute('data-role');
-
-                    let showCell = true;
-
-                    // Apply column hero filter only
-                    if (activeColumnHeroFilter && activeColumnHeroFilter !== cellHero) {
-                        showCell = false;
-                    }
-
-                    // Apply column role filter only
-                    if (activeColumnRoleFilter && activeColumnRoleFilter !== cellRole) {
-                        showCell = false;
-                    }
-
-                    cell.style.display = showCell ? '' : 'none';
-                });
-
-                // Reapply alternating colors after filtering
-                applyAlternatingRowColors();
-                applyAlternatingColumnColors();
-
-                // Adjust table width based on visible columns to maintain fixed column widths
-                setTableWidth();
-            }
-
-            // Function to filter by hero in header row (column filter)
-            window.filterByHero = function(heroName) {
-                if (activeColumnHeroFilter === heroName) {
-                    activeColumnHeroFilter = null; // Toggle off if already active
-                } else {
-                    activeColumnHeroFilter = heroName;
-                }
-
-                applyFilters();
-            };
-
-            // Function to filter by hero in first column (row filter)
-            window.filterByRowHero = function(heroName) {
-                if (activeRowHeroFilter === heroName) {
-                    activeRowHeroFilter = null; // Toggle off if already active
-                } else {
-                    activeRowHeroFilter = heroName;
-                }
-
-                applyFilters();
-            };
-
-            // Function to filter by role
-            window.filterByRole = function(roleName, event) {
-                event.stopPropagation(); // Prevent triggering the hero filter
-
-                // Determine if the role was clicked in header row (column filter) or first column (row filter)
-                const target = event.target;
-                const thElement = target.closest('th');
-
-                if (thElement && thElement.closest('thead')) {
-                    // Role clicked in header row - affects columns
-                    if (activeColumnRoleFilter === roleName) {
-                        activeColumnRoleFilter = null; // Toggle off if already active
-                    } else {
-                        activeColumnRoleFilter = roleName;
-                    }
-                } else {
-                    // Role clicked in first column - affects rows
-                    if (activeRowRoleFilter === roleName) {
-                        activeRowRoleFilter = null; // Toggle off if already active
-                    } else {
-                        activeRowRoleFilter = roleName;
-                    }
-                }
-
-                applyFilters();
-            };
-
-            // Reset filters
-            resetButton.addEventListener('click', function() {
-                activeColumnHeroFilter = null;
-                activeRowHeroFilter = null;
-                activeColumnRoleFilter = null;
-                activeRowRoleFilter = null;
-                // Reset table width to default
-                table.style.width = '100%';
-                applyFilters();
+                tr.innerHTML = `
+                    <td class="p-2 w-32">
+                        <div class="flex flex-col items-center">
+                            <img src="${entry.image}" alt="${entry.name} profile" class="w-10 h-10 rounded-lg">
+                            <h4 class="text-xs abel font-medium truncate max-w-[80px]">${entry.name}</h4>
+                            <div class="text-xs mt-1">
+                                ${roleIcon ? `<img src="${roleIcon}" alt="${entry.role}" class="w-6 h-6 inline cursor-pointer" onclick="filterByRole('${entry.role}', event)">` : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-2 text-center w-20">
+                        <div class="w-12 h-10 flex items-center justify-center rounded mx-auto ${scoreClass}">
+                            <span class="font-bold text-white">${entry.score}</span>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
             });
 
-            // Initial filter application
-            applyFilters();
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('tableWrapper').style.display = '';
+
+            const selectedRole = heroRoles[selectedHero] ?? '';
+            document.getElementById('heroInfo').textContent =
+                `Showing synergies for: ${selectedHero} (${selectedRole})`;
+        }
+
+        window.selectHero = function(heroName) {
+            selectedHero = heroName;
+            document.querySelectorAll('.hero-selector-btn').forEach(btn => {
+                if (btn.dataset.hero === heroName) {
+                    btn.classList.add('ring-2', 'ring-white');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-white');
+                }
+            });
+            renderTable();
+        };
+
+        window.filterByRole = function(roleName, event) {
+            event.stopPropagation();
+            activeRoleFilter = (activeRoleFilter === roleName) ? null : roleName;
+            document.querySelectorAll('.role-filter-btn').forEach(btn => {
+                if (btn.dataset.role === activeRoleFilter) {
+                    btn.classList.add('ring-2', 'ring-white');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-white');
+                }
+            });
+            renderTable();
+        };
+
+        document.getElementById('resetFilter').addEventListener('click', function() {
+            activeRoleFilter = null;
+            document.querySelectorAll('.role-filter-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-white');
+            });
+            renderTable();
         });
+
+        showEmptyState();
     </script>
 @endsection
