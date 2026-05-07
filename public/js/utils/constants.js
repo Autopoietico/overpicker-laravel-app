@@ -23,12 +23,12 @@ const getSelectValue = function (name) {
 //////////////////////
 
 const TIER_MIN = -5;
-const TIER_WEIGHT = 1 / 10;
-const COUNTER_WEIGHT = 1 / 10;
+const TIER_WEIGHT = 1;
+const COUNTER_WEIGHT = 1 / 5; //Divided by 5 enemy heroes
 const MIN_COUNTER_VALUE = 20;
-const SINERGY_WEIGHT = 2 / 10;
+const SINERGY_WEIGHT = 2 / 4; //Divided by 4 allied heroes, but with double weight than counters.
 const MIN_SINERGY_VALUE = 20;
-const MAPAD_WEIGHT = 2 / 10;
+const MAPAD_WEIGHT = 2;
 const MIN_MAPAD_VALUE = 20;
 
 //////////////////////
