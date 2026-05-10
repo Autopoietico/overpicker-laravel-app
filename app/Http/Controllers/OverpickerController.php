@@ -428,4 +428,22 @@ class OverpickerController extends Controller
             'seo' => $seo,
         ]);
     }
+
+    public function sitemap()
+    {
+        $urls = [
+            ['loc' => 'https://overpicker.win/', 'priority' => '1.0', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/tiers', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/counters', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/synergies', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/maps', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/about', 'priority' => '0.5', 'changefreq' => 'monthly'],
+            ['loc' => 'https://overpicker.win/sources', 'priority' => '0.5', 'changefreq' => 'monthly'],
+            ['loc' => 'https://overpicker.win/privacy', 'priority' => '0.3', 'changefreq' => 'yearly'],
+            ['loc' => 'https://overpicker.win/trackers', 'priority' => '0.3', 'changefreq' => 'monthly'],
+        ];
+
+        return response()->view('sitemap', ['urls' => $urls])
+            ->header('Content-Type', 'application/xml');
+    }
 }

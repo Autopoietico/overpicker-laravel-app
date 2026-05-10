@@ -33,3 +33,5 @@ Route::get('/sources', [OverpickerController::class, 'sources']);
 Route::get('/privacy', [OverpickerController::class, 'privacy']);
 
 Route::get('/trackers', [OverpickerController::class, 'trackers']);
+
+Route::get('/sitemap.xml', [OverpickerController::class, 'sitemap']);
