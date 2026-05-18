@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M82M5JLK');</script>
+    <!-- End Google Tag Manager -->
     <meta name="google-site-verification" content="mUK2s_AhNRe8HHxU3C0R8WadVimZ5wfFEQiEGk28tR4" />
     <!--
             All this code is copyright Autopoietico, 2020-2023.
@@ -63,6 +70,10 @@
 </head>
 
 <body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12 relative">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M82M5JLK"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <x-home.header />
     @yield('content')
     @php $dates = include config_path('dates.php'); @endphp
