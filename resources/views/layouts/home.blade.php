@@ -9,6 +9,15 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-M82M5JLK');</script>
     <!-- End Google Tag Manager -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R9TR58D6E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-4R9TR58D6E');
+    </script>
+    <!-- End Google tag -->
     <meta name="google-site-verification" content="mUK2s_AhNRe8HHxU3C0R8WadVimZ5wfFEQiEGk28tR4" />
     <!--
             All this code is copyright Autopoietico, 2020-2023.
