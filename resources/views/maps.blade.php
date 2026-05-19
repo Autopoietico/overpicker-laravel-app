@@ -214,14 +214,32 @@
                 applyAlternatingRowColors();
             }
 
-            function sortByOverall(heroesData) {
+            function sortByOverall(heroesData, columns) {
+                function getTotalPoints(heroData) {
+                    if (!heroData || !columns) return 0;
+                    let total = 0;
+                    columns.forEach(function (col) {
+                        const pt = heroData.points[col.pointName];
+                        if (!pt) return;
+                        if (col.dual) {
+                            total += (pt.attack || 0) + (pt.defense || 0);
+                        } else {
+                            total += (pt.score || 0);
+                        }
+                    });
+                    return total;
+                }
+
                 const rows = Array.from(tbody.querySelectorAll('tr.hero-row'));
                 rows.sort(function (a, b) {
                     const nameA  = a.getAttribute('data-hero');
                     const nameB  = b.getAttribute('data-hero');
-                    const scoreA = heroesData[nameA] ? heroesData[nameA].overall : 0;
-                    const scoreB = heroesData[nameB] ? heroesData[nameB].overall : 0;
-                    return scoreB - scoreA;
+                    const dataA  = heroesData[nameA];
+                    const dataB  = heroesData[nameB];
+                    const scoreA = dataA ? dataA.overall : 0;
+                    const scoreB = dataB ? dataB.overall : 0;
+                    if (scoreB !== scoreA) return scoreB - scoreA;
+                    return getTotalPoints(dataB) - getTotalPoints(dataA);
                 });
                 rows.forEach(function (row) { tbody.appendChild(row); });
             }
@@ -299,7 +317,7 @@
                     });
                 });
 
-                sortByOverall(data.heroes);
+                sortByOverall(data.heroes, data.columns);
 
                 // Update map info line
                 const pointDescriptions = data.columns.map(function (col) {
