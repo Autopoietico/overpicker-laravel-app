@@ -103,7 +103,7 @@
         </div>
 
         <!-- Results: 3 columns on desktop, 1 on mobile -->
-        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6" id="resultsContainer" style="display:none">
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl m-auto" id="resultsContainer" style="display:none">
 
             <div id="tankSection">
                 <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
