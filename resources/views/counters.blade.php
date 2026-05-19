@@ -337,8 +337,9 @@
 
         window.addEventListener('resize', applyMobileFilter);
 
-        // Preselect a random hero on load
+        // Preselect hero from ?hero= param, or random
         const heroNames = Object.keys(heroRoles);
-        selectHero(heroNames[Math.floor(Math.random() * heroNames.length)]);
+        const urlHero = new URLSearchParams(window.location.search).get('hero');
+        selectHero(urlHero && heroRoles[urlHero] ? urlHero : heroNames[Math.floor(Math.random() * heroNames.length)]);
     </script>
 @endsection

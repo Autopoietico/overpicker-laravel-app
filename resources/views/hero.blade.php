@@ -81,9 +81,13 @@
 
     {{-- ─── Synergies ────────────────────────────────────────────────── --}}
     <section class="mt-12 max-w-4xl m-auto">
-        <h2 class="fjalla font-normal text-2xl sm:text-3xl border-b-2 border-dashed pb-2 mb-5">
-            Synergies
-        </h2>
+        <div class="flex items-baseline justify-between border-b-2 border-dashed pb-2 mb-5">
+            <h2 class="fjalla font-normal text-2xl sm:text-3xl">Synergies</h2>
+            <a href="/synergies?hero={{ urlencode($heroInfo['name']) }}"
+               class="text-xs text-sky-400 hover:text-sky-300 fjalla uppercase tracking-wide">
+                Full chart →
+            </a>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             <div>
@@ -125,9 +129,13 @@
 
     {{-- ─── Counters ─────────────────────────────────────────────────── --}}
     <section class="mt-12 max-w-4xl m-auto">
-        <h2 class="fjalla font-normal text-2xl sm:text-3xl border-b-2 border-dashed pb-2 mb-5">
-            Counters
-        </h2>
+        <div class="flex items-baseline justify-between border-b-2 border-dashed pb-2 mb-5">
+            <h2 class="fjalla font-normal text-2xl sm:text-3xl">Counters</h2>
+            <a href="/counters?hero={{ urlencode($heroInfo['name']) }}"
+               class="text-xs text-sky-400 hover:text-sky-300 fjalla uppercase tracking-wide">
+                Full chart →
+            </a>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             <div>
