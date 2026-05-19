@@ -41,7 +41,7 @@
         <!-- Hero Search -->
         <div class="mt-6 max-w-4xl m-auto">
             <input type="text" id="heroSearch" placeholder="Search hero..."
-                   class="w-full sm:w-64 px-3 py-2 rounded-lg bg-[#294452] text-white border border-white/20 placeholder-slate-400 fjalla text-sm uppercase">
+                class="w-full sm:w-64 px-3 py-2 rounded-lg bg-[#294452] text-white border border-white/20 placeholder-slate-400 fjalla text-sm uppercase">
         </div>
 
         <!-- Hero Selector Strip -->
@@ -56,10 +56,8 @@
                         @endphp
                         <button
                             class="hero-selector-btn flex flex-col items-center p-1 rounded-lg bg-[#294452] hover:bg-[#3a5a6a] cursor-pointer min-w-[60px] transition-all"
-                            data-hero="{{ $hero['name'] }}"
-                            data-role="{{ $role }}"
-                            onclick="selectHero('{{ $hero['name'] }}')"
-                        >
+                            data-hero="{{ $hero['name'] }}" data-role="{{ $role }}"
+                            onclick="selectHero('{{ $hero['name'] }}')">
                             <img src="{{ $heroImage }}" alt="{{ $hero['name'] }}" class="w-10 h-10 rounded-lg">
                             <span class="text-xs abel truncate max-w-[58px] mt-0.5 leading-tight">{{ $hero['name'] }}</span>
                         </button>
@@ -103,7 +101,7 @@
         </div>
 
         <!-- Results: 3 columns on desktop, 1 on mobile -->
-        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl m-auto" id="resultsContainer" style="display:none">
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-4xl m-auto" id="resultsContainer" style="display:none">
 
             <div id="tankSection">
                 <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
@@ -199,22 +197,26 @@
         let activeRoleFilter = null;
 
         const roleBodies = {
-            Tank:    document.getElementById('tankBody'),
-            Damage:  document.getElementById('damageBody'),
+            Tank: document.getElementById('tankBody'),
+            Damage: document.getElementById('damageBody'),
             Support: document.getElementById('supportBody'),
         };
 
         function getScoreClass(value) {
             if (value >= 20) return 'bg-green-600';
             if (value >= 10) return 'bg-green-400';
-            if (value > 0)  return 'bg-green-200';
+            if (value > 0) return 'bg-green-200';
             if (value === 0) return 'bg-gray-300';
             if (value >= -10) return 'bg-red-200';
             return 'bg-red-600';
         }
 
         function getRoleIcon(role) {
-            const icons = { Tank: '\\images\\assets\\tank.webp', Damage: '\\images\\assets\\damage.webp', Support: '\\images\\assets\\support.webp' };
+            const icons = {
+                Tank: '\\images\\assets\\tank.webp',
+                Damage: '\\images\\assets\\damage.webp',
+                Support: '\\images\\assets\\support.webp'
+            };
             return icons[role] || '';
         }
 
@@ -226,52 +228,61 @@
 
         function applyMobileFilter() {
             if (window.innerWidth >= 1024) {
-                ['tankSection', 'damageSection', 'supportSection'].forEach(function (id) {
+                ['tankSection', 'damageSection', 'supportSection'].forEach(function(id) {
                     document.getElementById(id).classList.remove('hidden');
                 });
                 return;
             }
-            const map = { Tank: 'tankSection', Damage: 'damageSection', Support: 'supportSection' };
-            Object.entries(map).forEach(function ([role, id]) {
+            const map = {
+                Tank: 'tankSection',
+                Damage: 'damageSection',
+                Support: 'supportSection'
+            };
+            Object.entries(map).forEach(function([role, id]) {
                 const el = document.getElementById(id);
-                (!activeRoleFilter || activeRoleFilter === role)
-                    ? el.classList.remove('hidden')
-                    : el.classList.add('hidden');
+                (!activeRoleFilter || activeRoleFilter === role) ?
+                el.classList.remove('hidden'): el.classList.add('hidden');
             });
         }
 
         function renderTable() {
-            if (!selectedHero) { showEmptyState(); return; }
+            if (!selectedHero) {
+                showEmptyState();
+                return;
+            }
 
-            ['Tank', 'Damage', 'Support'].forEach(function (role) {
+            ['Tank', 'Damage', 'Support'].forEach(function(role) {
                 const entries = heroMeta
                     .filter(h => h.name !== selectedHero && (heroRoles[h.name] ?? 'Unknown') === role)
                     .map(h => ({
                         name: h.name,
                         image: heroImages[h.name] ?? 'images/assets/blank-hero.webp',
-                        score: (counterMatrix[h.name] && counterMatrix[h.name][selectedHero] !== undefined)
-                            ? counterMatrix[h.name][selectedHero]
-                            : 0
+                        score: (counterMatrix[h.name] && counterMatrix[h.name][selectedHero] !==
+                            undefined) ?
+                            counterMatrix[h.name][selectedHero] :
+                            0
                     }))
                     .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
 
                 const tbody = roleBodies[role];
                 tbody.innerHTML = '';
-                entries.forEach(function (entry, index) {
+                entries.forEach(function(entry, index) {
                     const tr = document.createElement('tr');
                     if (index % 2 === 1) tr.style.backgroundColor = '#294452';
                     const scoreClass = getScoreClass(entry.score);
                     const roleIcon = getRoleIcon(role);
                     tr.innerHTML =
                         '<td class="p-2">' +
-                          '<div class="flex flex-col items-center">' +
-                            '<img src="' + entry.image + '" alt="' + entry.name + '" class="w-10 h-10 rounded-lg">' +
-                            '<span class="text-xs abel truncate max-w-[80px]">' + entry.name + '</span>' +
-                            (roleIcon ? '<img src="' + roleIcon + '" class="w-5 h-5 mt-0.5">' : '') +
-                          '</div>' +
+                        '<div class="flex flex-col items-center">' +
+                        '<img src="' + entry.image + '" alt="' + entry.name +
+                        '" class="w-10 h-10 rounded-lg">' +
+                        '<span class="text-xs abel truncate max-w-[80px]">' + entry.name + '</span>' +
+                        (roleIcon ? '<img src="' + roleIcon + '" class="w-5 h-5 mt-0.5">' : '') +
+                        '</div>' +
                         '</td>' +
                         '<td class="p-2 text-center">' +
-                          '<div class="w-12 h-10 flex items-center justify-center rounded mx-auto font-bold text-white ' + scoreClass + '">' + entry.score + '</div>' +
+                        '<div class="w-12 h-10 flex items-center justify-center rounded mx-auto font-bold text-white ' +
+                        scoreClass + '">' + entry.score + '</div>' +
                         '</td>';
                     tbody.appendChild(tr);
                 });
@@ -287,39 +298,40 @@
             applyMobileFilter();
         }
 
-        window.selectHero = function (heroName) {
+        window.selectHero = function(heroName) {
             selectedHero = heroName;
-            document.querySelectorAll('.hero-selector-btn').forEach(function (btn) {
-                btn.dataset.hero === heroName
-                    ? btn.classList.add('ring-2', 'ring-white')
-                    : btn.classList.remove('ring-2', 'ring-white');
+            document.querySelectorAll('.hero-selector-btn').forEach(function(btn) {
+                btn.dataset.hero === heroName ?
+                    btn.classList.add('ring-2', 'ring-white') :
+                    btn.classList.remove('ring-2', 'ring-white');
             });
             renderTable();
         };
 
-        window.filterByRole = function (roleName, event) {
+        window.filterByRole = function(roleName, event) {
             event.stopPropagation();
             activeRoleFilter = (activeRoleFilter === roleName) ? null : roleName;
-            document.querySelectorAll('.role-filter-btn').forEach(function (btn) {
-                btn.dataset.role === activeRoleFilter
-                    ? btn.classList.add('ring-2', 'ring-white')
-                    : btn.classList.remove('ring-2', 'ring-white');
+            document.querySelectorAll('.role-filter-btn').forEach(function(btn) {
+                btn.dataset.role === activeRoleFilter ?
+                    btn.classList.add('ring-2', 'ring-white') :
+                    btn.classList.remove('ring-2', 'ring-white');
             });
             applyMobileFilter();
         };
 
-        document.getElementById('resetFilter').addEventListener('click', function () {
+        document.getElementById('resetFilter').addEventListener('click', function() {
             activeRoleFilter = null;
-            document.querySelectorAll('.role-filter-btn').forEach(function (btn) {
+            document.querySelectorAll('.role-filter-btn').forEach(function(btn) {
                 btn.classList.remove('ring-2', 'ring-white');
             });
             applyMobileFilter();
         });
 
-        document.getElementById('heroSearch').addEventListener('input', function () {
+        document.getElementById('heroSearch').addEventListener('input', function() {
             const query = this.value.toLowerCase().trim();
-            document.querySelectorAll('.hero-selector-btn').forEach(function (btn) {
-                btn.style.display = btn.getAttribute('data-hero').toLowerCase().includes(query) ? '' : 'none';
+            document.querySelectorAll('.hero-selector-btn').forEach(function(btn) {
+                btn.style.display = btn.getAttribute('data-hero').toLowerCase().includes(query) ? '' :
+                    'none';
             });
         });
 
