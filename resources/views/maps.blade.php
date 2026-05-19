@@ -257,15 +257,15 @@
                     const isDual = col.dual;
                     if (isDual) {
                         const th = document.createElement('th');
-                        th.className = 'p-1 text-center';
+                        th.className = 'px-2 py-2 text-center border-l-2 border-slate-500/60';
                         th.colSpan  = 2;
-                        th.innerHTML = '<div class="fjalla uppercase text-sm">' + col.pointName + '</div>' +
-                                       '<div class="grid grid-cols-2 gap-1 text-xs text-slate-300 mt-0.5">' +
+                        th.innerHTML = '<div class="fjalla uppercase text-sm tracking-wide">' + col.pointName + '</div>' +
+                                       '<div class="flex justify-around text-xs text-slate-400 mt-1 min-w-[88px]">' +
                                        '<span>ATK</span><span>DEF</span></div>';
                         headerRow.appendChild(th);
                     } else {
                         const th = document.createElement('th');
-                        th.className = 'p-2 w-20 text-center fjalla uppercase text-sm';
+                        th.className = 'px-4 py-2 text-center fjalla uppercase text-sm border-l-2 border-slate-500/60';
                         th.textContent = col.pointName;
                         headerRow.appendChild(th);
                     }
@@ -297,20 +297,25 @@
                             const atk = pointData ? pointData.attack  : 0;
                             const def = pointData ? pointData.defense : 0;
 
-                            [atk, def].forEach(function (val) {
-                                const td = document.createElement('td');
-                                td.className = 'p-1 text-center';
-                                const c = getScoreClass(val);
-                                td.innerHTML = '<div class="w-10 h-10 flex items-center justify-center rounded mx-auto font-bold text-sm ' +
-                                               c + '">' + val + '</div>';
-                                row.appendChild(td);
-                            });
+                            const tdAtk = document.createElement('td');
+                            tdAtk.className = 'py-1 pl-3 pr-1 text-center border-l-2 border-slate-500/60';
+                            const cAtk = getScoreClass(atk);
+                            tdAtk.innerHTML = '<div class="w-11 h-10 flex items-center justify-center rounded mx-auto font-bold text-sm ' +
+                                              cAtk + '">' + atk + '</div>';
+                            row.appendChild(tdAtk);
+
+                            const tdDef = document.createElement('td');
+                            tdDef.className = 'py-1 pl-1 pr-3 text-center';
+                            const cDef = getScoreClass(def);
+                            tdDef.innerHTML = '<div class="w-11 h-10 flex items-center justify-center rounded mx-auto font-bold text-sm ' +
+                                              cDef + '">' + def + '</div>';
+                            row.appendChild(tdDef);
                         } else {
                             const val = pointData ? pointData.score : 0;
                             const td  = document.createElement('td');
-                            td.className = 'p-2 text-center w-20';
+                            td.className = 'py-1 px-4 text-center border-l-2 border-slate-500/60';
                             const c = getScoreClass(val);
-                            td.innerHTML = '<div class="w-10 h-10 flex items-center justify-center rounded mx-auto font-bold ' +
+                            td.innerHTML = '<div class="w-11 h-10 flex items-center justify-center rounded mx-auto font-bold ' +
                                            c + '">' + val + '</div>';
                             row.appendChild(td);
                         }
