@@ -12,7 +12,7 @@
         <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
             <p class="sm:text-lg mb-4">
                 Select your hero to see which heroes synergize best with them, ranked from strongest to weakest synergy.
-                Use the role filters to narrow down results by Tank, Damage, or Support.
+                On desktop, results are split by role. On mobile, use the role filters to narrow down results.
             </p>
             <p class="sm:text-lg mb-4">
                 <strong>How the Scoring System Works:</strong> Our Overwatch synergy chart uses a
@@ -39,8 +39,14 @@
             </p>
         </div>
 
-        <!-- Hero Selector Strip -->
+        <!-- Hero Search -->
         <div class="mt-6 max-w-4xl m-auto">
+            <input type="text" id="heroSearch" placeholder="Search hero..."
+                   class="w-full sm:w-64 px-3 py-2 rounded-lg bg-[#294452] text-white border border-white/20 placeholder-slate-400 fjalla text-sm uppercase">
+        </div>
+
+        <!-- Hero Selector Strip -->
+        <div class="mt-2 max-w-4xl m-auto">
             <p class="fjalla text-xl uppercase mb-2">Select Your Hero:</p>
             <div class="overflow-x-auto pb-2">
                 <div class="flex gap-2 flex-nowrap">
@@ -63,8 +69,8 @@
             </div>
         </div>
 
-        <!-- Role Filters -->
-        <div class="mt-4 max-w-4xl m-auto flex flex-wrap items-center gap-3">
+        <!-- Role Filters (mobile only) -->
+        <div class="mt-4 max-w-4xl m-auto flex flex-wrap items-center gap-3 lg:hidden">
             <button onclick="filterByRole('Tank', event)"
                 class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
                 data-role="Tank">
@@ -97,17 +103,54 @@
             Select a hero above to see their best synergies.
         </div>
 
-        <!-- Results Table -->
-        <div class="mt-6 text-center overflow-x-auto" id="tableWrapper" style="display:none">
-            <table class="mx-auto" id="synergiesTable">
-                <thead>
-                    <tr class="fjalla text-base">
-                        <th class="p-2 w-32 text-left">Hero</th>
-                        <th class="p-2 w-20 text-center">Synergy</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+        <!-- Results: 3 columns on desktop, 1 on mobile -->
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6" id="resultsContainer" style="display:none">
+
+            <div id="tankSection">
+                <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
+                    <img src="\images\assets\tank.webp" class="w-5 h-5" alt="Tank"> Tank
+                </h3>
+                <table class="w-full">
+                    <thead>
+                        <tr class="fjalla text-sm">
+                            <th class="p-2 text-left">Hero</th>
+                            <th class="p-2 text-center">Synergy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tankBody"></tbody>
+                </table>
+            </div>
+
+            <div id="damageSection">
+                <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
+                    <img src="\images\assets\damage.webp" class="w-5 h-5" alt="Damage"> Damage
+                </h3>
+                <table class="w-full">
+                    <thead>
+                        <tr class="fjalla text-sm">
+                            <th class="p-2 text-left">Hero</th>
+                            <th class="p-2 text-center">Synergy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="damageBody"></tbody>
+                </table>
+            </div>
+
+            <div id="supportSection">
+                <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
+                    <img src="\images\assets\support.webp" class="w-5 h-5" alt="Support"> Support
+                </h3>
+                <table class="w-full">
+                    <thead>
+                        <tr class="fjalla text-sm">
+                            <th class="p-2 text-left">Hero</th>
+                            <th class="p-2 text-center">Synergy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="supportBody"></tbody>
+                </table>
+            </div>
+
         </div>
 
         <!-- Synergies Legend -->
@@ -167,6 +210,12 @@
         let selectedHero = null;
         let activeRoleFilter = null;
 
+        const roleBodies = {
+            Tank:    document.getElementById('tankBody'),
+            Damage:  document.getElementById('damageBody'),
+            Support: document.getElementById('supportBody'),
+        };
+
         function getScoreClass(value) {
             if (value >= 20) return 'bg-green-600';
             if (value >= 10) return 'bg-green-400';
@@ -183,8 +232,24 @@
 
         function showEmptyState() {
             document.getElementById('emptyState').style.display = '';
-            document.getElementById('tableWrapper').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
             document.getElementById('heroInfo').textContent = '';
+        }
+
+        function applyMobileFilter() {
+            if (window.innerWidth >= 1024) {
+                ['tankSection', 'damageSection', 'supportSection'].forEach(function (id) {
+                    document.getElementById(id).classList.remove('hidden');
+                });
+                return;
+            }
+            const map = { Tank: 'tankSection', Damage: 'damageSection', Support: 'supportSection' };
+            Object.entries(map).forEach(function ([role, id]) {
+                const el = document.getElementById(id);
+                (!activeRoleFilter || activeRoleFilter === role)
+                    ? el.classList.remove('hidden')
+                    : el.classList.add('hidden');
+            });
         }
 
         function renderTable() {
@@ -192,90 +257,88 @@
 
             const selectedData = synergyMatrix[selectedHero] ?? {};
 
-            const entries = heroMeta
-                .filter(h => h.name !== selectedHero)
-                .map(h => ({
-                    name: h.name,
-                    role: heroRoles[h.name] ?? 'Unknown',
-                    image: heroImages[h.name] ?? 'images/assets/blank-hero.webp',
-                    score: selectedData[h.name] !== undefined ? selectedData[h.name] : 0
-                }))
-                .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+            ['Tank', 'Damage', 'Support'].forEach(function (role) {
+                const entries = heroMeta
+                    .filter(h => h.name !== selectedHero && (heroRoles[h.name] ?? 'Unknown') === role)
+                    .map(h => ({
+                        name: h.name,
+                        image: heroImages[h.name] ?? 'images/assets/blank-hero.webp',
+                        score: selectedData[h.name] !== undefined ? selectedData[h.name] : 0
+                    }))
+                    .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
 
-            const filtered = activeRoleFilter ? entries.filter(e => e.role === activeRoleFilter) : entries;
-
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-
-            filtered.forEach((entry, index) => {
-                const tr = document.createElement('tr');
-                tr.className = 'hero-row';
-                tr.dataset.role = entry.role;
-                if (index % 2 === 1) tr.style.backgroundColor = '#294452';
-
-                const roleIcon = getRoleIcon(entry.role);
-                const scoreClass = getScoreClass(entry.score);
-
-                tr.innerHTML = `
-                    <td class="p-2 w-32">
-                        <div class="flex flex-col items-center">
-                            <img src="${entry.image}" alt="${entry.name} profile" class="w-10 h-10 rounded-lg">
-                            <h4 class="text-xs abel font-medium truncate max-w-[80px]">${entry.name}</h4>
-                            <div class="text-xs mt-1">
-                                ${roleIcon ? `<img src="${roleIcon}" alt="${entry.role}" class="w-6 h-6 inline cursor-pointer" onclick="filterByRole('${entry.role}', event)">` : ''}
-                            </div>
-                        </div>
-                    </td>
-                    <td class="p-2 text-center w-20">
-                        <div class="w-12 h-10 flex items-center justify-center rounded mx-auto ${scoreClass}">
-                            <span class="font-bold text-white">${entry.score}</span>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+                const tbody = roleBodies[role];
+                tbody.innerHTML = '';
+                entries.forEach(function (entry, index) {
+                    const tr = document.createElement('tr');
+                    if (index % 2 === 1) tr.style.backgroundColor = '#294452';
+                    const scoreClass = getScoreClass(entry.score);
+                    const roleIcon = getRoleIcon(role);
+                    tr.innerHTML =
+                        '<td class="p-2">' +
+                          '<div class="flex flex-col items-center">' +
+                            '<img src="' + entry.image + '" alt="' + entry.name + '" class="w-10 h-10 rounded-lg">' +
+                            '<span class="text-xs abel truncate max-w-[80px]">' + entry.name + '</span>' +
+                            (roleIcon ? '<img src="' + roleIcon + '" class="w-5 h-5 mt-0.5">' : '') +
+                          '</div>' +
+                        '</td>' +
+                        '<td class="p-2 text-center">' +
+                          '<div class="w-12 h-10 flex items-center justify-center rounded mx-auto font-bold text-white ' + scoreClass + '">' + entry.score + '</div>' +
+                        '</td>';
+                    tbody.appendChild(tr);
+                });
             });
 
             document.getElementById('emptyState').style.display = 'none';
-            document.getElementById('tableWrapper').style.display = '';
+            document.getElementById('resultsContainer').style.display = '';
 
             const selectedRole = heroRoles[selectedHero] ?? '';
             document.getElementById('heroInfo').textContent =
-                `Showing synergies for: ${selectedHero} (${selectedRole})`;
+                'Showing synergies for: ' + selectedHero + ' (' + selectedRole + ')';
+
+            applyMobileFilter();
         }
 
-        window.selectHero = function(heroName) {
+        window.selectHero = function (heroName) {
             selectedHero = heroName;
-            document.querySelectorAll('.hero-selector-btn').forEach(btn => {
-                if (btn.dataset.hero === heroName) {
-                    btn.classList.add('ring-2', 'ring-white');
-                } else {
-                    btn.classList.remove('ring-2', 'ring-white');
-                }
+            document.querySelectorAll('.hero-selector-btn').forEach(function (btn) {
+                btn.dataset.hero === heroName
+                    ? btn.classList.add('ring-2', 'ring-white')
+                    : btn.classList.remove('ring-2', 'ring-white');
             });
             renderTable();
         };
 
-        window.filterByRole = function(roleName, event) {
+        window.filterByRole = function (roleName, event) {
             event.stopPropagation();
             activeRoleFilter = (activeRoleFilter === roleName) ? null : roleName;
-            document.querySelectorAll('.role-filter-btn').forEach(btn => {
-                if (btn.dataset.role === activeRoleFilter) {
-                    btn.classList.add('ring-2', 'ring-white');
-                } else {
-                    btn.classList.remove('ring-2', 'ring-white');
-                }
+            document.querySelectorAll('.role-filter-btn').forEach(function (btn) {
+                btn.dataset.role === activeRoleFilter
+                    ? btn.classList.add('ring-2', 'ring-white')
+                    : btn.classList.remove('ring-2', 'ring-white');
             });
-            renderTable();
+            applyMobileFilter();
         };
 
-        document.getElementById('resetFilter').addEventListener('click', function() {
+        document.getElementById('resetFilter').addEventListener('click', function () {
             activeRoleFilter = null;
-            document.querySelectorAll('.role-filter-btn').forEach(btn => {
+            document.querySelectorAll('.role-filter-btn').forEach(function (btn) {
                 btn.classList.remove('ring-2', 'ring-white');
             });
-            renderTable();
+            applyMobileFilter();
         });
 
-        showEmptyState();
+        document.getElementById('heroSearch').addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            document.querySelectorAll('.hero-selector-btn').forEach(function (btn) {
+                btn.style.display = btn.getAttribute('data-hero').toLowerCase().includes(query) ? '' : 'none';
+            });
+        });
+
+        window.addEventListener('resize', applyMobileFilter);
+
+        // Preselect a random hero on load
+        const heroNames = Object.keys(heroRoles);
+        selectHero(heroNames[Math.floor(Math.random() * heroNames.length)]);
     </script>
 @endsection
