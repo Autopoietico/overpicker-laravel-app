@@ -71,7 +71,7 @@
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3">
             @foreach ($tiersByRank as $rankEntry)
                 <div class="flex flex-col items-center bg-[#243d4a] rounded-xl p-3 gap-1">
-                    <img src="{{ asset($rankEntry['rankIcon']) }}" alt="{{ $rankEntry['rankName'] }}" class="w-10 h-10">
+                    <img src="{{ asset($rankEntry['rankIcon']) }}" alt="{{ $rankEntry['rankName'] }}" class="w-10 h-10 invert">
                     <span class="text-xs text-gray-400 text-center leading-tight">{{ $rankEntry['rankName'] }}</span>
                     <span class="fjalla text-2xl font-normal {{ $rankEntry['tierColor'] }}">{{ $rankEntry['tierLetter'] }}</span>
                 </div>
