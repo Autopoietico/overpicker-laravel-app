@@ -20,6 +20,9 @@ Route::get('/', [OverpickerController::class, 'home']);
 
 Route::get('/tiers', [OverpickerController::class, 'tiers']);
 
+Route::get('/heroes', [OverpickerController::class, 'heroes']);
+Route::get('/heroes/{hero}', [OverpickerController::class, 'heroDetail']);
+
 Route::get('/counters', [OverpickerController::class, 'counters']);
 
 Route::get('/synergies', [OverpickerController::class, 'synergies']);
