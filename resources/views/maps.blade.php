@@ -362,7 +362,11 @@
                 applyRoleFilter();
             });
 
-            // Load first map on page load
+            // Load map from ?map= param, or first in list
+            const urlMap = new URLSearchParams(window.location.search).get('map');
+            if (urlMap && mapSelect.querySelector('option[value="' + urlMap + '"]')) {
+                mapSelect.value = urlMap;
+            }
             loadMap(mapSelect.value);
         });
     </script>

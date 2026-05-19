@@ -177,21 +177,25 @@
 
     {{-- ─── Maps ─────────────────────────────────────────────────────── --}}
     <section class="mt-12 mb-12 max-w-4xl m-auto">
-        <h2 class="fjalla font-normal text-2xl sm:text-3xl border-b-2 border-dashed pb-2 mb-5">
-            Maps
-        </h2>
+        <div class="flex items-baseline justify-between border-b-2 border-dashed pb-2 mb-5">
+            <h2 class="fjalla font-normal text-2xl sm:text-3xl">Maps</h2>
+            <a href="/maps" class="text-xs text-sky-400 hover:text-sky-300 fjalla uppercase tracking-wide">
+                Full chart →
+            </a>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
             <div>
                 <h3 class="text-base font-semibold text-emerald-400 mb-3">Best maps for {{ $heroInfo['name'] }}</h3>
                 <div class="flex flex-col gap-2">
                     @foreach ($bestMaps as $mapName => $mapScore)
-                        <div class="flex items-center justify-between bg-[#243d4a] rounded-lg px-4 py-3">
+                        <a href="/maps?map={{ urlencode($mapName) }}"
+                           class="flex items-center justify-between bg-[#243d4a] rounded-lg px-4 py-3 hover:bg-[#2f4f60] transition-colors">
                             <span class="text-sm font-medium">{{ $mapName }}</span>
                             <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($mapScore) }}">
                                 {{ $mapScore > 0 ? '+' : '' }}{{ $mapScore }}
                             </span>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -200,12 +204,13 @@
                 <h3 class="text-base font-semibold text-rose-400 mb-3">Worst maps for {{ $heroInfo['name'] }}</h3>
                 <div class="flex flex-col gap-2">
                     @foreach ($worstMaps as $mapName => $mapScore)
-                        <div class="flex items-center justify-between bg-[#243d4a] rounded-lg px-4 py-3">
+                        <a href="/maps?map={{ urlencode($mapName) }}"
+                           class="flex items-center justify-between bg-[#243d4a] rounded-lg px-4 py-3 hover:bg-[#2f4f60] transition-colors">
                             <span class="text-sm font-medium">{{ $mapName }}</span>
                             <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($mapScore) }}">
                                 {{ $mapScore > 0 ? '+' : '' }}{{ $mapScore }}
                             </span>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
