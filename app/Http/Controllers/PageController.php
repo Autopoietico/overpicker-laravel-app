@@ -20,20 +20,6 @@ class PageController extends BaseController
         return view('about', ['title' => ' - About', 'dates' => $this->DATES, 'seo' => $seo]);
     }
 
-    public function sources()
-    {
-        $seo = [
-            'title'          => 'OverPicker - Sources',
-            'keywords'       => 'overpicker, sources, data sources, api sources, overwatch data, hero data, resources',
-            'description'    => 'View the data sources and resources used by OverPicker to provide hero counters, synergies, and tier information.',
-            'og_title'       => 'OverPicker - Sources',
-            'og_description' => 'View the data sources and resources used by OverPicker to provide hero counters, synergies, and tier information.',
-            'og_url'         => 'https://overpicker.win/sources',
-        ];
-
-        return view('sources', ['title' => ' - Sources', 'dates' => $this->DATES, 'seo' => $seo]);
-    }
-
     public function privacy()
     {
         $seo = [
@@ -72,7 +58,6 @@ class PageController extends BaseController
             ['loc' => 'https://overpicker.win/synergies', 'priority' => '0.9', 'changefreq' => 'weekly'],
             ['loc' => 'https://overpicker.win/maps',      'priority' => '0.9', 'changefreq' => 'weekly'],
             ['loc' => 'https://overpicker.win/about',     'priority' => '0.5', 'changefreq' => 'monthly'],
-            ['loc' => 'https://overpicker.win/sources',   'priority' => '0.5', 'changefreq' => 'monthly'],
             ['loc' => 'https://overpicker.win/privacy',   'priority' => '0.3', 'changefreq' => 'yearly'],
             ['loc' => 'https://overpicker.win/trackers',  'priority' => '0.3', 'changefreq' => 'monthly'],
         ];

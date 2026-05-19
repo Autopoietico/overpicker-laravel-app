@@ -31,8 +31,6 @@ Route::get('/maps', [OverpickerController::class, 'maps']);
 
 Route::get('/about', [PageController::class, 'about']);
 
-Route::get('/sources', [PageController::class, 'sources']);
-
 Route::get('/privacy', [PageController::class, 'privacy']);
 
 Route::get('/trackers', [PageController::class, 'trackers']);

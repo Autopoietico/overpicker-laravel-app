@@ -20,6 +20,9 @@
         <ol
             class="grid gap-x-1 gap-y-6 fjalla text-3xl uppercase justify-center text-center sm:grid-flow-col sm:gap-y-0">
             <li>
+                <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/heroes">Heroes</a>
+            </li>
+            <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/tiers">Tiers</a>
             </li>
             <li>
@@ -31,12 +34,8 @@
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/maps">Maps</a>
             </li>
-
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/trackers">Trackers</a>
-            </li>
-            <li>
-                <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/sources">Sources</a>
             </li>
             <li>
                 <a class="px-2 pt-1 rounded-lg sm:hover:bg-[#294452]" href="/about">About</a>

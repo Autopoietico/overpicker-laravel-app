@@ -42,10 +42,16 @@
         <p class="mt-3 sm:text-lg"><b>Battletag:</b> Autopoietico#1428</p>
         <p class="sm:text-lg"><b>DiscordTag:</b> Autopoietico#1640</p>
     </div>
-    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mb-14">
+    <div class="mt-10 pb-2 border-b-2 border-dashed">
         <h2 class="font-normal text-2xl fjalla sm:text-3xl">Paypal Email:</h2>
         <p class="italic sm:text-lg">If you want to help me to continue with this proyect:</p>
         <p class="mt-3 sm:text-lg"><b><a href="https://paypal.me/car930" class="underline decoration-amber-400" target="_blank" rel="noopener noreferrer">nizampop@gmail.com</a></b></p>
+    </div>
+    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mb-14">
+        <h2 class="font-normal text-2xl fjalla sm:text-3xl">Data Sources:</h2>
+        <p class="mt-3 sm:text-lg"><b>Tiers, Map Types and Maps:</b> <a href="https://overwatch.blizzard.com/en-us/rates/" class="underline decoration-amber-400" target="_blank" rel="noopener noreferrer">overwatch.blizzard.com/en-us/rates/</a></p>
+        <p class="mt-2 sm:text-lg"><b>Map Points, Synergies &amp; Counters:</b> Tracking of real matches of the game</p>
+        <p class="mt-4 sm:text-lg"><b>Original Idea:</b> This page is mostly based in the original hero picker: <a href="https://www.heropicker.com/" class="underline decoration-amber-400" target="_blank" rel="noopener noreferrer">heropicker.com</a>, created by <b>Jazzmasta25</b></p>
     </div>
 </section>
 @endsection
