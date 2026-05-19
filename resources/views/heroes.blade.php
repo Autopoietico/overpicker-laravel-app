@@ -15,48 +15,51 @@
                 counters, synergies, best maps, and tier by rank.
             </p>
         </div>
+
         @foreach ($tierValues as $tier)
             @php
                 $tierValue     = $tier[0];
                 $tierComponent = $tier[1];
+
+                $roles = [
+                    'Tank'    => ['ring' => 'group-hover:ring-sky-400',  'icon' => 'images/assets/tank.webp'],
+                    'Damage'  => ['ring' => 'group-hover:ring-red-400',  'icon' => 'images/assets/damage.webp'],
+                    'Support' => ['ring' => 'group-hover:ring-green-400','icon' => 'images/assets/support.webp'],
+                ];
+
+                $heroesInTier = array_filter($tiers, fn($h) => $h['value'] == $tierValue);
+                $rolesPresent = array_unique(array_column(array_values($heroesInTier), 'role'));
+                $multipleRoles = count($rolesPresent) > 1;
             @endphp
+
             <div class="mt-10 text-center">
                 {!! $tierComponent !!}
-                <div class="mt-4 flex flex-wrap gap-3 justify-center sm:justify-start">
-                    @foreach ($tiers as $heroItem)
-                        @if ($heroItem['value'] == $tierValue && $heroItem['role'] == 'Tank')
-                            <a href="/heroes/{{ $heroItem['slug'] }}"
-                               class="flex flex-col items-center w-16 sm:w-20 rounded-lg p-1 hover:bg-[#3a5a6e] transition-colors group">
-                                <img src="{{ $heroItem['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                     alt="{{ $heroItem['name'] }}"
-                                     class="w-14 sm:w-16 rounded-lg group-hover:ring-2 group-hover:ring-sky-400">
-                                <span class="text-xs abel font-medium mt-1 w-full text-center truncate">{{ $heroItem['name'] }}</span>
-                            </a>
+
+                @foreach ($roles as $roleName => $roleData)
+                    @php
+                        $roleHeroes = array_filter($tiers, fn($h) => $h['value'] == $tierValue && $h['role'] == $roleName);
+                    @endphp
+
+                    @if (count($roleHeroes) > 0)
+                        @if ($multipleRoles)
+                            <div class="flex items-center justify-center gap-2 mt-5 mb-2 opacity-60">
+                                <img src="{{ $roleData['icon'] }}" alt="{{ $roleName }}" class="w-5 h-5">
+                                <span class="text-xs uppercase tracking-widest abel">{{ $roleName }}</span>
+                            </div>
                         @endif
-                    @endforeach
-                    @foreach ($tiers as $heroItem)
-                        @if ($heroItem['value'] == $tierValue && $heroItem['role'] == 'Damage')
-                            <a href="/heroes/{{ $heroItem['slug'] }}"
-                               class="flex flex-col items-center w-16 sm:w-20 rounded-lg p-1 hover:bg-[#3a5a6e] transition-colors group">
-                                <img src="{{ $heroItem['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                     alt="{{ $heroItem['name'] }}"
-                                     class="w-14 sm:w-16 rounded-lg group-hover:ring-2 group-hover:ring-red-400">
-                                <span class="text-xs abel font-medium mt-1 w-full text-center truncate">{{ $heroItem['name'] }}</span>
-                            </a>
-                        @endif
-                    @endforeach
-                    @foreach ($tiers as $heroItem)
-                        @if ($heroItem['value'] == $tierValue && $heroItem['role'] == 'Support')
-                            <a href="/heroes/{{ $heroItem['slug'] }}"
-                               class="flex flex-col items-center w-16 sm:w-20 rounded-lg p-1 hover:bg-[#3a5a6e] transition-colors group">
-                                <img src="{{ $heroItem['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                     alt="{{ $heroItem['name'] }}"
-                                     class="w-14 sm:w-16 rounded-lg group-hover:ring-2 group-hover:ring-green-400">
-                                <span class="text-xs abel font-medium mt-1 w-full text-center truncate">{{ $heroItem['name'] }}</span>
-                            </a>
-                        @endif
-                    @endforeach
-                </div>
+                        <div class="flex flex-wrap gap-3 justify-center {{ $multipleRoles ? 'mt-1' : 'mt-4' }}">
+                            @foreach ($roleHeroes as $heroItem)
+                                <a href="/heroes/{{ $heroItem['slug'] }}"
+                                   class="flex flex-col items-center w-16 sm:w-20 rounded-lg p-1 hover:bg-[#3a5a6e] transition-colors group">
+                                    <img src="{{ $heroItem['img'] ?? 'images/assets/blank-hero.webp' }}"
+                                         alt="{{ $heroItem['name'] }}"
+                                         class="w-14 sm:w-16 rounded-lg group-hover:ring-2 {{ $roleData['ring'] }}">
+                                    <span class="text-xs abel font-medium mt-1 w-full text-center truncate">{{ $heroItem['name'] }}</span>
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                @endforeach
             </div>
         @endforeach
     </section>
