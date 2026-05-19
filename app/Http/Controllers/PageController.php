@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Str;
+
+class PageController extends BaseController
+{
+    public function about()
+    {
+        $seo = [
+            'title'          => 'OverPicker - About',
+            'keywords'       => 'overpicker, about, about us, overwatch tools, hero picker, composition builder, about the project',
+            'description'    => 'Learn more about OverPicker, the ultimate Overwatch composition builder tool. Find counters, synergies, and build better teams.',
+            'og_title'       => 'OverPicker - About Us',
+            'og_description' => 'Learn more about OverPicker, the ultimate Overwatch composition builder tool. Find counters, synergies, and build better teams.',
+            'og_url'         => 'https://overpicker.win/about',
+        ];
+
+        return view('about', ['title' => ' - About', 'dates' => $this->DATES, 'seo' => $seo]);
+    }
+
+    public function sources()
+    {
+        $seo = [
+            'title'          => 'OverPicker - Sources',
+            'keywords'       => 'overpicker, sources, data sources, api sources, overwatch data, hero data, resources',
+            'description'    => 'View the data sources and resources used by OverPicker to provide hero counters, synergies, and tier information.',
+            'og_title'       => 'OverPicker - Sources',
+            'og_description' => 'View the data sources and resources used by OverPicker to provide hero counters, synergies, and tier information.',
+            'og_url'         => 'https://overpicker.win/sources',
+        ];
+
+        return view('sources', ['title' => ' - Sources', 'dates' => $this->DATES, 'seo' => $seo]);
+    }
+
+    public function privacy()
+    {
+        $seo = [
+            'title'          => 'OverPicker - Privacy Policy',
+            'keywords'       => 'overpicker, privacy, privacy policy, data policy, cookies, tracking',
+            'description'    => 'Read the privacy policy for OverPicker. Learn how we handle your data and protect your privacy.',
+            'og_title'       => 'OverPicker - Privacy Policy',
+            'og_description' => 'Read the privacy policy for OverPicker. Learn how we handle your data and protect your privacy.',
+            'og_url'         => 'https://overpicker.win/privacy',
+        ];
+
+        return view('privacy', ['title' => ' - Privacy Policy', 'dates' => $this->DATES, 'seo' => $seo]);
+    }
+
+    public function trackers()
+    {
+        $seo = [
+            'title'          => 'OverPicker - Trackers',
+            'keywords'       => 'overpicker, trackers, overwatch trackers, player trackers, stats, overwatch stats',
+            'description'    => 'Track your Overwatch progress with recommended trackers and stats tools. Find the best resources to improve your gameplay.',
+            'og_title'       => 'OverPicker - Trackers',
+            'og_description' => 'Track your Overwatch progress with recommended trackers and stats tools. Find the best resources to improve your gameplay.',
+            'og_url'         => 'https://overpicker.win/trackers',
+        ];
+
+        return view('trackers', ['title' => ' - Trackers', 'dates' => $this->DATES, 'seo' => $seo]);
+    }
+
+    public function sitemap()
+    {
+        $urls = [
+            ['loc' => 'https://overpicker.win/',          'priority' => '1.0', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/tiers',     'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/heroes',    'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/counters',  'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/synergies', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/maps',      'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['loc' => 'https://overpicker.win/about',     'priority' => '0.5', 'changefreq' => 'monthly'],
+            ['loc' => 'https://overpicker.win/sources',   'priority' => '0.5', 'changefreq' => 'monthly'],
+            ['loc' => 'https://overpicker.win/privacy',   'priority' => '0.3', 'changefreq' => 'yearly'],
+            ['loc' => 'https://overpicker.win/trackers',  'priority' => '0.3', 'changefreq' => 'monthly'],
+        ];
+
+        $heroes_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-info.json')), true);
+        foreach ($heroes_obj as $hero) {
+            $urls[] = [
+                'loc'        => 'https://overpicker.win/heroes/' . Str::slug($hero['name']),
+                'priority'   => '0.8',
+                'changefreq' => 'weekly',
+            ];
+        }
+
+        return response()->view('sitemap', ['urls' => $urls])
+            ->header('Content-Type', 'application/xml');
+    }
+}

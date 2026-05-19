@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\HeroController;
 use App\Http\Controllers\OverpickerController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-$DATES = include(config_path('dates.php'));
-
 Route::get('/', [OverpickerController::class, 'home']);
 
 Route::get('/tiers', [OverpickerController::class, 'tiers']);
 
-Route::get('/heroes', [OverpickerController::class, 'heroes']);
-Route::get('/heroes/{hero}', [OverpickerController::class, 'heroDetail']);
+Route::get('/heroes', [HeroController::class, 'heroes']);
+Route::get('/heroes/{hero}', [HeroController::class, 'heroDetail']);
 
 Route::get('/counters', [OverpickerController::class, 'counters']);
 
@@ -29,12 +29,12 @@ Route::get('/synergies', [OverpickerController::class, 'synergies']);
 
 Route::get('/maps', [OverpickerController::class, 'maps']);
 
-Route::get('/about', [OverpickerController::class, 'about']);
+Route::get('/about', [PageController::class, 'about']);
 
-Route::get('/sources', [OverpickerController::class, 'sources']);
+Route::get('/sources', [PageController::class, 'sources']);
 
-Route::get('/privacy', [OverpickerController::class, 'privacy']);
+Route::get('/privacy', [PageController::class, 'privacy']);
 
-Route::get('/trackers', [OverpickerController::class, 'trackers']);
+Route::get('/trackers', [PageController::class, 'trackers']);
 
-Route::get('/sitemap.xml', [OverpickerController::class, 'sitemap']);
+Route::get('/sitemap.xml', [PageController::class, 'sitemap']);
