@@ -3,9 +3,9 @@
 
     @php
         $roleIcon = match($heroInfo['general_rol']) {
-            'Tank'    => 'images/assets/tank.webp',
-            'Damage'  => 'images/assets/damage.webp',
-            'Support' => 'images/assets/support.webp',
+            'Tank'    => asset('images/assets/tank.webp'),
+            'Damage'  => asset('images/assets/damage.webp'),
+            'Support' => asset('images/assets/support.webp'),
             default   => null,
         };
 
@@ -24,7 +24,8 @@
 
             {{-- Art image --}}
             <div class="flex-shrink-0">
-                <img src="{{ $heroImg['art-img'] ?? $heroImg['profile-img'] ?? 'images/assets/blank-hero.webp' }}"
+                @php $artSrc = $heroImg['art-img'] ?? $heroImg['profile-img'] ?? null; @endphp
+                <img src="{{ $artSrc ? asset($artSrc) : asset('images/assets/blank-hero.webp') }}"
                      alt="{{ $heroInfo['name'] }} art"
                      class="w-40 sm:w-56 rounded-xl shadow-lg">
             </div>
@@ -70,7 +71,7 @@
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3">
             @foreach ($tiersByRank as $rankEntry)
                 <div class="flex flex-col items-center bg-[#243d4a] rounded-xl p-3 gap-1">
-                    <img src="{{ $rankEntry['rankIcon'] }}" alt="{{ $rankEntry['rankName'] }}" class="w-10 h-10">
+                    <img src="{{ asset($rankEntry['rankIcon']) }}" alt="{{ $rankEntry['rankName'] }}" class="w-10 h-10">
                     <span class="text-xs text-gray-400 text-center leading-tight">{{ $rankEntry['rankName'] }}</span>
                     <span class="fjalla text-2xl font-normal {{ $rankEntry['tierColor'] }}">{{ $rankEntry['tierLetter'] }}</span>
                 </div>
@@ -91,7 +92,7 @@
                     @foreach ($topSynergies as $ally)
                         <a href="/heroes/{{ $ally['slug'] }}"
                            class="flex items-center gap-3 bg-[#243d4a] rounded-lg p-2 hover:bg-[#2f4f60] transition-colors">
-                            <img src="{{ $ally['img'] ?? 'images/assets/blank-hero.webp' }}"
+                            <img src="{{ $ally['img'] ? asset($ally['img']) : asset('images/assets/blank-hero.webp') }}"
                                  alt="{{ $ally['name'] }}" class="w-12 rounded-lg flex-shrink-0">
                             <span class="flex-1 text-sm font-medium">{{ $ally['name'] }}</span>
                             <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($ally['score']) }}">
@@ -108,7 +109,7 @@
                     @foreach ($antiSynergies as $ally)
                         <a href="/heroes/{{ $ally['slug'] }}"
                            class="flex items-center gap-3 bg-[#243d4a] rounded-lg p-2 hover:bg-[#2f4f60] transition-colors">
-                            <img src="{{ $ally['img'] ?? 'images/assets/blank-hero.webp' }}"
+                            <img src="{{ $ally['img'] ? asset($ally['img']) : asset('images/assets/blank-hero.webp') }}"
                                  alt="{{ $ally['name'] }}" class="w-12 rounded-lg flex-shrink-0">
                             <span class="flex-1 text-sm font-medium">{{ $ally['name'] }}</span>
                             <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($ally['score']) }}">
@@ -135,7 +136,7 @@
                     @foreach ($heroCounters as $target)
                         <a href="/heroes/{{ $target['slug'] }}"
                            class="flex items-center gap-3 bg-[#243d4a] rounded-lg p-2 hover:bg-[#2f4f60] transition-colors">
-                            <img src="{{ $target['img'] ?? 'images/assets/blank-hero.webp' }}"
+                            <img src="{{ $target['img'] ? asset($target['img']) : asset('images/assets/blank-hero.webp') }}"
                                  alt="{{ $target['name'] }}" class="w-12 rounded-lg flex-shrink-0">
                             <span class="flex-1 text-sm font-medium">{{ $target['name'] }}</span>
                             <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($target['score']) }}">
@@ -152,7 +153,7 @@
                     @foreach ($counteredBy as $threat)
                         <a href="/heroes/{{ $threat['slug'] }}"
                            class="flex items-center gap-3 bg-[#243d4a] rounded-lg p-2 hover:bg-[#2f4f60] transition-colors">
-                            <img src="{{ $threat['img'] ?? 'images/assets/blank-hero.webp' }}"
+                            <img src="{{ $threat['img'] ? asset($threat['img']) : asset('images/assets/blank-hero.webp') }}"
                                  alt="{{ $threat['name'] }}" class="w-12 rounded-lg flex-shrink-0">
                             <span class="flex-1 text-sm font-medium">{{ $threat['name'] }}</span>
                             <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($threat['score']) }}">
