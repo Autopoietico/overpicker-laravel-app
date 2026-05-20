@@ -68,9 +68,9 @@
         <h2 class="fjalla font-normal text-2xl sm:text-3xl border-b-2 border-dashed pb-2 mb-5">
             How good is {{ $heroInfo['name'] }} by rank?
         </h2>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3">
+        <div class="flex flex-wrap justify-center gap-3">
             @foreach ($tiersByRank as $rankEntry)
-                <div class="flex flex-col items-center bg-[#243d4a] rounded-xl p-3 gap-1">
+                <div class="flex flex-col items-center bg-[#243d4a] rounded-xl p-3 gap-1 w-24">
                     <img src="{{ asset($rankEntry['rankIcon']) }}" alt="{{ $rankEntry['rankName'] }}" class="w-10 h-10 invert">
                     <span class="text-xs text-gray-400 text-center leading-tight">{{ $rankEntry['rankName'] }}</span>
                     <span class="fjalla text-2xl font-normal {{ $rankEntry['tierColor'] }}">{{ $rankEntry['tierLetter'] }}</span>
