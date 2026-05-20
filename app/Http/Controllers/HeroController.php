@@ -63,13 +63,9 @@ class HeroController extends BaseController
 
     public function heroDetail(string $hero)
     {
-        $heroes_obj    = json_decode(file_get_contents(storage_path('/api/hero-data/hero-info.json')), true);
-        $tiers_data    = json_decode(file_get_contents(storage_path('/api/hero-data/hero-tiers.json')), true);
-        $img_obj       = json_decode(file_get_contents(storage_path('/api/hero-data/hero-img.json')), true);
-        $counters_obj  = json_decode(file_get_contents(storage_path('/api/hero-data/hero-counters.json')), true);
-        $synergies_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-synergies.json')), true);
-        $hero_maps_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-maps.json')), true);
-        $map_info_obj  = json_decode(file_get_contents(storage_path('/api/map-data/map-info.json')), true);
+        $heroes_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-info.json')), true);
+        $tiers_data = json_decode(file_get_contents(storage_path('/api/hero-data/hero-tiers.json')), true);
+        $img_obj    = json_decode(file_get_contents(storage_path('/api/hero-data/hero-img.json')), true);
 
         // Find hero by slug
         $heroInfo = null;
@@ -128,66 +124,32 @@ class HeroController extends BaseController
         }
 
         // Synergies
-        $synergyScores = $synergies_obj[$heroName] ?? [];
-        arsort($synergyScores);
         $topSynergiesList = [];
-        foreach (array_slice($synergyScores, 0, 3, true) as $name => $score) {
-            $topSynergiesList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $score, 'slug' => Str::slug($name)];
+        foreach ($heroInfo['best_synergies'] ?? [] as $entry) {
+            $name = $entry['name'];
+            $topSynergiesList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $entry['score'], 'slug' => Str::slug($name)];
         }
         $antiSynergiesList = [];
-        foreach (array_slice(array_reverse($synergyScores, true), 0, 3, true) as $name => $score) {
-            $antiSynergiesList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $score, 'slug' => Str::slug($name)];
+        foreach ($heroInfo['worst_synergies'] ?? [] as $entry) {
+            $name = $entry['name'];
+            $antiSynergiesList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $entry['score'], 'slug' => Str::slug($name)];
         }
 
-        // Counters: heroes this hero beats
-        $heroCounterScores = $counters_obj[$heroName] ?? [];
-        arsort($heroCounterScores);
+        // Counters
         $heroCountersList = [];
-        foreach (array_slice($heroCounterScores, 0, 3, true) as $name => $score) {
-            $heroCountersList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $score, 'slug' => Str::slug($name)];
+        foreach ($heroInfo['counters'] ?? [] as $entry) {
+            $name = $entry['name'];
+            $heroCountersList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $entry['score'], 'slug' => Str::slug($name)];
         }
-
-        // Countered by: heroes that beat this hero
-        $counteredByScores = [];
-        foreach ($counters_obj as $otherName => $matchups) {
-            if ($otherName !== $heroName && isset($matchups[$heroName])) {
-                $counteredByScores[$otherName] = $matchups[$heroName];
-            }
-        }
-        arsort($counteredByScores);
         $counteredByList = [];
-        foreach (array_slice($counteredByScores, 0, 3, true) as $name => $score) {
-            $counteredByList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $score, 'slug' => Str::slug($name)];
+        foreach ($heroInfo['countered_by'] ?? [] as $entry) {
+            $name = $entry['name'];
+            $counteredByList[] = ['name' => $name, 'img' => $allHeroImages[$name]['profile-img'] ?? null, 'score' => $entry['score'], 'slug' => Str::slug($name)];
         }
 
-        // Maps: only onPool maps
-        $mapScores   = [];
-        $heroMapData = $hero_maps_obj[$heroName] ?? [];
-        foreach ($map_info_obj as $mapInfo) {
-            if (!$mapInfo['onPool']) continue;
-            $mapName = $mapInfo['name'];
-            $score   = $heroMapData['Maps'][$mapName] ?? null;
-            if ($score === null) {
-                if (isset($heroMapData['Attack'][$mapName])) {
-                    $vals  = array_values($heroMapData['Attack'][$mapName]);
-                    $score = (int)(round(array_sum($vals) / count($vals) / 10) * 10);
-                } else {
-                    foreach (['Push', 'Control', 'Flashpoint', 'Clash'] as $key) {
-                        if (isset($heroMapData[$key][$mapName])) {
-                            $vals  = array_values($heroMapData[$key][$mapName]);
-                            $score = (int)(round(array_sum($vals) / count($vals) / 10) * 10);
-                            break;
-                        }
-                    }
-                }
-            }
-            if ($score !== null) {
-                $mapScores[$mapName] = $score;
-            }
-        }
-        arsort($mapScores);
-        $bestMaps  = array_slice($mapScores, 0, 3, true);
-        $worstMaps = array_slice(array_reverse($mapScores, true), 0, 3, true);
+        // Maps
+        $bestMaps  = $heroInfo['best_maps']  ?? [];
+        $worstMaps = $heroInfo['worst_maps'] ?? [];
 
         $roleLabel = $heroInfo['general_rol'];
         $seo = [

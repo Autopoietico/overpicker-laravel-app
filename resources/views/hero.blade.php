@@ -188,13 +188,10 @@
             <div>
                 <h3 class="text-base font-semibold text-emerald-400 mb-3">Best maps for {{ $heroInfo['name'] }}</h3>
                 <div class="flex flex-col gap-2">
-                    @foreach ($bestMaps as $mapName => $mapScore)
+                    @foreach ($bestMaps as $mapName)
                         <a href="/maps?map={{ urlencode($mapName) }}"
-                           class="flex items-center justify-between bg-[#243d4a] rounded-lg px-4 py-3 hover:bg-[#2f4f60] transition-colors">
+                           class="flex items-center bg-[#243d4a] rounded-lg px-4 py-3 hover:bg-[#2f4f60] transition-colors">
                             <span class="text-sm font-medium">{{ $mapName }}</span>
-                            <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($mapScore) }}">
-                                {{ $mapScore > 0 ? '+' : '' }}{{ $mapScore }}
-                            </span>
                         </a>
                     @endforeach
                 </div>
@@ -203,13 +200,10 @@
             <div>
                 <h3 class="text-base font-semibold text-rose-400 mb-3">Worst maps for {{ $heroInfo['name'] }}</h3>
                 <div class="flex flex-col gap-2">
-                    @foreach ($worstMaps as $mapName => $mapScore)
+                    @foreach ($worstMaps as $mapName)
                         <a href="/maps?map={{ urlencode($mapName) }}"
-                           class="flex items-center justify-between bg-[#243d4a] rounded-lg px-4 py-3 hover:bg-[#2f4f60] transition-colors">
+                           class="flex items-center bg-[#243d4a] rounded-lg px-4 py-3 hover:bg-[#2f4f60] transition-colors">
                             <span class="text-sm font-medium">{{ $mapName }}</span>
-                            <span class="text-xs font-bold px-2 py-1 rounded {{ scoreColor($mapScore) }}">
-                                {{ $mapScore > 0 ? '+' : '' }}{{ $mapScore }}
-                            </span>
                         </a>
                     @endforeach
                 </div>
