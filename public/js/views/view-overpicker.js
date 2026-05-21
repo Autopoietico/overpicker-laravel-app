@@ -345,7 +345,7 @@ class ViewOverPiker {
             figure.classList.add("no-hero-selected", "bg-color-text");
 
             const figcaption = this.createElement("figcaption");
-            figcaption.classList.add("h-6");
+            figcaption.classList.add("h-6", "w-full", "truncate", "text-xs");
             figcaption.textContent = "Empty";
 
             const img = this.createElement("img");
@@ -380,9 +380,11 @@ class ViewOverPiker {
             const figcaption = this.createElement("figcaption");
             figcaption.classList.add(
                 "h-6",
+                "w-full",
+                "truncate",
+                "text-xs",
                 "justify-self-center",
                 "rounded-t-lg",
-                "group-hover:w-full",
                 "group-hover:bg-white",
                 "group-hover:text-black",
                 "group-hover:poppins"
