@@ -50,14 +50,13 @@ class ViewOverPiker {
             "rounded-2xl",
             "border",
             "border-white/10",
-            "grid",
-            "grid-cols-2",
-            "gap-3",
-            "sm:grid-cols-4",
-            "sm:col-span-3",
+            "flex",
+            "flex-wrap",
+            "gap-1",
             "justify-center",
             "items-center",
             "w-full",
+            "sm:col-span-3",
             "mb-6"
         );
 
@@ -425,17 +424,6 @@ class ViewOverPiker {
             "transition-all",
             "cursor-pointer"
         );
-
-        if (index % 2 == 0) {
-            optionLabel.classList.add("text-left");
-        } else {
-            optionLabel.classList.add(
-                "text-right",
-                "flex-row-reverse",
-                "sm:text-left",
-                "sm:flex-row"
-            );
-        }
 
         index++;
 
