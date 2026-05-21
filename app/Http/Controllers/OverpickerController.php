@@ -26,7 +26,6 @@ class OverpickerController extends BaseController
 
     public function tiers()
     {
-        $TOP500 = 0;
         $tierValues = [
             [45, View::make('components.tiers.tier-s')],
             [35, View::make('components.tiers.tier-a')],
@@ -36,46 +35,54 @@ class OverpickerController extends BaseController
         ];
 
         $heroes_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-info.json')), true);
-        $data_tiers = file_get_contents(storage_path('/api/hero-data/hero-tiers.json'));
+        $tiers_data = json_decode(file_get_contents(storage_path('/api/hero-data/hero-tiers.json')), true);
         $img_obj    = json_decode(file_get_contents(storage_path('/api/hero-data/hero-img.json')), true);
-
-        $tiers_obj = json_decode($data_tiers, true)[$TOP500];
 
         $hero_images = [];
         foreach ($img_obj as $img) {
             $hero_images[$img['name']] = $img['profile-img'];
         }
 
-        $sorted_heroes = [];
-        foreach ($heroes_obj as $heroe) {
-            $sorted_heroes[] = [
-                'name'        => $heroe['name'],
-                'role'        => $heroe['general_rol'],
-                'description' => $heroe['description'],
-                'value'       => $tiers_obj['hero-tiers'][$heroe['name']],
-                'img'         => $hero_images[$heroe['name']] ?? null,
+        $allRanks = [];
+        foreach ($tiers_data as $rankData) {
+            $rankHeroes = [];
+            foreach ($heroes_obj as $hero) {
+                $name      = $hero['name'];
+                $tierValue = $rankData['hero-tiers'][$name] ?? null;
+                if (!$tierValue) continue;
+                $rankHeroes[] = [
+                    'name'        => $name,
+                    'role'        => $hero['general_rol'],
+                    'description' => $hero['description'],
+                    'value'       => $tierValue,
+                    'img'         => $hero_images[$name] ?? null,
+                ];
+            }
+            usort($rankHeroes, fn($a, $b) => $b['value'] <=> $a['value']);
+            $allRanks[] = [
+                'name'   => $rankData['name'],
+                'heroes' => $rankHeroes,
             ];
         }
 
-        $tiers_data   = json_decode($data_tiers, true);
         $rankKeywords = [];
         foreach ($tiers_data as $rank) {
             $rankKeywords[] = 'best heroes in ' . strtolower($rank['name']) . ' Overwatch';
         }
 
         $seo = [
-            'title'          => 'Overwatch Tier List by Rank – Competitive Meta Breakdown',
-            'keywords'       => 'overwatch tier list competitive, overwatch best heroes by rank, overwatch meta tier list, ' . implode(', ', $rankKeywords) . ', overwatch ranked tier list, best heroes in low rank overwatch, best heroes in high rank overwatch, overwatch tier list by rank',
-            'description'    => 'Explore our comprehensive Overwatch tier list by rank. Find the best heroes for Top 500, GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze ranks. Stay ahead of the meta with our competitive hero rankings.',
-            'og_title'       => 'Overwatch Tier List by Rank – Competitive Meta Breakdown',
-            'og_description' => 'Explore our comprehensive Overwatch tier list by rank. Find the best heroes for Top 500, GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze ranks. Stay ahead of the meta with our competitive hero rankings.',
+            'title'          => 'Overwatch Tier List All Ranks – GrandMaster to Bronze Meta',
+            'keywords'       => 'overwatch tier list all ranks, overwatch tier list by rank, overwatch competitive ranks tier list, ' . implode(', ', $rankKeywords) . ', overwatch tier by rank, best heroes in low rank overwatch, best heroes in high rank overwatch',
+            'description'    => 'Compare Overwatch hero tiers across every competitive rank — from GrandMaster to Bronze. See S, A, B, C, D rankings for each bracket and find the best heroes for your rank.',
+            'og_title'       => 'Overwatch Tier List All Ranks – GrandMaster to Bronze Meta',
+            'og_description' => 'Compare Overwatch hero tiers across all competitive ranks. Find the best heroes for GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze.',
             'og_url'         => 'https://overpicker.win/tiers',
         ];
 
         return view('tiers', [
             'title'      => ' - Tiers',
             'dates'      => $this->DATES,
-            'tiers'      => $sorted_heroes,
+            'allRanks'   => $allRanks,
             'tierValues' => $tierValues,
             'seo'        => $seo,
         ]);
