@@ -74,7 +74,16 @@ class ControllerOverPiker {
             selectedIcon = this.model.panelSelections[4].selectedIndex;
         }
         let iconOption = this.model.panelSelections[4].options[selectedIcon];
-        this.view.displayTeams(teams, selectedHeroes, iconOption);
+
+        let nickMap = null;
+        if (this.model.panelOptions[this.model.NICKS]?.state) {
+            nickMap = {};
+            for (const h of Object.values(this.model.APIData.heroInfo)) {
+                if (h.nicks?.length) nickMap[h.name] = h.nicks[0];
+            }
+        }
+
+        this.view.displayTeams(teams, selectedHeroes, iconOption, nickMap);
     };
 
     handleClearSelection = () => {

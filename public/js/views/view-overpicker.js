@@ -325,7 +325,7 @@ class ViewOverPiker {
         return element;
     }
 
-    createHeroFigure(hero, team, value, heroIMG, notRound, borderState = 0) {
+    createHeroFigure(hero, team, value, heroIMG, notRound, borderState = 0, nickMap = null) {
         const figure = this.createElement("figure", "hero-value");
 
         figure.classList.add(
@@ -390,7 +390,7 @@ class ViewOverPiker {
                 "group-hover:poppins"
             );
 
-            figcaption.textContent = hero;
+            figcaption.textContent = (nickMap && nickMap[hero]) ? nickMap[hero] : hero;
 
             const img = heroIMG;
             img.classList.add("h-14", "justify-self-center");
@@ -666,7 +666,7 @@ class ViewOverPiker {
         );
     }
 
-    displaySelectedHeroes(teams, selectedHeroes, iconOption) {
+    displaySelectedHeroes(teams, selectedHeroes, iconOption, nickMap) {
         while (this.teamBlueComposition.firstChild) {
             this.teamBlueComposition.removeChild(
                 this.teamBlueComposition.firstChild
@@ -715,7 +715,8 @@ class ViewOverPiker {
                 value,
                 heroIMG,
                 notRound,
-                borderState
+                borderState,
+                nickMap
             );
             this.teamBlueComposition.append(figure);
         }
@@ -756,7 +757,8 @@ class ViewOverPiker {
                 value,
                 heroIMG,
                 notRound,
-                borderState
+                borderState,
+                nickMap
             );
             this.teamRedComposition.append(figure);
         }
@@ -827,7 +829,7 @@ class ViewOverPiker {
         this.redFilter.append(redLabel, redInput);
     }
 
-    displayHeroRoles(teams, iconOption) {
+    displayHeroRoles(teams, iconOption, nickMap) {
         while (this.blueTankRolSelection.firstChild) {
             this.blueTankRolSelection.removeChild(
                 this.blueTankRolSelection.firstChild
@@ -1048,7 +1050,8 @@ class ViewOverPiker {
                         hero.value,
                         hero.getIMG(iconOptionSelect),
                         notRound,
-                        hero.borderState
+                        hero.borderState,
+                        nickMap
                     );
 
                     const figHero = figHeroOption;
@@ -1099,10 +1102,10 @@ class ViewOverPiker {
         }
     }
 
-    displayTeams(teams, selectedHeroes, iconOption) {
+    displayTeams(teams, selectedHeroes, iconOption, nickMap) {
         this.displayTeamScores(teams);
-        this.displaySelectedHeroes(teams, selectedHeroes, iconOption);
-        this.displayHeroRoles(teams, iconOption);
+        this.displaySelectedHeroes(teams, selectedHeroes, iconOption, nickMap);
+        this.displayHeroRoles(teams, iconOption, nickMap);
     }
 
     bindClearSelection(handler) {

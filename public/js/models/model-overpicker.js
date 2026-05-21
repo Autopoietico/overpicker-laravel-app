@@ -22,6 +22,7 @@ class ModelOverPiker {
         this.MAP_POOLS = 3;
         this.HERO_ROTATION = 4;
         this.WEIGHTED_SCORES = 5;
+        this.NICKS = 6;
 
         //General
         this.APIData = new ModelAPI();
@@ -90,6 +91,15 @@ class ModelOverPiker {
                 id: `cb${getSelectValue("Hero Rotation")}`,
                 state: true,
                 hidden: true,
+            };
+        }
+
+        if (!this.panelOptions[this.NICKS]) {
+            this.panelOptions[this.NICKS] = {
+                text: "Nicks",
+                id: `cb${getSelectValue("Nicks")}`,
+                state: false,
+                hidden: false,
             };
         }
     }
@@ -166,6 +176,12 @@ class ModelOverPiker {
                 id: `cb${getSelectValue("Weighted Scores")}`,
                 state: false,
                 hidden: true,
+            },
+            {
+                text: "Nicks",
+                id: `cb${getSelectValue("Nicks")}`,
+                state: false,
+                hidden: false,
             },
         ];
         localStorage.setItem("panelOptions", JSON.stringify(panelOptions));
