@@ -78,15 +78,18 @@ class OverpickerController extends BaseController
             ];
         }
 
-        // Load "All Ranks" entry from the JSON (already aggregated in the data)
+        // Load "All Ranks" and "Community Ranking" entries from the JSON
         $allRanksEntry  = collect($tiers_data)->firstWhere('name', 'All Ranks');
-        $allRanksHeroes = [];
-        if ($allRanksEntry) {
+        $communityEntry = collect($tiers_data)->firstWhere('name', 'Community Ranking');
+
+        $buildHeroList = function (?array $entry) use ($heroes_obj, $hero_images): array {
+            if (!$entry) return [];
+            $list = [];
             foreach ($heroes_obj as $hero) {
                 $name      = $hero['name'];
-                $tierValue = $allRanksEntry['hero-tiers'][$name] ?? null;
+                $tierValue = $entry['hero-tiers'][$name] ?? null;
                 if (!$tierValue) continue;
-                $allRanksHeroes[] = [
+                $list[] = [
                     'name'        => $name,
                     'role'        => $hero['general_rol'],
                     'description' => $hero['description'],
@@ -94,8 +97,12 @@ class OverpickerController extends BaseController
                     'img'         => $hero_images[$name] ?? null,
                 ];
             }
-            usort($allRanksHeroes, fn($a, $b) => $b['value'] <=> $a['value']);
-        }
+            usort($list, fn($a, $b) => $b['value'] <=> $a['value']);
+            return $list;
+        };
+
+        $allRanksHeroes  = $buildHeroList($allRanksEntry);
+        $communityHeroes = $buildHeroList($communityEntry);
 
         $rankKeywords = [];
         foreach ($tiers_data as $rank) {
@@ -114,8 +121,9 @@ class OverpickerController extends BaseController
         return view('tiers', [
             'title'             => ' - Tiers',
             'dates'             => $this->DATES,
-            'allRanks'       => $allRanks,
-            'allRanksHeroes' => $allRanksHeroes,
+            'allRanks'        => $allRanks,
+            'allRanksHeroes'  => $allRanksHeroes,
+            'communityHeroes' => $communityHeroes,
             'tierValues'        => $tierValues,
             'seo'               => $seo,
         ]);
