@@ -1,185 +1,74 @@
 @extends('layouts.home') @section('content')
 <section class="mt-12 flex justify-center sm:mt-16">
     <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
-        <p>
-            Overpicker is a hero composition calculator inspired in
-            jazzmasta25's
-            <a
-                href="https://heropicker.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="underline decoration-amber-400"
-                >Hero Picker</a
-            >
+        <h1 class="fjalla uppercase text-4xl sm:text-5xl tracking-wide leading-tight">
+            Data & Content Sources
+        </h1>
+        <p class="text-slate-400 text-lg sm:text-xl font-normal mt-4 poppins max-w-2xl mx-auto">
+            Overpicker is built on top of competitive data, expert analysis, and community theorycrafting.
         </p>
     </div>
 </section>
-<section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
-    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mt-16">
-        <h2 class="font-normal text-2xl fjalla sm:text-3xl">
-            Tiers, Map Type, Maps, Counters and Synergies:
+
+<section class="mb-16 text-center sm:text-left text-sm max-w-4xl m-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+    {{-- Left block: Tiers & Aggregators --}}
+    <div class="glass-panel p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
+        <h2 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100">
+            Tiers & Statistics
         </h2>
-        <p class="mt-3 sm:text-lg">
-            <b
-                ><a
-                    href="https://heropicker.com/"
-                    class="underline decoration-amber-400"
-                    >Hero Picker</a
-                ></b
-            >
-            was the first source for this picker before, but right now the page
-            has my own data and ideas about interactions in the game.
+        <p class="text-slate-350 leading-relaxed poppins sm:text-base">
+            Hero tier lists are dynamically generated and adjusted using competitive rank statistics from 
+            <a href="https://www.overbuff.com/heroes" class="text-amber-400 hover:underline" target="_blank" rel="noopener noreferrer">Overbuff</a>,
+            evaluating pick rates and win rates across every skill bracket.
+        </p>
+        <p class="text-slate-355 leading-relaxed poppins sm:text-base">
+            We integrate data from the 
+            <a href="https://t500-aggregator.aryankothari.dev/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Top 500 Aggregator</a>
+            to assess pickrate trends and hero viability at the highest competitive tier.
+        </p>
+        <p class="text-slate-400 leading-relaxed poppins sm:text-sm pt-4 border-t border-white/5">
+            <strong>Community & High-Level Input:</strong> <br>
+            Tiers are cross-referenced with analysis from Top 500 players and guides creators like 
+            <a href="https://www.youtube.com/@KarQ" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-amber-400 transition-colors font-semibold">KarQ</a>, 
+            <a href="https://www.youtube.com/@Flats_OW" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-amber-400 transition-colors font-semibold">Flats</a>, 
+            <a href="https://www.youtube.com/@YourOverwatch" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-amber-400 transition-colors font-semibold">Freedo</a>, 
+            <a href="https://www.youtube.com/@Kajor1" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-amber-400 transition-colors font-semibold">Kajor</a>, and 
+            <a href="https://www.youtube.com/@Toniki" target="_blank" rel="noopener noreferrer" class="text-slate-200 hover:text-amber-400 transition-colors font-semibold">Toniki</a>.
         </p>
     </div>
-    <div class="mt-10 pb-2 border-b-2 border-dashed">
-        <h2 class="font-normal text-2xl fjalla sm:text-3xl">Tiers:</h2>
-        <p class="sm:text-lg">
-            I create a tier list based in the
-            <b
-                ><a
-                    href="https://www.overbuff.com/heroes"
-                    class="underline decoration-amber-400"
-                    >Overbuff</a
-                ></b
-            >
-            stats, this tiers are adjusted taking into consideration the win
-            rate and the pick rate.
-        </p>
-        <p class="sm:text-lg">
-            I use the
-            <b
-                ><a
-                    href="https://t500-aggregator.aryankothari.dev/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline decoration-amber-400"
-                    >Top 500 Agregator</a
-                ></b
-            >
-            tool to get the top 500 pickrate and best heroes played in the top
-            500 ranking.
-        </p>
-        <p class="sm:text-lg">
-            I check the tierlists created from top500 players like
-            <b
-                ><a
-                    href="https://www.youtube.com/@KarQ"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline decoration-amber-400"
-                    >KarQ</a
-                ></b
-            >,
-            <b
-                ><a
-                    href="https://www.youtube.com/@Flats_OW"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline decoration-amber-400"
-                    >Flats</a
-                ></b
-            >,
-            <b
-                ><a
-                    href="https://www.youtube.com/@YourOverwatch"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline decoration-amber-400"
-                    >Freedo</a
-                ></b
-            >,
-            <b
-                ><a
-                    href="https://www.youtube.com/@Kajor1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline decoration-amber-400"
-                    >Kajor</a
-                ></b
-            >,
-            <b
-                ><a
-                    href="https://www.youtube.com/@Toniki"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline decoration-amber-400"
-                    >Toniki</a
-                ></b
-            >
-            , and Others
+
+    {{-- Right block: Synergies & Counters --}}
+    <div class="glass-panel p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
+        <h2 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100">
+            Synergies & Counters
+        </h2>
+        <div class="space-y-3 text-slate-350 poppins sm:text-base leading-relaxed">
+            <p>
+                <a href="https://www.youtube.com/playlist?list=PLgRMcvKNkYFyD7RyWlNmvYF0NWcKei5z7" class="text-amber-400 hover:underline font-semibold" target="_blank" rel="noopener noreferrer">1 Tip for Every Hero Series (KarQ)</a> - Excellent resource detailing specific hero counters and game mechanics.
+            </p>
+            <p>
+                <a href="https://www.youtube.com/playlist?list=PLfv7DSFO1b69Kb4vzlakeE5MiGL3UKnSh" class="text-amber-400 hover:underline font-semibold" target="_blank" rel="noopener noreferrer">Thought Process Series (SVB)</a> - Offers analytical breakdowns on hero synergies and composition setups.
+            </p>
+            <p>
+                <a href="https://docs.google.com/document/d/11_VDsXLCrBwogQLaXgoNNbNel3kQkZ6txfT81H7iau0/edit?usp=sharing" class="text-amber-400 hover:underline font-semibold" target="_blank" rel="noopener noreferrer">All Existing Compositions in Overwatch (Shielder_OW)</a> - A detailed summary of core team compositions.
+            </p>
+            <p>
+                <a href="https://www.youtube.com/watch?v=WfLzVVsHUGI&list=PLxTGkfX26YAguJHHTDFqwuwqLPzBqKXOh" class="text-amber-400 hover:underline font-semibold" target="_blank" rel="noopener noreferrer">KarQ Synergy Tier Lists</a> - Visual mappings of hero pairings and dual combos.
+            </p>
+        </div>
+        <p class="text-slate-400 leading-relaxed poppins sm:text-sm pt-4 border-t border-white/5">
+            <strong>Theorycrafting & Coaching:</strong> <br>
+            Influenced by coaches like <a href="https://www.youtube.com/c/StormcrowProductions" class="text-slate-200 hover:text-amber-400 font-semibold" target="_blank" rel="noopener noreferrer">Spillo</a>, <a href="https://www.youtube.com/@Kajor1/" class="text-slate-200 hover:text-amber-400 font-semibold" target="_blank" rel="noopener noreferrer">Kajor</a>, and <a href="https://www.youtube.com/@YourOverwatch" class="text-slate-200 hover:text-amber-400 font-semibold" target="_blank" rel="noopener noreferrer">Freedo</a>.
         </p>
     </div>
-    <div class="mt-10 pb-2 border-b-2 border-dashed sm:mb-14">
-        <h2 class="font-normal text-2xl fjalla sm:text-3xl">
-            Synergies & Counters::
+
+    {{-- Bottom Full Width --}}
+    <div class="md:col-span-2 glass-panel p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
+        <h2 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100">
+            Original Concept
         </h2>
-        <p class="sm:text-lg">
-            <b
-                ><a
-                    href="https://www.youtube.com/playlist?list=PLgRMcvKNkYFyD7RyWlNmvYF0NWcKei5z7"
-                    class="underline decoration-amber-400"
-                    >1 Tip for Every Hero Series</a
-                ></b
-            >
-            made for KarQ, is a great inspiration to know counters for every
-            hero in the game.
-        </p>
-        <p class="sm:text-lg">
-            <b
-                ><a
-                    href="https://www.youtube.com/playlist?list=PLfv7DSFO1b69Kb4vzlakeE5MiGL3UKnSh"
-                    class="underline decoration-amber-400"
-                    >Thought Process Series</a
-                ></b
-            >
-            made for SVB have great ideas about what heroes are good with others
-            and also help me knowing other counters.
-        </p>
-        <p class="sm:text-lg">
-            <b
-                ><a
-                    href="https://docs.google.com/document/d/11_VDsXLCrBwogQLaXgoNNbNel3kQkZ6txfT81H7iau0/edit?usp=sharing"
-                    class="underline decoration-amber-400"
-                    >A List on All Existing Compositions in Overwatch</a
-                ></b
-            >
-            made for Shielder_OW, is a good summary of many of the game's most
-            important compositions in the game.
-        </p>
-        <p class="sm:text-lg">
-            <b
-                ><a
-                    href="https://www.youtube.com/watch?v=WfLzVVsHUGI&list=PLxTGkfX26YAguJHHTDFqwuwqLPzBqKXOh"
-                    class="underline decoration-amber-400"
-                    >KarQ Tier Lists</a
-                ></b
-            >, KarQ made a lot of informal Tierlist about sinergies and counters
-            that I take in consideration
-        </p>
-        <p class="sm:text-lg">
-            I'm also inspired for coaches and game theorycrafters like
-            <b
-                ><a
-                    href="https://www.youtube.com/c/StormcrowProductions"
-                    class="underline decoration-amber-400"
-                    >Spillo</a
-                ></b
-            >,
-            <b
-                ><a
-                    href="https://www.youtube.com/@Kajor1/"
-                    class="underline decoration-amber-400"
-                    >Kajor</a
-                ></b
-            >,
-            <b
-                ><a
-                    href="https://www.youtube.com/@YourOverwatch"
-                    class="underline decoration-amber-400"
-                    >Freedo</a
-                ></b
-            >
-            and others
+        <p class="text-slate-350 leading-relaxed poppins sm:text-base">
+            Overpicker was originally inspired by <strong>Jazzmasta25</strong>'s <a href="https://heropicker.com/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Hero Picker</a>. While the calculation logic and data parameters have been custom built for this version, the layout and interactive structure pays homage to the original tool.
         </p>
     </div>
 </section>

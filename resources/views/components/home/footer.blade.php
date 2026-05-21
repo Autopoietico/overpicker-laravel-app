@@ -1,56 +1,49 @@
-<footer class="mt-5 mb-1 grid gap-y-1 justify-items-center border-t-2">
-
-    {{-- <div class="relative w-96 h-80 overflow-hidden">
-        <iframe
-            class="absolute -top-12 w-96 h-80"
-            src="https://ow2countdown.com/event/112/season-7-rise-of-darkness/embed?title=1&progress_bar=1&theme=dark#svelte-qisv2e"
-            scrolling="no"
-        ></iframe>
-    </div> --}}
+<footer class="mt-12 mb-6 glass-panel p-6 rounded-2xl grid gap-y-6 justify-items-center border border-white/10 w-full shadow-lg">
 
     <nav class="w-full hidden sm:block">
-        <ol class="grid grid-flow-col gap-x-4 text-2xl justify-center mt-1">
+        <ol class="grid grid-flow-col gap-x-6 justify-center mt-1 fjalla tracking-wider">
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="tiers">Tiers</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="tiers">Tiers</a>
             </li>
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="counters">Counters</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="counters">Counters</a>
             </li>
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="synergies">Synergies</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="synergies">Synergies</a>
             </li>
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="maps">Maps</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="maps">Maps</a>
             </li>
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="trackers">Trackers</a>
-            <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="sources">Sources</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="trackers">Trackers</a>
             </li>
             <li>
-                <a class="hover:bg-[#294452] px-2 py-1 rounded-lg" href="about">About</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="sources">Sources</a>
+            </li>
+            <li>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="about">About</a>
             </li>
         </ol>
     </nav>
-    <div class="mt-6 select-none">
-        <h1 class="fjalla-n text-5xl uppercase"><a href="/">Overpicker</a></h1>
-        <h2 class="abel text-base text-right">
-            <a href="about">By Autopoietico</a>
-        </h2>
+    <div class="text-center select-none mt-2">
+        <h3 class="fjalla text-3xl sm:text-4xl tracking-wide uppercase"><a href="/" class="hover:text-amber-400 transition-colors duration-300">Overpicker</a></h3>
+        <h4 class="poppins text-xs font-semibold uppercase tracking-widest text-slate-400/80 text-center mt-1">
+            <a href="about" class="hover:text-amber-400 transition-colors">By Autopoietico</a>
+        </h4>
     </div>
-    <div class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between">
-        <span class="footer-final-line-left">Last Update: {{ $dates['LAST_DATA_UPDATE'] }}</span>
+    <div class="h-fit w-full grid text-center text-xs tracking-wider uppercase font-semibold text-slate-400 sm:text-inherit sm:grid-flow-col sm:place-content-between sm:px-4">
+        <span>Last Update: <strong class="text-slate-200">{{ $dates['LAST_DATA_UPDATE'] }}</strong></span>
         <span>CC({{ $dates['COPY_DATE'] }})</span>
     </div>
-    <div class="mt-3 grid grid-flow-col gap-x-5">
-        <a href="https://discord.gg/PBfMUzz" title="OW Picker Discord" target="_blank"><img class="w-12"
+    <div class="grid grid-flow-col gap-x-6 items-center">
+        <a href="https://discord.gg/PBfMUzz" title="OW Picker Discord" target="_blank" class="hover:scale-110 opacity-75 hover:opacity-100 transition-all duration-300"><img class="w-10"
                 src="{{ asset('images/social/discord-brands.svg') }}" alt="Discord Icon" /></a>
-        <a href="https://paypal.me/car930" title="Paypal Account" target="_blank"><img class="w-12"
+        <a href="https://paypal.me/car930" title="Paypal Account" target="_blank" class="hover:scale-110 opacity-75 hover:opacity-100 transition-all duration-300"><img class="w-10"
                 src="{{ asset('images/social/paypal-brands.svg') }}" alt="PayPal Icon" /></a>
     </div>
-    <div class="mt-6 h-fit w-full grid text-center sm:text-inherit sm:grid-flow-col sm:place-content-between">
-        <span class="footer-final-line-left"><a href="/privacy" class="underline decoration-amber-400">Privacy
+    <div class="h-fit w-full grid text-center text-xs text-slate-400/90 sm:text-inherit sm:grid-flow-col sm:place-content-between sm:px-4 border-t border-white/5 pt-4">
+        <span><a href="/privacy" class="underline decoration-amber-400 hover:text-amber-400 transition-colors">Privacy
                 Policy</a></span>
-        <span>This site is not affiliated with Overwatch or Blizzard Entertainment.</span>
+        <span class="mt-2 sm:mt-0 text-[10px] sm:text-xs">This site is not affiliated with Overwatch or Blizzard Entertainment.</span>
     </div>
 </footer>

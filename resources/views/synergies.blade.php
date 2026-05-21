@@ -2,65 +2,67 @@
 @section('content')
     <section class="mt-12 flex justify-center sm:mt-16">
         <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
-            <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
-                Overwatch Synergy Chart & Best Hero Combos
+            <h1 class="fjalla uppercase text-4xl sm:text-5xl tracking-wide leading-tight">
+                Overwatch Synergy Matrix
             </h1>
         </div>
     </section>
 
-    <section class="mb-10 text-center sm:text-left text-sm">
-        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
-            <p class="sm:text-lg mb-4">
-                Select your hero to see which heroes synergize best with them, ranked from strongest to weakest synergy.
-                On desktop, results are split by role. On mobile, use the role filters to narrow down results.
+    <section class="mb-16 text-center sm:text-left text-sm max-w-4xl m-auto px-4 mt-6">
+        <div class="glass-panel p-6 rounded-3xl border border-white/10 shadow-lg text-slate-350 poppins leading-relaxed">
+            <p class="sm:text-lg mb-4 text-slate-200">
+                Select a hero below to view their best pairings, ranked from the strongest synergies to the most incompatible teammates.
+                On desktop, results are split by role. On mobile, use the role tabs to navigate.
             </p>
-            <p class="sm:text-lg mb-4">
-                <strong>How the Scoring System Works:</strong> Our Overwatch synergy chart uses a
-                <strong>-20 to +20 scale</strong> to rate how well heroes perform together.
-
-                A score of
-                <strong class="bg-green-600 text-white px-1 rounded">+20</strong> (Must Pick)
-                means the heroes have exceptional synergy and can dominate when combined - ideal for coordinated team play.
-
-                A score of
-                <strong class="bg-green-400 text-white px-1 rounded">+10</strong> (Good Synergy)
-                indicates a strong pairing with complementary abilities.
-
-                A score of
-                <strong class="bg-gray-300 text-black px-1 rounded">0</strong> (Decent)
-                means neutral compatibility where performance depends mostly on execution.
-
-                Scores of
-                <strong class="bg-red-200 text-black px-1 rounded">-10</strong> (No Synergy)
-                and
-                <strong class="bg-red-600 text-white px-1 rounded">-20</strong> (Antisynergy)
-                indicate weak or harmful combinations where heroes fail to complement each other or can even hinder team
-                performance.
-            </p>
+            <div class="pt-4 border-t border-white/5">
+                <p class="font-semibold text-slate-200 mb-2">How the Scoring System Works:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <p>
+                        <strong class="text-emerald-400 font-bold">+20 (Must Pick):</strong> The heroes have exceptional kit compatibility and can dominate team fights when combined.
+                    </p>
+                    <p>
+                        <strong class="text-emerald-300 font-bold">+10 (Good Synergy):</strong> The pairing offers clear gameplay advantages and complementary playstyles.
+                    </p>
+                    <p>
+                        <strong class="text-slate-400 font-bold">0 (Decent):</strong> Neutral synergy. Interaction is basic and performance depends mostly on execution.
+                    </p>
+                    <p>
+                        <strong class="text-rose-400 font-bold">-10 to -20 (Antisynergy):</strong> Incompatible abilities or conflicting team strategies. Avoid pairing these heroes.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <!-- Hero Search -->
-        <div class="mt-6 max-w-4xl m-auto">
-            <input type="text" id="heroSearch" placeholder="Search hero..."
-                class="w-full sm:w-64 px-3 py-2 rounded-lg bg-[#294452] text-white border border-white/20 placeholder-slate-400 fjalla text-sm uppercase">
+        <div class="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <!-- Hero Selector Label -->
+            <div>
+                <p class="fjalla text-xl uppercase tracking-wider text-slate-100">Select Your Hero:</p>
+            </div>
+            <!-- Hero Search -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" id="heroSearch" placeholder="Search hero..."
+                    class="w-full sm:w-80 pl-9 pr-4 py-2 rounded-xl bg-[#294452]/40 text-white border border-white/10 placeholder-slate-400 focus:outline-none focus:border-amber-400/50 transition-all font-semibold poppins text-sm">
+            </div>
         </div>
 
         <!-- Hero Selector Strip -->
-        <div class="mt-2 max-w-4xl m-auto">
-            <p class="fjalla text-xl uppercase mb-2">Select Your Hero:</p>
-            <div class="overflow-x-auto pb-2">
-                <div class="flex gap-2 flex-nowrap">
+        <div class="mt-3 relative">
+            <div class="overflow-x-auto pb-3 scrollbar-custom">
+                <div class="flex gap-2.5 flex-nowrap">
                     @foreach ($heroes as $hero)
                         @php
                             $heroImage = $hero_images[$hero['name']] ?? 'images/assets/blank-hero.webp';
                             $role = $hero_roles[$hero['name']] ?? 'Unknown';
                         @endphp
                         <button
-                            class="hero-selector-btn flex flex-col items-center p-1 rounded-lg bg-[#294452] hover:bg-[#3a5a6a] cursor-pointer min-w-[60px] transition-all"
+                            class="hero-selector-btn flex flex-col items-center p-2 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 cursor-pointer min-w-[70px] transition-all duration-200"
                             data-hero="{{ $hero['name'] }}" data-role="{{ $role }}"
                             onclick="selectHero('{{ $hero['name'] }}')">
-                            <img src="{{ $heroImage }}" alt="{{ $hero['name'] }}" class="w-10 h-10 rounded-lg">
-                            <span class="text-xs abel truncate max-w-[58px] mt-0.5 leading-tight">{{ $hero['name'] }}</span>
+                            <img src="{{ $heroImage }}" alt="{{ $hero['name'] }}" class="w-10 h-10 rounded-xl shadow-md border border-white/5">
+                            <span class="text-[11px] font-semibold text-slate-350 truncate max-w-[62px] mt-1.5 leading-tight poppins">{{ $hero['name'] }}</span>
                         </button>
                     @endforeach
                 </div>
@@ -68,133 +70,136 @@
         </div>
 
         <!-- Role Filters (mobile only) -->
-        <div class="mt-4 max-w-4xl m-auto flex flex-wrap items-center gap-3 lg:hidden">
+        <div class="mt-6 flex flex-wrap items-center gap-3 lg:hidden">
             <button onclick="filterByRole('Tank', event)"
-                class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                class="role-filter-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 font-semibold poppins text-xs"
                 data-role="Tank">
-                <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-5 h-5">
-                <span class="fjalla text-sm uppercase">Tank</span>
+                <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-4 h-4">
+                TANK
             </button>
             <button onclick="filterByRole('Damage', event)"
-                class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                class="role-filter-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 font-semibold poppins text-xs"
                 data-role="Damage">
-                <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-5 h-5">
-                <span class="fjalla text-sm uppercase">Damage</span>
+                <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-4 h-4">
+                DAMAGE
             </button>
             <button onclick="filterByRole('Support', event)"
-                class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                class="role-filter-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 font-semibold poppins text-xs"
                 data-role="Support">
-                <img src="\images\assets\support.webp" alt="Support Icon" class="w-5 h-5">
-                <span class="fjalla text-sm uppercase">Support</span>
+                <img src="\images\assets\support.webp" alt="Support Icon" class="w-4 h-4">
+                SUPPORT
             </button>
             <button id="resetFilter"
-                class="px-3 py-2 bg-[#294452] text-white rounded-lg hover:bg-gray-600 fjalla text-sm uppercase">
-                Reset
+                class="px-4 py-2.5 bg-white/5 border border-white/5 text-slate-400 rounded-xl hover:bg-white/10 transition-all font-semibold poppins text-xs">
+                RESET
             </button>
         </div>
 
         <!-- Hero info line -->
-        <div id="heroInfo" class="mt-3 max-w-4xl m-auto text-sm text-slate-400"></div>
+        <div id="heroInfo" class="mt-6 text-sm text-amber-450 font-bold poppins uppercase tracking-wider text-center sm:text-left"></div>
 
         <!-- Empty state -->
-        <div id="emptyState" class="mt-16 mb-16 text-center text-slate-400 text-lg fjalla">
-            Select a hero above to see their best synergies.
+        <div id="emptyState" class="mt-16 mb-16 text-center text-slate-400 text-lg fjalla tracking-wide uppercase">
+            Select a hero above to reveal the synergy matrix.
         </div>
 
         <!-- Results: 3 columns on desktop, 1 on mobile -->
-        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-4xl m-auto" id="resultsContainer" style="display:none">
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6" id="resultsContainer" style="display:none">
 
-            <div id="tankSection">
-                <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
-                    <img src="\images\assets\tank.webp" class="w-5 h-5" alt="Tank"> Tank
+            <div id="tankSection" class="glass-panel p-5 rounded-3xl border border-white/10 shadow-lg">
+                <h3 class="fjalla uppercase text-center text-lg mb-4 flex items-center justify-center gap-2 text-slate-100">
+                    <img src="\images\assets\tank.webp" class="w-5 h-5" alt="Tank"> Tank Synergies
                 </h3>
-                <table class="w-full">
-                    <thead>
-                        <tr class="fjalla text-sm">
-                            <th class="p-2 text-left">Hero</th>
-                            <th class="p-2 text-center">Synergy</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tankBody"></tbody>
-                </table>
+                <div class="overflow-hidden rounded-2xl border border-white/5 shadow-inner">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-white/5 text-slate-300 fjalla text-xs uppercase tracking-wider border-b border-white/5">
+                                <th class="p-3">Hero</th>
+                                <th class="p-3 text-center w-20">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tankBody" class="divide-y divide-white/5"></tbody>
+                    </table>
+                </div>
             </div>
 
-            <div id="damageSection">
-                <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
-                    <img src="\images\assets\damage.webp" class="w-5 h-5" alt="Damage"> Damage
+            <div id="damageSection" class="glass-panel p-5 rounded-3xl border border-white/10 shadow-lg">
+                <h3 class="fjalla uppercase text-center text-lg mb-4 flex items-center justify-center gap-2 text-slate-100">
+                    <img src="\images\assets\damage.webp" class="w-5 h-5" alt="Damage"> Damage Synergies
                 </h3>
-                <table class="w-full">
-                    <thead>
-                        <tr class="fjalla text-sm">
-                            <th class="p-2 text-left">Hero</th>
-                            <th class="p-2 text-center">Synergy</th>
-                        </tr>
-                    </thead>
-                    <tbody id="damageBody"></tbody>
-                </table>
+                <div class="overflow-hidden rounded-2xl border border-white/5 shadow-inner">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-white/5 text-slate-300 fjalla text-xs uppercase tracking-wider border-b border-white/5">
+                                <th class="p-3">Hero</th>
+                                <th class="p-3 text-center w-20">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="damageBody" class="divide-y divide-white/5"></tbody>
+                    </table>
+                </div>
             </div>
 
-            <div id="supportSection">
-                <h3 class="fjalla uppercase text-center text-base mb-2 flex items-center justify-center gap-2">
-                    <img src="\images\assets\support.webp" class="w-5 h-5" alt="Support"> Support
+            <div id="supportSection" class="glass-panel p-5 rounded-3xl border border-white/10 shadow-lg">
+                <h3 class="fjalla uppercase text-center text-lg mb-4 flex items-center justify-center gap-2 text-slate-100">
+                    <img src="\images\assets\support.webp" class="w-5 h-5" alt="Support"> Support Synergies
                 </h3>
-                <table class="w-full">
-                    <thead>
-                        <tr class="fjalla text-sm">
-                            <th class="p-2 text-left">Hero</th>
-                            <th class="p-2 text-center">Synergy</th>
-                        </tr>
-                    </thead>
-                    <tbody id="supportBody"></tbody>
-                </table>
+                <div class="overflow-hidden rounded-2xl border border-white/5 shadow-inner">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-white/5 text-slate-300 fjalla text-xs uppercase tracking-wider border-b border-white/5">
+                                <th class="p-3">Hero</th>
+                                <th class="p-3 text-center w-20">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supportBody" class="divide-y divide-white/5"></tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
 
         <!-- Synergies Legend -->
-        <div class="mt-8 p-4 bg-[#294452] rounded-lg max-w-2xl m-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+        <div class="mt-12 p-6 glass-panel rounded-3xl border border-white/10 shadow-lg">
+            <h4 class="fjalla uppercase text-sm tracking-wider text-slate-300 text-center mb-4">Legend Overview</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">20</span>
+                    <div class="w-12 h-9 bg-emerald-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
+                        +20
                     </div>
-                    <span class="text-xs text-center">Must Pick</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Must Pick</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-green-400 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">10</span>
+                    <div class="w-12 h-9 bg-emerald-500 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
+                        +10
                     </div>
-                    <span class="text-xs text-center">Good Synergy</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Good Synergy</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-gray-300 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">0</span>
+                    <div class="w-12 h-9 bg-white/10 rounded-lg flex items-center justify-center mb-2 shadow text-slate-300 font-bold text-sm">
+                        0
                     </div>
-                    <span class="text-xs text-center">Decent</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Decent</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-red-200 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">-10</span>
+                    <div class="w-12 h-9 bg-rose-500/20 border border-rose-550/30 rounded-lg flex items-center justify-center mb-2 shadow text-rose-300 font-bold text-sm">
+                        -10
                     </div>
-                    <span class="text-xs text-center">No Synergy</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">No Synergy</span>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">-20</span>
+                <div class="flex flex-col items-center col-span-2 sm:col-span-1">
+                    <div class="w-12 h-9 bg-rose-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm mx-auto">
+                        -20
                     </div>
-                    <span class="text-xs text-center">Antisynergy</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Antisynergy</span>
                 </div>
             </div>
         </div>
 
-        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
-            <p class="sm:text-lg mb-4">
-                <strong>What is a Synergy in Overwatch?</strong><br>
-                A synergy in Overwatch refers to how well two or more heroes work together in a team composition.
-                Hero synergies occur when the abilities, playstyles, and strengths of different heroes complement each
-                other, creating combinations that are more powerful than the sum of their individual parts. For example,
-                heroes who can provide healing and damage amplification to allies create excellent synergies with heroes
-                who deal high damage output.
+        <div class="mt-8 glass-panel p-6 rounded-3xl border border-white/10 shadow-lg">
+            <h4 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100 mb-3">What is Synergy in Overwatch?</h4>
+            <p class="sm:text-lg text-slate-350 leading-relaxed poppins">
+                Hero synergy refers to how effectively two or more heroes combine their abilities to control the field. Positive synergies occur when playstyles, movement options, or visual range requirements align perfectly (like Nano-Blade or Pharah-Mercy). Identifying high synergy pairings allows teams to maximize their cooperative value.
             </p>
         </div>
     </section>
@@ -215,12 +220,12 @@
         };
 
         function getScoreClass(value) {
-            if (value >= 20) return 'bg-green-600';
-            if (value >= 10) return 'bg-green-400';
-            if (value > 0) return 'bg-green-200';
-            if (value === 0) return 'bg-gray-300';
-            if (value >= -10) return 'bg-red-200';
-            return 'bg-red-600';
+            if (value >= 20) return 'bg-emerald-600 text-white border border-emerald-500/20';
+            if (value >= 10) return 'bg-emerald-500 text-white border border-emerald-400/20';
+            if (value > 0) return 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/20';
+            if (value === 0) return 'bg-white/10 text-slate-300';
+            if (value >= -10) return 'bg-rose-500/20 text-rose-300 border border-rose-500/20';
+            return 'bg-rose-600 text-white border border-rose-500/20';
         }
 
         function getRoleIcon(role) {
@@ -279,21 +284,22 @@
                 tbody.innerHTML = '';
                 entries.forEach(function(entry, index) {
                     const tr = document.createElement('tr');
-                    if (index % 2 === 1) tr.style.backgroundColor = '#294452';
+                    tr.className = 'hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]';
                     const scoreClass = getScoreClass(entry.score);
-                    const roleIcon = getRoleIcon(role);
+                    
                     tr.innerHTML =
-                        '<td class="p-2">' +
-                        '<div class="flex flex-col items-center">' +
+                        '<td class="p-3">' +
+                        '<div class="flex items-center gap-3">' +
                         '<img src="' + entry.image + '" alt="' + entry.name +
-                        '" class="w-10 h-10 rounded-lg">' +
-                        '<span class="text-xs abel truncate max-w-[80px]">' + entry.name + '</span>' +
-                        (roleIcon ? '<img src="' + roleIcon + '" class="w-5 h-5 mt-0.5">' : '') +
+                        '" class="w-10 h-10 rounded-xl shadow border border-white/5">' +
+                        '<div class="flex flex-col">' +
+                        '<span class="text-sm font-semibold text-slate-200 poppins">' + entry.name + '</span>' +
+                        '</div>' +
                         '</div>' +
                         '</td>' +
-                        '<td class="p-2 text-center">' +
-                        '<div class="w-12 h-10 flex items-center justify-center rounded mx-auto font-bold text-white ' +
-                        scoreClass + '">' + entry.score + '</div>' +
+                        '<td class="p-3 text-center align-middle">' +
+                        '<div class="w-12 h-9 flex items-center justify-center rounded-lg font-bold text-sm shadow ' +
+                        scoreClass + '">' + (entry.score > 0 ? '+' : '') + entry.score + '</div>' +
                         '</td>';
                     tbody.appendChild(tr);
                 });
@@ -312,9 +318,13 @@
         window.selectHero = function(heroName) {
             selectedHero = heroName;
             document.querySelectorAll('.hero-selector-btn').forEach(function(btn) {
-                btn.dataset.hero === heroName ?
-                    btn.classList.add('ring-2', 'ring-white') :
-                    btn.classList.remove('ring-2', 'ring-white');
+                if (btn.dataset.hero === heroName) {
+                    btn.classList.add('border-amber-400', 'bg-[#294452]/90', 'shadow-md', 'shadow-amber-400/5');
+                    btn.classList.remove('border-white/5', 'bg-white/5');
+                } else {
+                    btn.classList.remove('border-amber-400', 'bg-[#294452]/90', 'shadow-md', 'shadow-amber-400/5');
+                    btn.classList.add('border-white/5', 'bg-white/5');
+                }
             });
             renderTable();
         };
@@ -323,9 +333,13 @@
             event.stopPropagation();
             activeRoleFilter = (activeRoleFilter === roleName) ? null : roleName;
             document.querySelectorAll('.role-filter-btn').forEach(function(btn) {
-                btn.dataset.role === activeRoleFilter ?
-                    btn.classList.add('ring-2', 'ring-white') :
-                    btn.classList.remove('ring-2', 'ring-white');
+                if (btn.dataset.role === activeRoleFilter) {
+                    btn.classList.add('border-amber-400/50', 'bg-[#294452]/80', 'text-amber-400');
+                    btn.classList.remove('border-white/5', 'bg-white/5', 'text-slate-300');
+                } else {
+                    btn.classList.remove('border-amber-400/50', 'bg-[#294452]/80', 'text-amber-400');
+                    btn.classList.add('border-white/5', 'bg-white/5', 'text-slate-300');
+                }
             });
             applyMobileFilter();
         };
@@ -333,7 +347,8 @@
         document.getElementById('resetFilter').addEventListener('click', function() {
             activeRoleFilter = null;
             document.querySelectorAll('.role-filter-btn').forEach(function(btn) {
-                btn.classList.remove('ring-2', 'ring-white');
+                btn.classList.remove('border-amber-400/50', 'bg-[#294452]/80', 'text-amber-400');
+                btn.classList.add('border-white/5', 'bg-white/5', 'text-slate-300');
             });
             applyMobileFilter();
         });

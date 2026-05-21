@@ -45,34 +45,38 @@ class ViewOverPiker {
             "selection-checkbox-panel"
         );
         this.checkboxPanel.classList.add(
-            "group",
+            "glass-panel",
+            "p-4",
+            "rounded-2xl",
+            "border",
+            "border-white/10",
             "grid",
-            "grid-flow-row",
             "grid-cols-2",
-            "justify-center",
-            "sm:grid-flow-col",
-            "sm:grid-cols-none",
-            "sm:gap-x-1",
-            "sm:text-xl",
+            "gap-3",
+            "sm:grid-cols-4",
             "sm:col-span-3",
-            "md:gap-x-3",
-            "md:text-2xl",
-            "lg:gap-x-3.5",
-            "lg:text-3xl"
+            "justify-center",
+            "items-center",
+            "w-full",
+            "mb-6"
         );
 
         this.selectionPanel = this.createElement("div", "selection-panel");
         this.selectionPanel.classList.add(
+            "glass-panel",
+            "p-4",
+            "rounded-2xl",
+            "border",
+            "border-white/10",
             "grid",
             "text-center",
             "mt-2",
-            "mb-10",
-            "lg:mt-3",
+            "mb-8",
+            "gap-4",
+            "items-center",
             "sm:grid-flow-col",
             "sm:justify-center",
-            "sm:col-span-3",
-            "md:text-xl",
-            "lg:text-2xl"
+            "sm:col-span-3"
         );
 
         this.teamSeparator = this.createElement("div");
@@ -412,7 +416,15 @@ class ViewOverPiker {
     createSingleOption(option, index) {
         //Label enclose the elements
         const optionLabel = this.createElement("label");
-        optionLabel.classList.add("flex");
+        optionLabel.classList.add(
+            "flex",
+            "items-center",
+            "p-2",
+            "rounded-xl",
+            "hover:bg-white/5",
+            "transition-all",
+            "cursor-pointer"
+        );
 
         if (index % 2 == 0) {
             optionLabel.classList.add("text-left");
@@ -431,9 +443,19 @@ class ViewOverPiker {
         checkbox.type = "checkbox";
         checkbox.checked = option.state;
         checkbox.id = option.id;
+        checkbox.classList.add(
+            "w-4",
+            "h-4",
+            "rounded-md",
+            "border-white/10",
+            "bg-[#294452]/50",
+            "accent-amber-400",
+            "cursor-pointer",
+            "transition-all"
+        );
 
         const span = this.createElement("span");
-        span.classList.add("mx-1");
+        span.classList.add("mx-2", "text-sm", "font-medium", "text-slate-200", "cursor-pointer");
         span.textContent = option.text;
 
         optionLabel.append(checkbox, span);
@@ -444,13 +466,23 @@ class ViewOverPiker {
     createSingleSelect(selector) {
         const select = this.createElement("select", "", selector.id);
         select.classList.add(
-            "bg-[#1C2E37]",
+            "bg-[#294452]/50",
+            "backdrop-blur-sm",
             "border",
-            "border-white",
-            "rounded-md",
-            "sm:mr-0.5",
-            "md:mr-1",
-            "lg:mr-1.5"
+            "border-white/10",
+            "text-slate-100",
+            "font-semibold",
+            "rounded-xl",
+            "px-3",
+            "py-1.5",
+            "text-sm",
+            "outline-none",
+            "cursor-pointer",
+            "input-focus-accent",
+            "transition-all",
+            "sm:mr-1",
+            "md:mr-2",
+            "lg:mr-3"
         );
 
         selector.options.forEach((option) => {
@@ -458,6 +490,7 @@ class ViewOverPiker {
 
             optionElement.value = getSelectValue(option);
             optionElement.textContent = option;
+            optionElement.classList.add("bg-[#1c2e37]", "text-slate-100");
 
             select.append(optionElement);
         });
@@ -470,10 +503,10 @@ class ViewOverPiker {
     createSingleSelectSpan(selector) {
         //Add a special class for selectors that have long names
         const selectorSpan = this.createElement("span", selector.class);
-        selectorSpan.classList.add("sm:mr-0.5", "md:mr-1", "lg:mr-1.5");
+        selectorSpan.classList.add("sm:mr-1", "md:mr-2", "lg:mr-3");
 
         //The text don't have a html label
-        selectorSpan.classList.add("selection-span", "font-bold");
+        selectorSpan.classList.add("selection-span", "fjalla", "uppercase", "text-xs", "tracking-wider", "text-slate-400");
         selectorSpan.textContent = selector.text + ":";
 
         return selectorSpan;
@@ -544,12 +577,20 @@ class ViewOverPiker {
             "bi",
             "bi-gear-fill",
             "cursor-pointer",
-            "px-1",
-            "rounded-lg"
+            "p-2",
+            "rounded-xl",
+            "text-slate-350",
+            "hover:text-amber-400",
+            "hover:bg-white/5",
+            "transition-all",
+            "w-fit",
+            "justify-self-center animate-pulse"
         );
 
         if (gearOptionsState) {
-            this.gearIcon.classList.add("bg-[#294452]", "border");
+            this.gearIcon.classList.add("bg-amber-400/25", "border", "border-amber-400/50", "text-amber-400");
+        } else {
+            this.gearIcon.classList.add("border", "border-white/10");
         }
         this.checkboxPanel.append(this.gearIcon);
     }
@@ -740,21 +781,59 @@ class ViewOverPiker {
         }
 
         const blueInput = this.createElement("input", "", "blue-hero-filter");
-        blueInput.classList.add("mx-1", "text-black");
+        blueInput.classList.add(
+            "mx-2",
+            "bg-[#294452]/40",
+            "backdrop-blur-sm",
+            "border",
+            "border-white/10",
+            "text-slate-100",
+            "rounded-xl",
+            "px-3",
+            "py-1.5",
+            "text-sm",
+            "outline-none",
+            "input-focus-accent",
+            "transition-all",
+            "placeholder-slate-400/60"
+        );
 
         blueInput.type = "text";
         blueInput.name = "filter";
         blueInput.placeholder = "Genji";
 
         const redInput = this.createElement("input", "", "red-hero-filter");
-        redInput.classList.add("mx-1");
+        redInput.classList.add(
+            "mx-2",
+            "bg-[#294452]/40",
+            "backdrop-blur-sm",
+            "border",
+            "border-white/10",
+            "text-slate-100",
+            "rounded-xl",
+            "px-3",
+            "py-1.5",
+            "text-sm",
+            "outline-none",
+            "input-focus-accent",
+            "transition-all",
+            "placeholder-slate-400/60"
+        );
 
         redInput.type = "text";
         redInput.name = "filter";
         redInput.placeholder = "Genji";
 
-        this.blueFilter.append("Filter:", blueInput);
-        this.redFilter.append("Filter:", redInput);
+        const blueLabel = this.createElement("span");
+        blueLabel.classList.add("fjalla", "uppercase", "text-sm", "tracking-wider", "text-slate-400");
+        blueLabel.textContent = "Filter:";
+
+        const redLabel = this.createElement("span");
+        redLabel.classList.add("fjalla", "uppercase", "text-sm", "tracking-wider", "text-slate-400");
+        redLabel.textContent = "Filter:";
+
+        this.blueFilter.append(blueLabel, blueInput);
+        this.redFilter.append(redLabel, redInput);
     }
 
     displayHeroRoles(teams, iconOption) {
@@ -825,7 +904,8 @@ class ViewOverPiker {
                 "justify-center",
                 "mt-2",
                 "pb-4",
-                "border-b-2"
+                "border-b",
+                "border-white/10"
             );
 
             const damageRoleIcon = this.createElement("figure", "rol-icon");
@@ -858,7 +938,8 @@ class ViewOverPiker {
                 "justify-center",
                 "mt-2",
                 "pb-4",
-                "border-b-2"
+                "border-b",
+                "border-white/10"
             );
 
             const supportRoleIcon = this.createElement("figure", "rol-icon");

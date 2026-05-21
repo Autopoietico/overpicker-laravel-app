@@ -8,44 +8,44 @@
         </div>
     </section>
     <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
-        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8">
-            <p class="sm:text-lg">
-                Compare hero tier rankings across all competitive ranks — from <b>GrandMaster</b> to <b>Bronze</b>.
+        <div class="glass-panel p-5 rounded-2xl border border-white/10 mt-6 shadow-lg">
+            <p class="sm:text-lg text-slate-200 leading-relaxed">
+                Compare hero tier rankings across all competitive ranks — from <strong>GrandMaster</strong> to <strong>Bronze</strong>.
                 Select your rank below to see which heroes dominate your bracket.
             </p>
         </div>
 
-        <div class="mt-6 overflow-x-auto pb-1">
-            <div class="flex justify-center gap-2 flex-wrap">
+        <div class="mt-8 w-full">
+            <div class="glass-panel p-4 rounded-2xl border border-white/10 flex justify-center gap-3 flex-wrap shadow-xl">
 
                 {{-- All Ranks tab (roulette icon) --}}
                 <button
                     id="all-ranks-tab"
                     onclick="showAllRanks(this)"
-                    class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors bg-[#3a5a6e]"
+                    class="rank-tab flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-300 bg-[#294452] border border-amber-400/40 text-amber-400 shadow-md shadow-amber-400/5 hover:scale-105"
                 >
-                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="All ranks" class="w-9 h-9 invert" style="transition: opacity 0.15s">
-                    <span class="text-xs abel text-white">All Ranks</span>
+                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="All ranks" class="w-8 h-8 invert" style="transition: opacity 0.15s">
+                    <span class="text-[10px] font-bold uppercase tracking-wider poppins text-slate-100">All Ranks</span>
                 </button>
 
                 {{-- Community tab --}}
                 @if (count($communityHeroes) > 0)
                     <button
                         onclick="showRank('community', this)"
-                        class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors hover:bg-[#2a4a5e]"
+                        class="rank-tab flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-300 border border-white/5 bg-[#294452]/20 hover:bg-[#294452]/60 hover:scale-105"
                     >
-                        <img src="{{ asset('images/ranks/community-icon.svg') }}" alt="Community" class="w-9 h-9">
-                        <span class="text-xs abel text-gray-400">Community</span>
+                        <img src="{{ asset('images/ranks/community-icon.svg') }}" alt="Community" class="w-8 h-8">
+                        <span class="text-[10px] font-bold uppercase tracking-wider poppins text-slate-400">Community</span>
                     </button>
                 @endif
 
                 @foreach ($allRanks as $index => $rankData)
                     <button
                         onclick="showRank('{{ $rankData['name'] }}', this)"
-                        class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors hover:bg-[#2a4a5e]"
+                        class="rank-tab flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-300 border border-white/5 bg-[#294452]/20 hover:bg-[#294452]/60 hover:scale-105"
                     >
-                        <img src="{{ asset($rankData['icon']) }}" alt="{{ $rankData['name'] }}" class="w-9 h-9 invert">
-                        <span class="text-xs abel text-gray-400">{{ $rankData['name'] }}</span>
+                        <img src="{{ asset($rankData['icon']) }}" alt="{{ $rankData['name'] }}" class="w-8 h-8 invert">
+                        <span class="text-[10px] font-bold uppercase tracking-wider poppins text-slate-400">{{ $rankData['name'] }}</span>
                     </button>
                 @endforeach
             </div>
@@ -66,45 +66,49 @@
                         ];
                     @endphp
                     @if (count($heroesInTier) > 0)
-                        <div class="mt-10 text-center">
-                            {!! $tierComponent !!}
-                            <table class="w-full">
-                                <thead>
-                                    <tr class="bg-white bg-color-text fjalla text-xl">
-                                        <th>Hero:</th>
-                                        <th class="hidden sm:table-cell">Role:</th>
-                                        <th>Description:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($roles as $roleName => $roleIcon)
-                                        @foreach ($heroesInTier as $hero)
-                                            @if ($hero['role'] == $roleName)
-                                                <tr class="odd:bg-[#294452]">
-                                                    <td>
-                                                        <div class="flex flex-col items-center m-1">
-                                                            <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                                                alt="{{ $hero['name'] }} profile" class="w-14 rounded-lg">
-                                                            <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">
-                                                                {{ $hero['name'] }}
-                                                            </h4>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border-x-2 hidden sm:table-cell">
-                                                        <div class="flex flex-col items-center m-1">
-                                                            <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-14 rounded-lg">
-                                                            <h4 class="text-base abel font-medium">{{ $roleName }}</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="p-2 text-xs sm:text-sm">{{ $hero['description'] }}</p>
-                                                    </td>
-                                                </tr>
-                                            @endif
+                        <div class="mt-12 text-center glass-panel p-6 rounded-3xl border border-white/10 shadow-lg mb-8">
+                            <div class="tier-header-wrapper mb-4">
+                                {!! $tierComponent !!}
+                            </div>
+                            <div class="overflow-x-auto rounded-2xl border border-white/10 shadow-xl mt-4">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-[#294452]/80 border-b border-white/10 text-slate-100 fjalla text-lg tracking-wider uppercase">
+                                            <th class="p-4 text-center w-24">Hero</th>
+                                            <th class="p-4 text-center w-24 border-l border-r border-white/10 hidden sm:table-cell">Role</th>
+                                            <th class="p-4 text-left">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-white/5">
+                                        @foreach ($roles as $roleName => $roleIcon)
+                                            @foreach ($heroesInTier as $hero)
+                                                @if ($hero['role'] == $roleName)
+                                                    <tr class="hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]">
+                                                        <td class="p-4">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
+                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5">
+                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate">
+                                                                    {{ $hero['name'] }}
+                                                                </h4>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-4 border-l border-r border-white/5 hidden sm:table-cell">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-8 h-8 rounded-lg">
+                                                                <h4 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 poppins mt-1">{{ $roleName }}</h4>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-4 align-middle">
+                                                            <p class="text-slate-300 text-sm leading-relaxed poppins">{{ $hero['description'] }}</p>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
                                         @endforeach
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     @endif
                 @endforeach
@@ -126,45 +130,49 @@
                         ];
                     @endphp
                     @if (count($heroesInTier) > 0)
-                        <div class="mt-10 text-center">
-                            {!! $tierComponent !!}
-                            <table class="w-full">
-                                <thead>
-                                    <tr class="bg-white bg-color-text fjalla text-xl">
-                                        <th>Hero:</th>
-                                        <th class="hidden sm:table-cell">Role:</th>
-                                        <th>Description:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($roles as $roleName => $roleIcon)
-                                        @foreach ($heroesInTier as $hero)
-                                            @if ($hero['role'] == $roleName)
-                                                <tr class="odd:bg-[#294452]">
-                                                    <td>
-                                                        <div class="flex flex-col items-center m-1">
-                                                            <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                                                alt="{{ $hero['name'] }} profile" class="w-14 rounded-lg">
-                                                            <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">
-                                                                {{ $hero['name'] }}
-                                                            </h4>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border-x-2 hidden sm:table-cell">
-                                                        <div class="flex flex-col items-center m-1">
-                                                            <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-14 rounded-lg">
-                                                            <h4 class="text-base abel font-medium">{{ $roleName }}</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="p-2 text-xs sm:text-sm">{{ $hero['description'] }}</p>
-                                                    </td>
-                                                </tr>
-                                            @endif
+                        <div class="mt-12 text-center glass-panel p-6 rounded-3xl border border-white/10 shadow-lg mb-8">
+                            <div class="tier-header-wrapper mb-4">
+                                {!! $tierComponent !!}
+                            </div>
+                            <div class="overflow-x-auto rounded-2xl border border-white/10 shadow-xl mt-4">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-[#294452]/80 border-b border-white/10 text-slate-100 fjalla text-lg tracking-wider uppercase">
+                                            <th class="p-4 text-center w-24">Hero</th>
+                                            <th class="p-4 text-center w-24 border-l border-r border-white/10 hidden sm:table-cell">Role</th>
+                                            <th class="p-4 text-left">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-white/5">
+                                        @foreach ($roles as $roleName => $roleIcon)
+                                            @foreach ($heroesInTier as $hero)
+                                                @if ($hero['role'] == $roleName)
+                                                    <tr class="hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]">
+                                                        <td class="p-4">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
+                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5">
+                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate">
+                                                                    {{ $hero['name'] }}
+                                                                </h4>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-4 border-l border-r border-white/5 hidden sm:table-cell">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-8 h-8 rounded-lg">
+                                                                <h4 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 poppins mt-1">{{ $roleName }}</h4>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-4 align-middle">
+                                                            <p class="text-slate-300 text-sm leading-relaxed poppins">{{ $hero['description'] }}</p>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
                                         @endforeach
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     @endif
                 @endforeach
@@ -186,45 +194,49 @@
                     @endphp
 
                     @if (count($heroesInTier) > 0)
-                        <div class="mt-10 text-center">
-                            {!! $tierComponent !!}
-                            <table class="w-full">
-                                <thead>
-                                    <tr class="bg-white bg-color-text fjalla text-xl">
-                                        <th>Hero:</th>
-                                        <th class="hidden sm:table-cell">Role:</th>
-                                        <th>Description:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($roles as $roleName => $roleIcon)
-                                        @foreach ($heroesInTier as $hero)
-                                            @if ($hero['role'] == $roleName)
-                                                <tr class="odd:bg-[#294452]">
-                                                    <td>
-                                                        <div class="flex flex-col items-center m-1">
-                                                            <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                                                alt="{{ $hero['name'] }} profile" class="w-14 rounded-lg">
-                                                            <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">
-                                                                {{ $hero['name'] }}
-                                                            </h4>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border-x-2 hidden sm:table-cell">
-                                                        <div class="flex flex-col items-center m-1">
-                                                            <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-14 rounded-lg">
-                                                            <h4 class="text-base abel font-medium">{{ $roleName }}</h4>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="p-2 text-xs sm:text-sm">{{ $hero['description'] }}</p>
-                                                    </td>
-                                                </tr>
-                                            @endif
+                        <div class="mt-12 text-center glass-panel p-6 rounded-3xl border border-white/10 shadow-lg mb-8">
+                            <div class="tier-header-wrapper mb-4">
+                                {!! $tierComponent !!}
+                            </div>
+                            <div class="overflow-x-auto rounded-2xl border border-white/10 shadow-xl mt-4">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-[#294452]/80 border-b border-white/10 text-slate-100 fjalla text-lg tracking-wider uppercase">
+                                            <th class="p-4 text-center w-24">Hero</th>
+                                            <th class="p-4 text-center w-24 border-l border-r border-white/10 hidden sm:table-cell">Role</th>
+                                            <th class="p-4 text-left">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-white/5">
+                                        @foreach ($roles as $roleName => $roleIcon)
+                                            @foreach ($heroesInTier as $hero)
+                                                @if ($hero['role'] == $roleName)
+                                                    <tr class="hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]">
+                                                        <td class="p-4">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
+                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5">
+                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate">
+                                                                    {{ $hero['name'] }}
+                                                                </h4>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-4 border-l border-r border-white/5 hidden sm:table-cell">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-8 h-8 rounded-lg">
+                                                                <h4 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 poppins mt-1">{{ $roleName }}</h4>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-4 align-middle">
+                                                            <p class="text-slate-300 text-sm leading-relaxed poppins">{{ $hero['description'] }}</p>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
                                         @endforeach
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     @endif
                 @endforeach
@@ -248,11 +260,17 @@
 
         function activateTab(btn) {
             document.querySelectorAll('.rank-tab').forEach(el => {
-                el.classList.remove('bg-[#3a5a6e]');
-                el.querySelector('span').classList.replace('text-white', 'text-gray-400');
+                el.classList.remove('bg-[#294452]', 'border-amber-400/40', 'text-amber-400', 'shadow-md', 'shadow-amber-400/5');
+                el.classList.add('border-white/5', 'bg-[#294452]/20');
+                const span = el.querySelector('span');
+                span.classList.remove('text-slate-100');
+                span.classList.add('text-slate-400');
             });
-            btn.classList.add('bg-[#3a5a6e]');
-            btn.querySelector('span').classList.replace('text-gray-400', 'text-white');
+            btn.classList.add('bg-[#294452]', 'border-amber-400/40', 'text-amber-400', 'shadow-md', 'shadow-amber-400/5');
+            btn.classList.remove('border-white/5', 'bg-[#294452]/20');
+            const span = btn.querySelector('span');
+            span.classList.remove('text-slate-400');
+            span.classList.add('text-slate-100');
         }
 
         function showAllRanks(btn) {

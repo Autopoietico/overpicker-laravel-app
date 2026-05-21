@@ -2,172 +2,159 @@
 @section('content')
     <section class="mt-12 flex justify-center sm:mt-16">
         <div class="text-2xl font-black text-center max-w-4xl sm:text-4xl">
-            <h1 class="font-normal text-4xl fjalla sm:text-6xl uppercase">
-                Overwatch Hero Performance by Map
+            <h1 class="fjalla uppercase text-4xl sm:text-5xl tracking-wide leading-tight">
+                Hero Performance by Map
             </h1>
         </div>
     </section>
 
-    <section class="mb-10 text-center sm:text-left text-sm">
-        <div class="mt-6 pb-2 border-b-2 border-dashed sm:mt-8 max-w-4xl m-auto">
-            <p class="sm:text-lg mb-4">
-                This page shows how each Overwatch hero performs on each competitive map. Select a map from the
-                dropdown to see heroes ranked by their overall map score. Scores are broken down by objective point
-                so you can see where each hero is strongest.
+    <section class="mb-16 text-center sm:text-left text-sm max-w-4xl m-auto px-4 mt-6">
+        <div class="glass-panel p-6 rounded-3xl border border-white/10 shadow-lg text-slate-350 poppins leading-relaxed">
+            <p class="sm:text-lg mb-4 text-slate-200">
+                Understand how every hero fares across the pool. Select a map below to view dynamic performance rankings based on competitive data.
             </p>
-            <p class="sm:text-lg mb-4">
-                <strong>How the Scoring System Works:</strong> Scores use a
-                <strong>-20 to +20 scale</strong>.
-
-                A score of
-                <strong class="bg-green-600 text-white px-1 rounded">+20</strong> (Excellent)
-                means the hero excels on this point.
-
-                A score of
-                <strong class="bg-green-400 text-white px-1 rounded">+10</strong> (Good)
-                indicates a favorable performance.
-
-                A score of
-                <strong class="bg-gray-300 text-black px-1 rounded">0</strong> (Neutral)
-                means average performance.
-
-                Scores of
-                <strong class="bg-red-200 text-black px-1 rounded">-10</strong> (Poor)
-                and
-                <strong class="bg-red-600 text-white px-1 rounded">-20</strong> (Avoid)
-                indicate the hero struggles on this point.
-            </p>
-            <p class="sm:text-lg mb-4">
-                For <strong>Assault</strong> and <strong>Hybrid</strong> maps, the first objective shows both
-                <strong>ATK</strong> (attacking side) and <strong>DEF</strong> (defending side) scores separately.
-                Other game modes show a single performance score per point.
-            </p>
+            <div class="pt-4 border-t border-white/5">
+                <p class="font-semibold text-slate-250 mb-2">Scoring & Points:</p>
+                <p class="text-slate-400">
+                    Calculated on a scale from <strong class="text-emerald-450 font-bold">-20 to +20</strong>. Assault and Hybrid map pools evaluate Attack (ATK) and Defense (DEF) independently for their initial stages. Other modes assess the points directly.
+                </p>
+            </div>
         </div>
 
-        <!-- Map Selector and Role Filters -->
-        <div class="mt-6 max-w-4xl m-auto flex flex-wrap items-center gap-4">
-            <div class="flex items-center gap-3">
-                <label for="mapSelect" class="fjalla text-xl uppercase">Map:</label>
-                <select id="mapSelect"
-                    class="bg-[#294452] text-white px-3 py-2 rounded-lg fjalla text-lg uppercase cursor-pointer hover:bg-[#1C2E37] border border-white/20">
-                    @foreach ($map_list as $type => $maps)
-                        <optgroup label="{{ $type }}">
-                            @foreach ($maps as $mapName)
-                                <option value="{{ $mapName }}">{{ $mapName }}</option>
-                            @endforeach
-                        </optgroup>
-                    @endforeach
-                </select>
+        <!-- Controls Bar -->
+        <div class="mt-8 glass-panel p-6 rounded-3xl border border-white/10 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-6 max-w-4xl m-auto">
+            <!-- Map Selector -->
+            <div class="flex items-center gap-4">
+                <label for="mapSelect" class="fjalla text-xl uppercase tracking-wider text-slate-250">Map:</label>
+                <div class="relative">
+                    <select id="mapSelect"
+                        class="appearance-none bg-[#294452]/40 text-white pl-4 pr-10 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-amber-400/50 transition-all font-semibold poppins text-sm uppercase cursor-pointer hover:bg-[#294452]/60">
+                        @foreach ($map_list as $type => $maps)
+                            <optgroup label="{{ $type }}" class="bg-[#1C2E37] text-white">
+                                @foreach ($maps as $mapName)
+                                    <option value="{{ $mapName }}">{{ $mapName }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </select>
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                        <i class="bi bi-chevron-down"></i>
+                    </span>
+                </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <!-- Role Filters -->
+            <div class="flex flex-wrap items-center gap-3">
                 <button onclick="filterByRole('Tank', event)"
-                    class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                    class="role-filter-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 font-semibold poppins text-xs"
                     data-role="Tank">
-                    <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-5 h-5">
-                    <span class="fjalla text-sm uppercase">Tank</span>
+                    <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-4 h-4">
+                    TANK
                 </button>
                 <button onclick="filterByRole('Damage', event)"
-                    class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                    class="role-filter-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 font-semibold poppins text-xs"
                     data-role="Damage">
-                    <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-5 h-5">
-                    <span class="fjalla text-sm uppercase">Damage</span>
+                    <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-4 h-4">
+                    DAMAGE
                 </button>
                 <button onclick="filterByRole('Support', event)"
-                    class="role-filter-btn flex items-center gap-1 px-3 py-2 rounded-lg bg-[#294452] hover:bg-gray-600 cursor-pointer"
+                    class="role-filter-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 font-semibold poppins text-xs"
                     data-role="Support">
-                    <img src="\images\assets\support.webp" alt="Support Icon" class="w-5 h-5">
-                    <span class="fjalla text-sm uppercase">Support</span>
+                    <img src="\images\assets\support.webp" alt="Support Icon" class="w-4 h-4">
+                    SUPPORT
                 </button>
                 <button id="resetFilter"
-                    class="px-3 py-2 bg-[#294452] text-white rounded-lg hover:bg-gray-600 fjalla text-sm uppercase">
-                    Reset
+                    class="px-4 py-2.5 bg-white/5 border border-white/5 text-slate-400 rounded-xl hover:bg-white/10 transition-all font-semibold poppins text-xs">
+                    RESET
                 </button>
             </div>
         </div>
 
         <!-- Map info line -->
-        <div id="mapInfo" class="mt-3 max-w-4xl m-auto text-sm text-slate-400"></div>
+        <div id="mapInfo" class="mt-6 text-sm text-amber-450 font-bold poppins uppercase tracking-wider text-center sm:text-left"></div>
 
-        <!-- Maps Table -->
-        <div class="mt-6 text-center overflow-x-auto">
-            <table class="mx-auto" id="mapsTable">
-                <thead>
-                    <tr class="fjalla text-base" id="tableHeaderRow">
-                        <th class="p-2 w-32 text-left">Hero</th>
-                        <th class="p-2 w-20 text-center">Overall</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    @foreach ($heroes_ordered as $hero)
-                        @php
-                            $heroName  = $hero['name'];
-                            $role      = $hero['role'];
-                            $heroImage = $hero_images[$heroName] ?? 'images/assets/blank-hero.webp';
-                        @endphp
-                        <tr class="hero-row" data-hero="{{ $heroName }}" data-role="{{ $role }}">
-                            <td class="p-2 w-32">
-                                <div class="flex flex-col items-center">
-                                    <img src="{{ $heroImage }}" alt="{{ $heroName }} profile"
-                                        class="w-10 h-10 rounded-lg">
-                                    <h4 class="text-xs abel font-medium truncate max-w-[80px]">{{ $heroName }}</h4>
-                                    <div class="text-xs mt-1">
-                                        @if ($role == 'Tank')
-                                            <img src="\images\assets\tank.webp" alt="Tank Icon" class="w-6 h-6 inline cursor-pointer"
-                                                onclick="filterByRole('Tank', event)">
-                                        @elseif ($role == 'Damage')
-                                            <img src="\images\assets\damage.webp" alt="Damage Icon" class="w-6 h-6 inline cursor-pointer"
-                                                onclick="filterByRole('Damage', event)">
-                                        @elseif ($role == 'Support')
-                                            <img src="\images\assets\support.webp" alt="Support Icon" class="w-6 h-6 inline cursor-pointer"
-                                                onclick="filterByRole('Support', event)">
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-2 text-center w-20" data-col="overall">
-                                <div class="w-12 h-10 flex items-center justify-center rounded mx-auto bg-gray-300">
-                                    <span class="font-bold text-white">–</span>
-                                </div>
-                            </td>
+        <!-- Maps Table Container -->
+        <div class="mt-4 glass-panel p-6 rounded-3xl border border-white/10 shadow-lg max-w-4xl m-auto overflow-hidden">
+            <div class="overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left border-collapse" id="mapsTable">
+                    <thead>
+                        <tr class="text-slate-300 fjalla text-sm uppercase tracking-wider border-b border-white/5" id="tableHeaderRow">
+                            <th class="p-3 w-40 text-left">Hero</th>
+                            <th class="p-3 w-24 text-center">Overall</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-white/5">
+                        @foreach ($heroes_ordered as $hero)
+                            @php
+                                $heroName  = $hero['name'];
+                                $role      = $hero['role'];
+                                $heroImage = $hero_images[$heroName] ?? 'images/assets/blank-hero.webp';
+                            @endphp
+                            <tr class="hero-row hover:bg-white/5 transition-all duration-150" data-hero="{{ $heroName }}" data-role="{{ $role }}">
+                                <td class="p-3 w-40">
+                                    <div class="flex items-center gap-3">
+                                        <img src="{{ $heroImage }}" alt="{{ $heroName }} profile"
+                                            class="w-10 h-10 rounded-xl shadow border border-white/5">
+                                        <div class="flex flex-col">
+                                            <span class="text-sm font-semibold text-slate-200 poppins">{{ $heroName }}</span>
+                                            <span class="text-[10px] font-medium text-slate-400 uppercase poppins tracking-wider flex items-center gap-1 mt-0.5">
+                                                @if ($role == 'Tank')
+                                                    <img src="\images\assets\tank.webp" alt="Tank" class="w-3 h-3">
+                                                @elseif ($role == 'Damage')
+                                                    <img src="\images\assets\damage.webp" alt="Damage" class="w-3 h-3">
+                                                @elseif ($role == 'Support')
+                                                    <img src="\images\assets\support.webp" alt="Support" class="w-3 h-3">
+                                                @endif
+                                                {{ $role }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center w-24 align-middle" data-col="overall">
+                                    <div class="w-12 h-9 flex items-center justify-center rounded-lg font-bold text-sm bg-white/10 text-slate-300 mx-auto">
+                                        –
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Legend -->
-        <div class="mt-8 p-4 bg-[#294452] rounded-lg max-w-2xl m-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
+        <!-- Legend Overview -->
+        <div class="mt-12 p-6 glass-panel rounded-3xl border border-white/10 shadow-lg">
+            <h4 class="fjalla uppercase text-sm tracking-wider text-slate-300 text-center mb-4">Legend Overview</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">+20</span>
+                    <div class="w-12 h-9 bg-emerald-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
+                        +20
                     </div>
-                    <span class="text-xs text-center">Excellent</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Excellent</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-green-400 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">+10</span>
+                    <div class="w-12 h-9 bg-emerald-500 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
+                        +10
                     </div>
-                    <span class="text-xs text-center">Good</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Good</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-gray-300 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-black text-xs">0</span>
+                    <div class="w-12 h-9 bg-white/10 rounded-lg flex items-center justify-center mb-2 shadow text-slate-300 font-bold text-sm">
+                        0
                     </div>
-                    <span class="text-xs text-center">Neutral</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Neutral</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-red-200 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-black text-xs">-10</span>
+                    <div class="w-12 h-9 bg-rose-500/20 border border-rose-550/30 rounded-lg flex items-center justify-center mb-2 shadow text-rose-300 font-bold text-sm">
+                        -10
                     </div>
-                    <span class="text-xs text-center">Poor</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Poor</span>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center mb-1">
-                        <span class="font-bold text-white text-xs">-20</span>
+                <div class="flex flex-col items-center col-span-2 sm:col-span-1">
+                    <div class="w-12 h-9 bg-rose-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm mx-auto">
+                        -20
                     </div>
-                    <span class="text-xs text-center">Avoid</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Avoid</span>
                 </div>
             </div>
         </div>
@@ -188,12 +175,12 @@
             const tbody      = document.getElementById('tableBody');
 
             function getScoreClass(value) {
-                if (value >= 20)  return 'bg-green-600 text-white';
-                if (value >= 10)  return 'bg-green-400 text-white';
-                if (value > 0)    return 'bg-green-200 text-black';
-                if (value === 0)  return 'bg-gray-300 text-black';
-                if (value >= -10) return 'bg-red-200 text-black';
-                return 'bg-red-600 text-white';
+                if (value >= 20)  return 'bg-emerald-600 text-white border border-emerald-500/20';
+                if (value >= 10)  return 'bg-emerald-500 text-white border border-emerald-400/20';
+                if (value > 0)    return 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/20';
+                if (value === 0)  return 'bg-white/10 text-slate-350';
+                if (value >= -10) return 'bg-rose-500/20 text-rose-300 border border-rose-500/20';
+                return 'bg-rose-600 text-white border border-rose-500/20';
             }
 
             function applyAlternatingRowColors() {
@@ -201,7 +188,7 @@
                     row => row.style.display !== 'none'
                 );
                 visibleRows.forEach(function (row, index) {
-                    row.style.backgroundColor = index % 2 === 1 ? '#294452' : '';
+                    row.style.backgroundColor = index % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : '';
                 });
             }
 
@@ -257,15 +244,15 @@
                     const isDual = col.dual;
                     if (isDual) {
                         const th = document.createElement('th');
-                        th.className = 'px-2 py-2 text-center border-l-2 border-slate-500/60';
+                        th.className = 'p-3 text-center border-l border-white/5';
                         th.colSpan  = 2;
-                        th.innerHTML = '<div class="fjalla uppercase text-sm tracking-wide">' + col.pointName + '</div>' +
-                                       '<div class="flex justify-around text-xs text-slate-400 mt-1 min-w-[88px]">' +
+                        th.innerHTML = '<div class="fjalla uppercase text-xs tracking-wider text-slate-350">' + col.pointName + '</div>' +
+                                       '<div class="flex justify-around text-[10px] font-semibold text-slate-400 mt-1 min-w-[90px] poppins">' +
                                        '<span>ATK</span><span>DEF</span></div>';
                         headerRow.appendChild(th);
                     } else {
                         const th = document.createElement('th');
-                        th.className = 'px-4 py-2 text-center fjalla uppercase text-sm border-l-2 border-slate-500/60';
+                        th.className = 'p-3 text-center fjalla uppercase text-xs tracking-wider text-slate-350 border-l border-white/5 align-middle';
                         th.textContent = col.pointName;
                         headerRow.appendChild(th);
                     }
@@ -280,8 +267,8 @@
                     const overallTd  = row.querySelector('[data-col="overall"]');
                     const overall    = heroData ? heroData.overall : 0;
                     const cls        = getScoreClass(overall);
-                    overallTd.innerHTML = '<div class="w-12 h-10 flex items-center justify-center rounded mx-auto font-bold ' +
-                                          cls + '">' + overall + '</div>';
+                    overallTd.innerHTML = '<div class="w-12 h-9 flex items-center justify-center rounded-lg font-bold text-sm shadow mx-auto ' +
+                                          cls + '">' + (overall > 0 ? '+' : '') + overall + '</div>';
 
                     // Remove old per-point cells (beyond index 1)
                     while (row.cells.length > 2) {
@@ -298,25 +285,25 @@
                             const def = pointData ? pointData.defense : 0;
 
                             const tdAtk = document.createElement('td');
-                            tdAtk.className = 'py-1 pl-3 pr-1 text-center border-l-2 border-slate-500/60';
+                            tdAtk.className = 'py-2 pl-3 pr-1 text-center border-l border-white/5 align-middle';
                             const cAtk = getScoreClass(atk);
-                            tdAtk.innerHTML = '<div class="w-11 h-10 flex items-center justify-center rounded mx-auto font-bold text-sm ' +
-                                              cAtk + '">' + atk + '</div>';
+                            tdAtk.innerHTML = '<div class="w-11 h-9 flex items-center justify-center rounded-lg font-bold text-sm shadow mx-auto ' +
+                                              cAtk + '">' + (atk > 0 ? '+' : '') + atk + '</div>';
                             row.appendChild(tdAtk);
 
                             const tdDef = document.createElement('td');
-                            tdDef.className = 'py-1 pl-1 pr-3 text-center';
+                            tdDef.className = 'py-2 pl-1 pr-3 text-center align-middle';
                             const cDef = getScoreClass(def);
-                            tdDef.innerHTML = '<div class="w-11 h-10 flex items-center justify-center rounded mx-auto font-bold text-sm ' +
-                                              cDef + '">' + def + '</div>';
+                            tdDef.innerHTML = '<div class="w-11 h-9 flex items-center justify-center rounded-lg font-bold text-sm shadow mx-auto ' +
+                                              cDef + '">' + (def > 0 ? '+' : '') + def + '</div>';
                             row.appendChild(tdDef);
                         } else {
                             const val = pointData ? pointData.score : 0;
                             const td  = document.createElement('td');
-                            td.className = 'py-1 px-4 text-center border-l-2 border-slate-500/60';
+                            td.className = 'py-2 px-3 text-center border-l border-white/5 align-middle';
                             const c = getScoreClass(val);
-                            td.innerHTML = '<div class="w-11 h-10 flex items-center justify-center rounded mx-auto font-bold ' +
-                                           c + '">' + val + '</div>';
+                            td.innerHTML = '<div class="w-11 h-9 flex items-center justify-center rounded-lg font-bold text-sm shadow mx-auto ' +
+                                           c + '">' + (val > 0 ? '+' : '') + val + '</div>';
                             row.appendChild(td);
                         }
                     });
@@ -341,9 +328,11 @@
                 // Update button active states
                 document.querySelectorAll('.role-filter-btn').forEach(function (btn) {
                     if (btn.getAttribute('data-role') === activeRoleFilter) {
-                        btn.classList.add('ring-2', 'ring-white');
+                        btn.classList.add('border-amber-400/50', 'bg-[#294452]/80', 'text-amber-400');
+                        btn.classList.remove('border-white/5', 'bg-white/5', 'text-slate-300');
                     } else {
-                        btn.classList.remove('ring-2', 'ring-white');
+                        btn.classList.remove('border-amber-400/50', 'bg-[#294452]/80', 'text-amber-400');
+                        btn.classList.add('border-white/5', 'bg-white/5', 'text-slate-300');
                     }
                 });
 
@@ -357,7 +346,8 @@
             resetBtn.addEventListener('click', function () {
                 activeRoleFilter = null;
                 document.querySelectorAll('.role-filter-btn').forEach(function (btn) {
-                    btn.classList.remove('ring-2', 'ring-white');
+                    btn.classList.remove('border-amber-400/50', 'bg-[#294452]/80', 'text-amber-400');
+                    btn.classList.add('border-white/5', 'bg-white/5', 'text-slate-300');
                 });
                 applyRoleFilter();
             });
@@ -371,3 +361,4 @@
         });
     </script>
 @endsection
+

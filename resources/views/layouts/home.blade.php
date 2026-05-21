@@ -78,15 +78,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 </head>
 
-<body class="abel bg-[#1C2E37] text-white my-0 mx-auto w-11/12 relative">
+<body class="poppins bg-[#142127] text-slate-100 antialiased relative min-h-screen">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M82M5JLK"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <x-home.header />
-    @yield('content')
-    @php $dates = include config_path('dates.php'); @endphp
-    <x-home.footer :dates="$dates" />
+
+    <!-- Backdrop with radial gradient brand glow and tech grid pattern -->
+    <div class="fixed inset-0 bg-radial-brand bg-grid-pattern -z-10 pointer-events-none"></div>
+
+    <div class="my-0 mx-auto w-11/12 relative pb-8">
+        <x-home.header />
+        @yield('content')
+        @php $dates = include config_path('dates.php'); @endphp
+        <x-home.footer :dates="$dates" />
+    </div>
 </body>
 
 </html>

@@ -34,3 +34,88 @@
 .poppins{
   font-family: 'Poppins', sans-serif;
 }
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(41, 68, 82, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-dark {
+  background: rgba(28, 46, 55, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(28, 46, 55, 0.5);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.25);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 191, 36, 0.5);
+}
+
+/* Body Backdrop Radial & Grid Overlay */
+.bg-radial-brand {
+  background: radial-gradient(circle at 50% 30%, #294452 0%, #1c2e37 60%, #142127 100%);
+}
+
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+/* Calculator Element Overrides */
+.no-hero-selected {
+  border: 2px dashed rgba(255, 255, 255, 0.15) !important;
+  background: rgba(28, 46, 55, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+.no-hero-selected:hover {
+  border-color: rgba(251, 191, 36, 0.3) !important;
+  background: rgba(28, 46, 55, 0.4) !important;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.05);
+}
+
+.hero-value {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-value:hover {
+  box-shadow: 0 10px 20px -10px rgba(251, 191, 36, 0.3);
+}
+
+/* Text Input & Dropdown Focus States */
+.input-focus-accent:focus {
+  border-color: rgba(251, 191, 36, 0.5) !important;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.15);
+}
+
