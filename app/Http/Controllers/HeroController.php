@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 class HeroController extends BaseController
@@ -10,14 +9,6 @@ class HeroController extends BaseController
     public function heroes()
     {
         $TOP_RANK_INDEX = 0;
-
-        $tierValues = [
-            [45, View::make('components.tiers.tier-s')],
-            [35, View::make('components.tiers.tier-a')],
-            [25, View::make('components.tiers.tier-b')],
-            [15, View::make('components.tiers.tier-c')],
-            [5,  View::make('components.tiers.tier-d')],
-        ];
 
         $heroes_obj = json_decode(file_get_contents(storage_path('/api/hero-data/hero-info.json')), true);
         $tiers_data = json_decode(file_get_contents(storage_path('/api/hero-data/hero-tiers.json')), true);
@@ -31,31 +22,51 @@ class HeroController extends BaseController
             $hero_images[$img['name']] = $img['profile-img'];
         }
 
-        $sorted_heroes = [];
-        foreach ($heroes_obj as $hero) {
-            $sorted_heroes[] = [
-                'name'  => $hero['name'],
-                'role'  => $hero['general_rol'],
-                'img'   => $hero_images[$hero['name']] ?? null,
-                'value' => $tiers_obj[$hero['name']] ?? 5,
-                'slug'  => Str::slug($hero['name']),
-            ];
+        $tierMap = [
+            45 => ['letter' => 'S', 'text' => 'text-emerald-400', 'border' => 'border-emerald-500/70'],
+            35 => ['letter' => 'A', 'text' => 'text-lime-400',    'border' => 'border-lime-500/70'],
+            25 => ['letter' => 'B', 'text' => 'text-sky-400',     'border' => 'border-sky-500/70'],
+            15 => ['letter' => 'C', 'text' => 'text-amber-400',   'border' => 'border-amber-500/70'],
+             5 => ['letter' => 'D', 'text' => 'text-rose-400',    'border' => 'border-rose-500/70'],
+        ];
+
+        $roles = [
+            'Tank'    => ['icon' => 'images/assets/tank.webp',    'ring' => 'group-hover:ring-sky-500/50'],
+            'Damage'  => ['icon' => 'images/assets/damage.webp',  'ring' => 'group-hover:ring-red-500/50'],
+            'Support' => ['icon' => 'images/assets/support.webp', 'ring' => 'group-hover:ring-emerald-500/50'],
+        ];
+
+        $roleGroups = [];
+        foreach (array_keys($roles) as $roleName) {
+            $heroes = [];
+            foreach ($heroes_obj as $hero) {
+                if ($hero['general_rol'] !== $roleName) continue;
+                $value = $tiers_obj[$hero['name']] ?? 5;
+                $heroes[] = [
+                    'name'  => $hero['name'],
+                    'img'   => $hero_images[$hero['name']] ?? null,
+                    'value' => $value,
+                    'tier'  => $tierMap[$value] ?? $tierMap[5],
+                    'slug'  => Str::slug($hero['name']),
+                ];
+            }
+            usort($heroes, fn($a, $b) => $b['value'] <=> $a['value']);
+            $roleGroups[$roleName] = array_merge($roles[$roleName], ['heroes' => $heroes]);
         }
 
         $seo = [
-            'title'          => 'Overwatch Heroes Tier List – All Heroes by Rank',
-            'keywords'       => 'overwatch heroes tier list, overwatch all heroes, overwatch hero list by tier, overwatch best heroes, overwatch hero guide, overwatch competitive heroes, overwatch hero rankings',
-            'description'    => 'Browse all Overwatch heroes ranked by tier. Click any hero to see their full guide including counters, synergies, best maps, and tier by rank.',
-            'og_title'       => 'Overwatch Heroes Tier List – All Heroes by Rank',
-            'og_description' => 'Browse all Overwatch heroes ranked by tier. Click any hero for counters, synergies, best maps, and tier by rank.',
+            'title'          => 'Overwatch Heroes – All Heroes by Role',
+            'keywords'       => 'overwatch heroes list, overwatch all heroes, overwatch hero guide, overwatch competitive heroes, overwatch hero rankings, overwatch tanks, overwatch damage heroes, overwatch support heroes',
+            'description'    => 'Browse all Overwatch heroes by role. Click any hero to see their full guide including counters, synergies, best maps, and tier by rank.',
+            'og_title'       => 'Overwatch Heroes – All Heroes by Role',
+            'og_description' => 'Browse all Overwatch heroes by role. Click any hero for counters, synergies, best maps, and tier by rank.',
             'og_url'         => 'https://overpicker.win/heroes',
         ];
 
         return view('heroes', [
             'title'       => ' - Heroes',
             'dates'       => $this->DATES,
-            'tiers'       => $sorted_heroes,
-            'tierValues'  => $tierValues,
+            'roleGroups'  => $roleGroups,
             'topRankName' => $topRankName,
             'seo'         => $seo,
         ]);
