@@ -169,6 +169,51 @@ class ModelAPI {
 
                 localStorage.setItem("version", JSON.stringify(this.version));
                 controller.reloadControllerModel(this.version);
+            })
+            .catch(() => {
+                this.loadLocalAPIJSON(model, controller);
+            });
+    }
+
+    loadLocalAPIJSON(model, controller) {
+        const localURLs = [
+            "map-info", "map-type", "hero-tiers", "hero-info", "hero-img",
+            "hero-counters", "hero-synergies", "hero-maps", "hero-adc", "version",
+        ];
+        const headers = { "X-Requested-With": "XMLHttpRequest" };
+
+        Promise.all(localURLs.map(u => fetch("/local-api/" + u, { headers }).then(r => r.json())))
+            .then(([mapInfo, mapTypes, heroTiers, heroInfo, heroIMG,
+                    heroCounters, heroSynergies, heroMaps, heroADC, version]) => {
+
+                this.mapInfo = { ...mapInfo };
+                this.mapTypes = { ...mapTypes };
+                this.heroTiers = { ...heroTiers };
+                this.heroInfo = { ...heroInfo };
+                this.heroIMG = { ...heroIMG };
+                this.heroCounters = { ...heroCounters };
+                this.heroSynergies = { ...heroSynergies };
+                this.heroMaps = { ...heroMaps };
+                this.heroADC = { ...heroADC };
+                this.version = { ...version };
+
+                model.buildMapPool();
+                model.loadMapTypes();
+                model.loadHeroTiers();
+                model.loadHeroDataForTeams();
+
+                localStorage.setItem("mapInfo", JSON.stringify(this.mapInfo));
+                localStorage.setItem("mapTypes", JSON.stringify(this.mapTypes));
+                localStorage.setItem("heroTiers", JSON.stringify(this.heroTiers));
+                localStorage.setItem("heroInfo", JSON.stringify(this.heroInfo));
+                localStorage.setItem("heroIMG", JSON.stringify(this.heroIMG));
+                localStorage.setItem("heroCounters", JSON.stringify(this.heroCounters));
+                localStorage.setItem("heroSynergies", JSON.stringify(this.heroSynergies));
+                localStorage.setItem("heroMaps", JSON.stringify(this.heroMaps));
+                localStorage.setItem("heroADC", JSON.stringify(this.heroADC));
+                localStorage.setItem("version", JSON.stringify(this.version));
+
+                controller.reloadControllerModel(this.version);
             });
     }
 

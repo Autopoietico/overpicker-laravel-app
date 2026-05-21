@@ -584,7 +584,8 @@ class ViewOverPiker {
             "hover:bg-white/5",
             "transition-all",
             "w-fit",
-            "justify-self-center animate-pulse"
+            "justify-self-center",
+            "animate-pulse"
         );
 
         if (gearOptionsState) {
