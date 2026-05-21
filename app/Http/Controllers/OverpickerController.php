@@ -43,8 +43,20 @@ class OverpickerController extends BaseController
             $hero_images[$img['name']] = $img['profile-img'];
         }
 
+        $rankIcons = [
+            'GrandMaster' => 'images/ranks/grand-master-icon.svg',
+            'Master'      => 'images/ranks/master-icon.svg',
+            'Diamond'     => 'images/ranks/diamond-icon.svg',
+            'Platinum'    => 'images/ranks/platinum-icon.svg',
+            'Gold'        => 'images/ranks/gold-icon.svg',
+            'Silver'      => 'images/ranks/silver-icon.svg',
+            'Bronze'      => 'images/ranks/bronze-icon.svg',
+        ];
+
         $allRanks = [];
         foreach ($tiers_data as $rankData) {
+            $rankName = $rankData['name'];
+            if (!isset($rankIcons[$rankName])) continue;
             $rankHeroes = [];
             foreach ($heroes_obj as $hero) {
                 $name      = $hero['name'];
@@ -60,7 +72,8 @@ class OverpickerController extends BaseController
             }
             usort($rankHeroes, fn($a, $b) => $b['value'] <=> $a['value']);
             $allRanks[] = [
-                'name'   => $rankData['name'],
+                'name'   => $rankName,
+                'icon'   => $rankIcons[$rankName],
                 'heroes' => $rankHeroes,
             ];
         }

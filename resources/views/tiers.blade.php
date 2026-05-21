@@ -16,13 +16,14 @@
         </div>
 
         <div class="mt-6 overflow-x-auto pb-1">
-            <div class="flex gap-2 min-w-max">
+            <div class="flex justify-center gap-2 flex-wrap">
                 @foreach ($allRanks as $index => $rankData)
                     <button
                         onclick="showRank('{{ $rankData['name'] }}', this)"
-                        class="rank-tab px-4 py-2 rounded-lg text-sm abel font-medium transition-colors {{ $index === 0 ? 'bg-[#3a5a6e] text-white' : 'text-gray-400 hover:text-white hover:bg-[#2a4a5e]' }}"
+                        class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors {{ $index === 0 ? 'bg-[#3a5a6e]' : 'hover:bg-[#2a4a5e]' }}"
                     >
-                        {{ $rankData['name'] }}
+                        <img src="{{ asset($rankData['icon']) }}" alt="{{ $rankData['name'] }}" class="w-9 h-9 invert">
+                        <span class="text-xs abel {{ $index === 0 ? 'text-white' : 'text-gray-400' }}">{{ $rankData['name'] }}</span>
                     </button>
                 @endforeach
             </div>
@@ -94,11 +95,11 @@
             document.querySelectorAll('[data-rank]').forEach(el => el.style.display = 'none');
             document.querySelector('[data-rank="' + rank + '"]').style.display = 'block';
             document.querySelectorAll('.rank-tab').forEach(el => {
-                el.classList.remove('bg-[#3a5a6e]', 'text-white');
-                el.classList.add('text-gray-400');
+                el.classList.remove('bg-[#3a5a6e]');
+                el.querySelector('span').classList.replace('text-white', 'text-gray-400');
             });
-            btn.classList.add('bg-[#3a5a6e]', 'text-white');
-            btn.classList.remove('text-gray-400');
+            btn.classList.add('bg-[#3a5a6e]');
+            btn.querySelector('span').classList.replace('text-gray-400', 'text-white');
         }
     </script>
 @endsection
