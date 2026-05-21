@@ -46,5 +46,5 @@
         </ol>
     </nav>
 </header>
-<script defer src="js/hamburger.js"></script>
+<script defer src="{{ asset('js/hamburger.js') }}"></script>
 
