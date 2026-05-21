@@ -78,9 +78,9 @@
         <h2 class="fjalla font-normal text-2xl sm:text-3xl border-b border-white/10 pb-3 mb-6 uppercase tracking-wide text-slate-200">
             Performance by Competitive Rank
         </h2>
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+        <div class="grid grid-cols-3 sm:grid-cols-7 gap-3">
             @foreach ($tiersByRank as $rankEntry)
-                <div class="flex flex-col items-center bg-white/5 border border-white/5 hover:border-white/10 hover:bg-[#294452]/20 rounded-2xl p-4 gap-2 transition-all duration-300 group">
+                <div class="flex flex-col items-center bg-white/5 border border-white/5 hover:border-white/10 hover:bg-[#294452]/20 rounded-2xl p-4 gap-2 transition-all duration-300 group last:col-start-2 sm:last:col-start-auto">
                     <img src="{{ asset($rankEntry['rankIcon']) }}" alt="{{ $rankEntry['rankName'] }}" class="w-10 h-10 invert opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300">
                     <span class="text-[10px] font-bold text-slate-400 text-center leading-tight uppercase tracking-wider poppins">{{ $rankEntry['rankName'] }}</span>
                     <span class="fjalla text-3xl {{ $rankEntry['tierColor'] }} mt-1">{{ $rankEntry['tierLetter'] }}</span>
