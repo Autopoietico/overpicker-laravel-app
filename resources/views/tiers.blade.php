@@ -34,7 +34,7 @@
                         onclick="showRank('community', this)"
                         class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors hover:bg-[#2a4a5e]"
                     >
-                        <img src="{{ asset('images/ranks/community-icon.svg') }}" alt="Community" class="w-9 h-9 invert">
+                        <img src="{{ asset('images/ranks/community-icon.svg') }}" alt="Community" class="w-9 h-9">
                         <span class="text-xs abel text-gray-400">Community</span>
                     </button>
                 @endif
