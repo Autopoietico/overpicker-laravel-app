@@ -378,19 +378,32 @@ class ViewOverPiker {
             figure.dataset.team = team;
 
             const figcaption = this.createElement("figcaption");
-            figcaption.classList.add(
-                "h-6",
-                "w-full",
-                "truncate",
-                "text-xs",
-                "justify-self-center",
-                "rounded-t-lg",
-                "group-hover:bg-white",
-                "group-hover:text-black",
-                "group-hover:poppins"
-            );
+            const usingNick = nickMap && nickMap[hero];
+            if (usingNick) {
+                figcaption.classList.add(
+                    "h-6",
+                    "justify-self-center",
+                    "rounded-t-lg",
+                    "group-hover:w-full",
+                    "group-hover:bg-white",
+                    "group-hover:text-black",
+                    "group-hover:poppins"
+                );
+            } else {
+                figcaption.classList.add(
+                    "h-6",
+                    "w-full",
+                    "truncate",
+                    "text-xs",
+                    "justify-self-center",
+                    "rounded-t-lg",
+                    "group-hover:bg-white",
+                    "group-hover:text-black",
+                    "group-hover:poppins"
+                );
+            }
 
-            figcaption.textContent = (nickMap && nickMap[hero]) ? nickMap[hero] : hero;
+            figcaption.textContent = usingNick ? nickMap[hero] : hero;
 
             const img = heroIMG;
             img.classList.add("h-14", "justify-self-center");
