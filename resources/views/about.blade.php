@@ -24,7 +24,7 @@
         <div class="glass-panel p-6 rounded-2xl border border-white/10 shadow-lg">
             <h2 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100 mb-3">Overwatch Experience</h2>
             <p class="sm:text-lg text-slate-350 leading-relaxed poppins">
-                I've been playing competitive Overwatch since <strong>Season 8</strong> of the original game. I've experienced every rank from Bronze up to my current rank at <strong>Diamond I</strong> (peaking around 3.9k SR). I'm primarily a Tank main but play all roles. My mains are <strong>D.Va/Zarya</strong>, <strong>Tracer/Soldier</strong>, and <strong>Ana/Illari</strong>.
+                I've been playing competitive Overwatch since <strong>Season 8</strong> of the original game. I've experienced every rank from Bronze up to a peak of <strong>Diamond I</strong> (3.9k SR), and I'm currently sitting at <strong>Diamond 5</strong> (3.1k SR). I'm primarily a Tank main but play all roles. My mains are <strong>D.Va/Zarya</strong>, <strong>Cassidy/Soldier</strong>, and <strong>Ana/Zen</strong>.
             </p>
         </div>
     </div>
@@ -76,7 +76,7 @@
             </p>
             <p class="leading-relaxed">
                 <strong>Map Points, Synergies &amp; Counters:</strong> <br>
-                Based on continuous tracking and analysis of live high-level competitive matches.
+                Based on continuous personal tracking and analysis of competitive matches across all ranks.
             </p>
             <div class="md:col-span-2 pt-4 border-t border-white/5 leading-relaxed">
                 <strong>Original Concept:</strong> <br>
