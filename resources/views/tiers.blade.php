@@ -17,20 +17,31 @@
 
         <div class="mt-6 overflow-x-auto pb-1">
             <div class="flex justify-center gap-2 flex-wrap">
+
+                {{-- Roulette tab --}}
+                <button
+                    id="random-tab"
+                    onclick="pickRandom()"
+                    class="flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors hover:bg-[#2a4a5e]"
+                >
+                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="Random rank" class="w-9 h-9 invert" style="transition: opacity 0.15s">
+                    <span class="text-xs abel text-gray-400">Random</span>
+                </button>
+
                 @foreach ($allRanks as $index => $rankData)
                     <button
                         onclick="showRank('{{ $rankData['name'] }}', this)"
-                        class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors {{ $index === 0 ? 'bg-[#3a5a6e]' : 'hover:bg-[#2a4a5e]' }}"
+                        class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors hover:bg-[#2a4a5e]"
                     >
                         <img src="{{ asset($rankData['icon']) }}" alt="{{ $rankData['name'] }}" class="w-9 h-9 invert">
-                        <span class="text-xs abel {{ $index === 0 ? 'text-white' : 'text-gray-400' }}">{{ $rankData['name'] }}</span>
+                        <span class="text-xs abel text-gray-400">{{ $rankData['name'] }}</span>
                     </button>
                 @endforeach
             </div>
         </div>
 
         @foreach ($allRanks as $index => $rankData)
-            <div data-rank="{{ $rankData['name'] }}"@if($index !== 0) style="display:none"@endif>
+            <div data-rank="{{ $rankData['name'] }}" style="display:none">
                 @foreach ($tierValues as $tier)
                     @php
                         $tierValue     = $tier[0];
@@ -91,11 +102,24 @@
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        const rouletteIcons = @json(array_map(fn($r) => asset($r['icon']), $allRanks));
+        const rouletteImg   = document.getElementById('roulette-icon');
+        let rouletteIndex   = 0;
+
+        setInterval(() => {
+            rouletteImg.style.opacity = '0';
+            setTimeout(() => {
+                rouletteIndex = (rouletteIndex + 1) % rouletteIcons.length;
+                rouletteImg.src = rouletteIcons[rouletteIndex];
+                rouletteImg.style.opacity = '1';
+            }, 150);
+        }, 500);
+
+        function pickRandom() {
             const tabs = document.querySelectorAll('.rank-tab');
-            const random = tabs[Math.floor(Math.random() * tabs.length)];
-            random.click();
-        });
+            const pick = tabs[Math.floor(Math.random() * tabs.length)];
+            pick.click();
+        }
 
         function showRank(rank, btn) {
             document.querySelectorAll('[data-rank]').forEach(el => el.style.display = 'none');
@@ -107,5 +131,7 @@
             btn.classList.add('bg-[#3a5a6e]');
             btn.querySelector('span').classList.replace('text-gray-400', 'text-white');
         }
+
+        document.addEventListener('DOMContentLoaded', () => pickRandom());
     </script>
 @endsection
