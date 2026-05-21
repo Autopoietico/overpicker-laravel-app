@@ -91,6 +91,12 @@
     </section>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.rank-tab');
+            const random = tabs[Math.floor(Math.random() * tabs.length)];
+            random.click();
+        });
+
         function showRank(rank, btn) {
             document.querySelectorAll('[data-rank]').forEach(el => el.style.display = 'none');
             document.querySelector('[data-rank="' + rank + '"]').style.display = 'block';
