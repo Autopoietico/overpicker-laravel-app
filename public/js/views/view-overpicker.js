@@ -353,10 +353,7 @@ class ViewOverPiker {
             img.src = "images/assets/blank-hero.webp";
             img.alt = "Blank hero space";
 
-            const border = this.createElement("div", "border-bottom-75");
-            border.classList.add("border-b-2");
-
-            figure.append(figcaption, img, "0", border);
+            figure.append(figcaption, img, "0");
         } else {
             figure.classList.add(
                 "cursor-pointer",
