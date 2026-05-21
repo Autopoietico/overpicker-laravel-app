@@ -68,6 +68,7 @@ class OverpickerController extends BaseController
                     'description' => $hero['description'],
                     'value'       => $tierValue,
                     'img'         => $hero_images[$name] ?? null,
+                    'slug'        => \Illuminate\Support\Str::slug($name),
                 ];
             }
             usort($rankHeroes, fn($a, $b) => $b['value'] <=> $a['value']);
@@ -95,6 +96,7 @@ class OverpickerController extends BaseController
                     'description' => $hero['description'],
                     'value'       => $tierValue,
                     'img'         => $hero_images[$name] ?? null,
+                    'slug'        => \Illuminate\Support\Str::slug($name),
                 ];
             }
             usort($list, fn($a, $b) => $b['value'] <=> $a['value']);

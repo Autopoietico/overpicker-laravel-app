@@ -75,8 +75,8 @@
                                     <thead>
                                         <tr class="bg-[#294452]/80 border-b border-white/10 text-slate-100 fjalla text-lg tracking-wider uppercase">
                                             <th class="p-4 text-center w-24">Hero</th>
-                                            <th class="p-4 text-center w-24 border-l border-r border-white/10 hidden sm:table-cell">Role</th>
-                                            <th class="p-4 text-left">Description</th>
+                                            <th class="p-4 text-center w-24 border-l border-r border-white/10">Role</th>
+                                            <th class="p-4 text-left hidden sm:table-cell">Description</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-white/5">
@@ -85,21 +85,21 @@
                                                 @if ($hero['role'] == $roleName)
                                                     <tr class="hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]">
                                                         <td class="p-4">
-                                                            <div class="flex flex-col items-center justify-center">
+                                                            <a href="/heroes/{{ $hero['slug'] }}" class="flex flex-col items-center justify-center group/hero">
                                                                 <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5">
-                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate">
+                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5 group-hover/hero:scale-105 group-hover/hero:border-white/20 transition-all duration-200">
+                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate group-hover/hero:text-amber-400 transition-colors">
                                                                     {{ $hero['name'] }}
                                                                 </h4>
-                                                            </div>
+                                                            </a>
                                                         </td>
-                                                        <td class="p-4 border-l border-r border-white/5 hidden sm:table-cell">
+                                                        <td class="p-4 border-l border-r border-white/5">
                                                             <div class="flex flex-col items-center justify-center">
                                                                 <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-8 h-8 rounded-lg">
                                                                 <h4 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 poppins mt-1">{{ $roleName }}</h4>
                                                             </div>
                                                         </td>
-                                                        <td class="p-4 align-middle">
+                                                        <td class="p-4 align-middle hidden sm:table-cell">
                                                             <p class="text-slate-300 text-sm leading-relaxed poppins">{{ $hero['description'] }}</p>
                                                         </td>
                                                     </tr>
@@ -139,8 +139,8 @@
                                     <thead>
                                         <tr class="bg-[#294452]/80 border-b border-white/10 text-slate-100 fjalla text-lg tracking-wider uppercase">
                                             <th class="p-4 text-center w-24">Hero</th>
-                                            <th class="p-4 text-center w-24 border-l border-r border-white/10 hidden sm:table-cell">Role</th>
-                                            <th class="p-4 text-left">Description</th>
+                                            <th class="p-4 text-center w-24 border-l border-r border-white/10">Role</th>
+                                            <th class="p-4 text-left hidden sm:table-cell">Description</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-white/5">
@@ -149,21 +149,21 @@
                                                 @if ($hero['role'] == $roleName)
                                                     <tr class="hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]">
                                                         <td class="p-4">
-                                                            <div class="flex flex-col items-center justify-center">
+                                                            <a href="/heroes/{{ $hero['slug'] }}" class="flex flex-col items-center justify-center group/hero">
                                                                 <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5">
-                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate">
+                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5 group-hover/hero:scale-105 group-hover/hero:border-white/20 transition-all duration-200">
+                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate group-hover/hero:text-amber-400 transition-colors">
                                                                     {{ $hero['name'] }}
                                                                 </h4>
-                                                            </div>
+                                                            </a>
                                                         </td>
-                                                        <td class="p-4 border-l border-r border-white/5 hidden sm:table-cell">
+                                                        <td class="p-4 border-l border-r border-white/5">
                                                             <div class="flex flex-col items-center justify-center">
                                                                 <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-8 h-8 rounded-lg">
                                                                 <h4 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 poppins mt-1">{{ $roleName }}</h4>
                                                             </div>
                                                         </td>
-                                                        <td class="p-4 align-middle">
+                                                        <td class="p-4 align-middle hidden sm:table-cell">
                                                             <p class="text-slate-300 text-sm leading-relaxed poppins">{{ $hero['description'] }}</p>
                                                         </td>
                                                     </tr>
@@ -203,8 +203,8 @@
                                     <thead>
                                         <tr class="bg-[#294452]/80 border-b border-white/10 text-slate-100 fjalla text-lg tracking-wider uppercase">
                                             <th class="p-4 text-center w-24">Hero</th>
-                                            <th class="p-4 text-center w-24 border-l border-r border-white/10 hidden sm:table-cell">Role</th>
-                                            <th class="p-4 text-left">Description</th>
+                                            <th class="p-4 text-center w-24 border-l border-r border-white/10">Role</th>
+                                            <th class="p-4 text-left hidden sm:table-cell">Description</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-white/5">
@@ -213,21 +213,21 @@
                                                 @if ($hero['role'] == $roleName)
                                                     <tr class="hover:bg-white/5 transition-all duration-150 odd:bg-white/[0.02]">
                                                         <td class="p-4">
-                                                            <div class="flex flex-col items-center justify-center">
+                                                            <a href="/heroes/{{ $hero['slug'] }}" class="flex flex-col items-center justify-center group/hero">
                                                                 <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
-                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5">
-                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate">
+                                                                    alt="{{ $hero['name'] }} profile" class="w-14 h-14 rounded-xl shadow-md border border-white/5 group-hover/hero:scale-105 group-hover/hero:border-white/20 transition-all duration-200">
+                                                                <h4 class="text-xs poppins font-semibold text-slate-200 mt-2 w-20 text-center truncate group-hover/hero:text-amber-400 transition-colors">
                                                                     {{ $hero['name'] }}
                                                                 </h4>
-                                                            </div>
+                                                            </a>
                                                         </td>
-                                                        <td class="p-4 border-l border-r border-white/5 hidden sm:table-cell">
+                                                        <td class="p-4 border-l border-r border-white/5">
                                                             <div class="flex flex-col items-center justify-center">
                                                                 <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-8 h-8 rounded-lg">
                                                                 <h4 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 poppins mt-1">{{ $roleName }}</h4>
                                                             </div>
                                                         </td>
-                                                        <td class="p-4 align-middle">
+                                                        <td class="p-4 align-middle hidden sm:table-cell">
                                                             <p class="text-slate-300 text-sm leading-relaxed poppins">{{ $hero['description'] }}</p>
                                                         </td>
                                                     </tr>
