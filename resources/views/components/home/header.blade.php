@@ -10,8 +10,7 @@
     </div>
     <div class="header-tip text-slate-400 text-center uppercase select-none max-w-sm sm:place-self-end">
         <p class="poppins text-xs text-white mb-2 border-b-2 border-white">
-            SPEND MORE TIME FOCUSING ON YOUR SURROUNDINGS, STOP TUNNEL VISIONING
-            INDIVIDUAL HEROES.
+            {{ $advice }}
         </p>
         <span class="fjalla text-base uppercase">Git Gud</span>
     </div>

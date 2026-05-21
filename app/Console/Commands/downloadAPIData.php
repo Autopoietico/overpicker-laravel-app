@@ -27,6 +27,7 @@ class downloadAPIData extends Command
     public function handle()
     {
 
+        $url_advices = "https://api.overpicker.com/advices";
         $url_heroes = "https://api.overpicker.com/hero-info";
         $url_tiers = "https://api.overpicker.com/hero-tiers";
         $url_img = "https://api.overpicker.com/hero-img";
@@ -37,6 +38,7 @@ class downloadAPIData extends Command
         $url_map_info = "https://api.overpicker.com/map-info";
         $url_map_type = "https://api.overpicker.com/map-type";
 
+        $advices_data = Http::get($url_advices)->body();
         $heroes_data = Http::get($url_heroes)->body();
         $tiers_data = Http::get($url_tiers)->body();
         $img_data = Http::get($url_img)->body();
@@ -120,6 +122,17 @@ class downloadAPIData extends Command
             $this->info('Map Type downloaded succesfully in: ' . $map_type_file);
         } else {
             $this->error('Error getting the Map Type data');
+        }
+
+        if ($advices_data) {
+            $advices_file = storage_path('/api/page-data/advices.json');
+            if (!is_dir(dirname($advices_file))) {
+                mkdir(dirname($advices_file), 0755, true);
+            }
+            file_put_contents($advices_file, $advices_data);
+            $this->info('Advices downloaded succesfully in: ' . $advices_file);
+        } else {
+            $this->error('Error getting the Advices data');
         }
     }
 }

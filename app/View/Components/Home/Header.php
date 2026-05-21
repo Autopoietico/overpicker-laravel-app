@@ -11,9 +11,12 @@ class Header extends Component
     /**
      * Create a new component instance.
      */
+    public string $advice;
+
     public function __construct()
     {
-        //
+        $data = json_decode(file_get_contents(storage_path('api/page-data/advices.json')), true);
+        $this->advice = $data[array_rand($data)];
     }
 
     /**
