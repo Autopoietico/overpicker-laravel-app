@@ -18,14 +18,14 @@
         <div class="mt-6 overflow-x-auto pb-1">
             <div class="flex justify-center gap-2 flex-wrap">
 
-                {{-- Roulette tab --}}
+                {{-- All Ranks tab (roulette icon) --}}
                 <button
-                    id="random-tab"
-                    onclick="pickRandom()"
-                    class="flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors hover:bg-[#2a4a5e]"
+                    id="all-ranks-tab"
+                    onclick="showAllRanks(this)"
+                    class="rank-tab flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors bg-[#3a5a6e]"
                 >
-                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="Random rank" class="w-9 h-9 invert" style="transition: opacity 0.15s">
-                    <span class="text-xs abel text-gray-400">Random</span>
+                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="All ranks" class="w-9 h-9 invert" style="transition: opacity 0.15s">
+                    <span class="text-xs abel text-white">All Ranks</span>
                 </button>
 
                 @foreach ($allRanks as $index => $rankData)
@@ -39,6 +39,66 @@
                 @endforeach
             </div>
         </div>
+
+        {{-- All Ranks section --}}
+        @if (count($allRanksHeroes) > 0)
+            <div data-rank="all">
+                @foreach ($tierValues as $tier)
+                    @php
+                        $tierValue    = $tier[0];
+                        $tierComponent = $tier[1];
+                        $heroesInTier = array_filter($allRanksHeroes, fn($h) => $h['value'] == $tierValue);
+                        $roles = [
+                            'Tank'    => '\images\assets\tank.webp',
+                            'Damage'  => '\images\assets\damage.webp',
+                            'Support' => '\images\assets\support.webp',
+                        ];
+                    @endphp
+                    @if (count($heroesInTier) > 0)
+                        <div class="mt-10 text-center">
+                            {!! $tierComponent !!}
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-white bg-color-text fjalla text-xl">
+                                        <th>Hero:</th>
+                                        <th class="hidden sm:table-cell">Role:</th>
+                                        <th>Description:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($roles as $roleName => $roleIcon)
+                                        @foreach ($heroesInTier as $hero)
+                                            @if ($hero['role'] == $roleName)
+                                                <tr class="odd:bg-[#294452]">
+                                                    <td>
+                                                        <div class="flex flex-col items-center m-1">
+                                                            <img src="{{ $hero['img'] ?? 'images/assets/blank-hero.webp' }}"
+                                                                alt="{{ $hero['name'] }} profile" class="w-14 rounded-lg">
+                                                            <h4 class="text-base abel font-medium w-14 truncate sm:w-20 sm:text-clip">
+                                                                {{ $hero['name'] }}
+                                                            </h4>
+                                                        </div>
+                                                    </td>
+                                                    <td class="border-x-2 hidden sm:table-cell">
+                                                        <div class="flex flex-col items-center m-1">
+                                                            <img src="{{ $roleIcon }}" alt="{{ $roleName }} Icon" class="w-14 rounded-lg">
+                                                            <h4 class="text-base abel font-medium">{{ $roleName }}</h4>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="p-2 text-xs sm:text-sm">{{ $hero['description'] }}</p>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @endif
 
         @foreach ($allRanks as $index => $rankData)
             <div data-rank="{{ $rankData['name'] }}" style="display:none">
@@ -115,15 +175,7 @@
             }, 150);
         }, 500);
 
-        function pickRandom() {
-            const tabs = document.querySelectorAll('.rank-tab');
-            const pick = tabs[Math.floor(Math.random() * tabs.length)];
-            pick.click();
-        }
-
-        function showRank(rank, btn) {
-            document.querySelectorAll('[data-rank]').forEach(el => el.style.display = 'none');
-            document.querySelector('[data-rank="' + rank + '"]').style.display = 'block';
+        function activateTab(btn) {
             document.querySelectorAll('.rank-tab').forEach(el => {
                 el.classList.remove('bg-[#3a5a6e]');
                 el.querySelector('span').classList.replace('text-white', 'text-gray-400');
@@ -132,6 +184,16 @@
             btn.querySelector('span').classList.replace('text-gray-400', 'text-white');
         }
 
-        document.addEventListener('DOMContentLoaded', () => pickRandom());
+        function showAllRanks(btn) {
+            document.querySelectorAll('[data-rank]').forEach(el => el.style.display = 'none');
+            document.querySelector('[data-rank="all"]').style.display = 'block';
+            activateTab(btn);
+        }
+
+        function showRank(rank, btn) {
+            document.querySelectorAll('[data-rank]').forEach(el => el.style.display = 'none');
+            document.querySelector('[data-rank="' + rank + '"]').style.display = 'block';
+            activateTab(btn);
+        }
     </script>
 @endsection

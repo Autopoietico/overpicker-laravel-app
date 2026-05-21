@@ -78,6 +78,25 @@ class OverpickerController extends BaseController
             ];
         }
 
+        // Load "All Ranks" entry from the JSON (already aggregated in the data)
+        $allRanksEntry  = collect($tiers_data)->firstWhere('name', 'All Ranks');
+        $allRanksHeroes = [];
+        if ($allRanksEntry) {
+            foreach ($heroes_obj as $hero) {
+                $name      = $hero['name'];
+                $tierValue = $allRanksEntry['hero-tiers'][$name] ?? null;
+                if (!$tierValue) continue;
+                $allRanksHeroes[] = [
+                    'name'        => $name,
+                    'role'        => $hero['general_rol'],
+                    'description' => $hero['description'],
+                    'value'       => $tierValue,
+                    'img'         => $hero_images[$name] ?? null,
+                ];
+            }
+            usort($allRanksHeroes, fn($a, $b) => $b['value'] <=> $a['value']);
+        }
+
         $rankKeywords = [];
         foreach ($tiers_data as $rank) {
             $rankKeywords[] = 'best heroes in ' . strtolower($rank['name']) . ' Overwatch';
@@ -93,11 +112,12 @@ class OverpickerController extends BaseController
         ];
 
         return view('tiers', [
-            'title'      => ' - Tiers',
-            'dates'      => $this->DATES,
-            'allRanks'   => $allRanks,
-            'tierValues' => $tierValues,
-            'seo'        => $seo,
+            'title'             => ' - Tiers',
+            'dates'             => $this->DATES,
+            'allRanks'       => $allRanks,
+            'allRanksHeroes' => $allRanksHeroes,
+            'tierValues'        => $tierValues,
+            'seo'               => $seo,
         ]);
     }
 
