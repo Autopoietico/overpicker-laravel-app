@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://overpicker.win/sitemap.xml
+Sitemap: https://overpicker.com/sitemap.xml

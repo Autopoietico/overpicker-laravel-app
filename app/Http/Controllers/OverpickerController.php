@@ -117,7 +117,7 @@ class OverpickerController extends BaseController
             'description'    => 'Compare Overwatch hero tiers across every competitive rank — from GrandMaster to Bronze. See S, A, B, C, D rankings for each bracket and find the best heroes for your rank.',
             'og_title'       => 'Overwatch Tier List All Ranks – GrandMaster to Bronze Meta',
             'og_description' => 'Compare Overwatch hero tiers across all competitive ranks. Find the best heroes for GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze.',
-            'og_url'         => 'https://overpicker.win/tiers',
+            'og_url'         => 'https://overpicker.com/tiers',
         ];
 
         return view('tiers', [
@@ -158,7 +158,7 @@ class OverpickerController extends BaseController
             'description'    => 'View the complete Overwatch hero counters chart with our interactive counter matrix. Understand the -20 to 20 scoring system to find which heroes counter your enemies and win more games.',
             'og_title'       => 'Overwatch Hero Counters Chart – Complete Counter Matrix',
             'og_description' => 'View the complete Overwatch hero counters chart with our interactive counter matrix. Understand the -20 to 20 scoring system to find which heroes counter your enemies.',
-            'og_url'         => 'https://overpicker.win/counters',
+            'og_url'         => 'https://overpicker.com/counters',
         ];
 
         return view('counters', [
@@ -194,7 +194,7 @@ class OverpickerController extends BaseController
             'description'    => 'Explore the Overwatch synergy chart to find the best hero combinations. Learn how the -20 to 20 scoring system works to build powerful team synergies and dominate your matches.',
             'og_title'       => 'Overwatch Hero Synergies – Best Hero Combinations',
             'og_description' => 'Explore the Overwatch synergy chart to find the best hero combinations. Learn how the -20 to 20 scoring system works to build powerful team synergies and dominate your matches.',
-            'og_url'         => 'https://overpicker.win/synergies',
+            'og_url'         => 'https://overpicker.com/synergies',
         ];
 
         return view('synergies', [
@@ -315,7 +315,7 @@ class OverpickerController extends BaseController
             'description'    => 'Discover the best Overwatch heroes for every competitive map. See attack, defense, and per-point performance scores for all active maps including King\'s Row, Ilios, Colosseo and more.',
             'og_title'       => 'Overwatch Hero Performance by Map – Best Picks for Every Map',
             'og_description' => 'Discover the best Overwatch heroes for every map. See per-point attack and defense scores for all competitive maps.',
-            'og_url'         => 'https://overpicker.win/maps',
+            'og_url'         => 'https://overpicker.com/maps',
         ];
 
         return view('maps', [

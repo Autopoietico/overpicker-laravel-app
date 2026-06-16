@@ -54,22 +54,22 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:creator" content="@autopoieticolp" />
-    <meta property="og:url" content="{{ $seo['og_url'] ?? 'https://overpicker.win/' }}" />
+    <meta property="og:url" content="{{ $seo['og_url'] ?? 'https://overpicker.com/' }}" />
     <meta property="og:site_name" content="OverPicker" />
     <meta property="og:title"
         content="{{ $seo['og_title'] ?? 'Overpicker - Overwatch tool made to build Composition based in Counter and Synergies' }}" />
     <meta property="og:description"
         content="{{ $seo['og_description'] ?? 'Find your best composition, counter the enemy comp, and find the best hero for every map in Overwatch.' }}" />
-    <meta property="og:image" content="https://overpicker.win/public/images/resources/overpicker-front.png" />
+    <meta property="og:image" content="https://overpicker.com/public/images/resources/overpicker-front.png" />
     <meta property="og:width" content="927" />
     <meta property="og:height" content="991" />
     <meta property="twitter:title"
         content="{{ $seo['og_title'] ?? 'Overpicker - Overwatch tool made to build Composition based in Counter and Synergies' }}" />
-    <meta property="twitter:image" content="https://overpicker.win/public/images/resources/overpicker-front.png" />
+    <meta property="twitter:image" content="https://overpicker.com/public/images/resources/overpicker-front.png" />
     {{-- Additional SEO Meta Tags --}}
     <meta name="author" content="Autopoietico" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="{{ $seo['og_url'] ?? 'https://overpicker.win/' }}" />
+    <link rel="canonical" href="{{ $seo['og_url'] ?? 'https://overpicker.com/' }}" />
     {{-- Title --}}
     <title>{{ $seo['title'] ?? 'OverPicker' }}</title>
     <meta name="title" content="{{ $seo['title'] ?? 'OverPicker' }}" />

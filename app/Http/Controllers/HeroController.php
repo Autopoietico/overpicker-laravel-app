@@ -60,7 +60,7 @@ class HeroController extends BaseController
             'description'    => 'Browse all Overwatch heroes by role. Click any hero to see their full guide including counters, synergies, best maps, and tier by rank.',
             'og_title'       => 'Overwatch Heroes – All Heroes by Role',
             'og_description' => 'Browse all Overwatch heroes by role. Click any hero for counters, synergies, best maps, and tier by rank.',
-            'og_url'         => 'https://overpicker.win/heroes',
+            'og_url'         => 'https://overpicker.com/heroes',
         ];
 
         return view('heroes', [
@@ -169,8 +169,8 @@ class HeroController extends BaseController
             'description'    => "Complete {$heroName} guide for Overwatch: best counters, synergies, tier by rank, and best maps. Find out how to play {$heroName} in competitive.",
             'og_title'       => "{$heroName} Overwatch Guide – Counters, Synergies & Tier List",
             'og_description' => "Find the best counters, synergies, and maps for {$heroName} in Overwatch competitive play.",
-            'og_url'         => "https://overpicker.win/heroes/{$heroSlug}",
-            'og_image'       => $heroImg ? ('https://overpicker.win/' . $heroImg['art-img']) : null,
+            'og_url'         => "https://overpicker.com/heroes/{$heroSlug}",
+            'og_image'       => $heroImg ? ('https://overpicker.com/' . $heroImg['art-img']) : null,
         ];
 
         return view('hero', [
