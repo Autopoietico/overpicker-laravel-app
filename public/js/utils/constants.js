@@ -23,12 +23,12 @@ const getSelectValue = function (name) {
 //////////////////////
 
 const TIER_MIN = -5;
-const TIER_WEIGHT = 0.6;
-const COUNTER_WEIGHT = 7 / 5; //Divided by 5 enemy heroes.
+const TIER_WEIGHT = 0.1;
+const COUNTER_WEIGHT = 1.5 / 5; //Divided by 5 enemy heroes.
 const MIN_COUNTER_VALUE = 20;
-const SINERGY_WEIGHT = 2 / 4; //Divided by 4 allied heroes.
+const SINERGY_WEIGHT = 0.4 / 4; //Divided by 4 allied heroes.
 const MIN_SINERGY_VALUE = 20;
-const MAPAD_WEIGHT = 0.4; //MapAD only gives weight to maps now, because ADC is deprecated.
+const MAPAD_WEIGHT = 0.1; //MapAD only gives weight to maps now, because ADC is deprecated.
 const MIN_MAPAD_VALUE = 20;
 
 //////////////////////
