@@ -23,6 +23,7 @@ class ModelOverPiker {
         this.HERO_ROTATION = 4;
         this.WEIGHTED_SCORES = 5;
         this.NICKS = 6;
+        this.OPEN_QUEUE = 7;
 
         //General
         this.APIData = new ModelAPI();
@@ -100,6 +101,15 @@ class ModelOverPiker {
                 id: `cb${getSelectValue("Nicks")}`,
                 state: false,
                 hidden: false,
+            };
+        }
+
+        if (!this.panelOptions[this.OPEN_QUEUE]) {
+            this.panelOptions[this.OPEN_QUEUE] = {
+                text: "Unified OpenQ",
+                id: `cb${getSelectValue("Unified OpenQ")}`,
+                state: false,
+                hidden: true,
             };
         }
     }
@@ -182,6 +192,12 @@ class ModelOverPiker {
                 id: `cb${getSelectValue("Nicks")}`,
                 state: false,
                 hidden: false,
+            },
+            {
+                text: "Unified OpenQ",
+                id: `cb${getSelectValue("Unified OpenQ")}`,
+                state: false,
+                hidden: true,
             },
         ];
         localStorage.setItem("panelOptions", JSON.stringify(panelOptions));

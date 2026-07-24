@@ -83,7 +83,16 @@ class ControllerOverPiker {
             }
         }
 
-        this.view.displayTeams(teams, selectedHeroes, iconOption, nickMap);
+        let openQueue =
+            this.model.panelOptions[this.model.OPEN_QUEUE]?.state ?? false;
+
+        this.view.displayTeams(
+            teams,
+            selectedHeroes,
+            iconOption,
+            nickMap,
+            openQueue
+        );
     };
 
     handleClearSelection = () => {

@@ -285,6 +285,9 @@ class ViewOverPiker {
         this.redSupportRolSelection.classList.add("rol-selection-support");
         this.redSupportRolSelection.classList.add("enemy-team-direction");
 
+        //Unified OpenQ state, updated on every displayHeroRoles render
+        this.openQueueActive = false;
+
         this.calculator.append(this.clearSelection);
 
         this.calculator.append(this.checkboxPanel);
@@ -839,7 +842,7 @@ class ViewOverPiker {
         this.redFilter.append(redLabel, redInput);
     }
 
-    displayHeroRoles(teams, iconOption, nickMap) {
+    displayHeroRoles(teams, iconOption, nickMap, openQueue) {
         while (this.blueTankRolSelection.firstChild) {
             this.blueTankRolSelection.removeChild(
                 this.blueTankRolSelection.firstChild
@@ -875,6 +878,26 @@ class ViewOverPiker {
                 this.redSupportRolSelection.firstChild
             );
         }
+
+        this.openQueueActive = !!openQueue;
+
+        //With Unified OpenQ the Tank containers hold the combined "Flex" group and the rest stay hidden
+        this.blueDamageRolSelection.classList.toggle(
+            "hidden",
+            this.openQueueActive
+        );
+        this.blueSupportRolSelection.classList.toggle(
+            "hidden",
+            this.openQueueActive
+        );
+        this.redDamageRolSelection.classList.toggle(
+            "hidden",
+            this.openQueueActive
+        );
+        this.redSupportRolSelection.classList.toggle(
+            "hidden",
+            this.openQueueActive
+        );
 
         for (let t in teams) {
             const tankRoleIcon = this.createElement("figure", "rol-icon");
@@ -976,9 +999,16 @@ class ViewOverPiker {
                 "mt-2"
             );
 
-            tankIcon.src = "images/assets/tank.webp";
-            tankIcon.alt = "Tank icon";
-            tankFigCap.textContent = "Tank";
+            if (openQueue) {
+                tankIcon.src = "images/assets/flex.webp";
+                tankIcon.alt = "Flex icon";
+                tankFigCap.textContent = "Flex";
+                tankRoleSel.classList.remove("border-b", "border-white/10");
+            } else {
+                tankIcon.src = "images/assets/tank.webp";
+                tankIcon.alt = "Tank icon";
+                tankFigCap.textContent = "Tank";
+            }
 
             damageIcon.src = "images/assets/damage.webp";
             damageIcon.alt = "Damage icon";
@@ -1066,7 +1096,13 @@ class ViewOverPiker {
 
                     const figHero = figHeroOption;
 
-                    if (role == "Tank") {
+                    if (openQueue) {
+                        if (teams[t].isRoleFiltered(role) && hero.filtered) {
+                            tankRoleSel.append(figHero);
+                        } else if (!teams[t].isRoleFiltered(role)) {
+                            tankRoleSel.append(figHero);
+                        }
+                    } else if (role == "Tank") {
                         if (teams[t].isRoleFiltered(role) && hero.filtered) {
                             tankRoleSel.append(figHero);
                         } else if (!teams[t].isRoleFiltered(role)) {
@@ -1090,32 +1126,36 @@ class ViewOverPiker {
 
             if (t == "Blue") {
                 this.blueTankRolSelection.append(tankRoleIcon, tankRoleSel);
-                this.blueDamageRolSelection.append(
-                    damageRoleIcon,
-                    damageRoleSel
-                );
-                this.blueSupportRolSelection.append(
-                    supportRoleIcon,
-                    supportRoleSel
-                );
+                if (!openQueue) {
+                    this.blueDamageRolSelection.append(
+                        damageRoleIcon,
+                        damageRoleSel
+                    );
+                    this.blueSupportRolSelection.append(
+                        supportRoleIcon,
+                        supportRoleSel
+                    );
+                }
             } else if (t == "Red") {
                 this.redTankRolSelection.append(tankRoleIcon, tankRoleSel);
-                this.redDamageRolSelection.append(
-                    damageRoleIcon,
-                    damageRoleSel
-                );
-                this.redSupportRolSelection.append(
-                    supportRoleIcon,
-                    supportRoleSel
-                );
+                if (!openQueue) {
+                    this.redDamageRolSelection.append(
+                        damageRoleIcon,
+                        damageRoleSel
+                    );
+                    this.redSupportRolSelection.append(
+                        supportRoleIcon,
+                        supportRoleSel
+                    );
+                }
             }
         }
     }
 
-    displayTeams(teams, selectedHeroes, iconOption, nickMap) {
+    displayTeams(teams, selectedHeroes, iconOption, nickMap, openQueue) {
         this.displayTeamScores(teams);
         this.displaySelectedHeroes(teams, selectedHeroes, iconOption, nickMap);
-        this.displayHeroRoles(teams, iconOption, nickMap);
+        this.displayHeroRoles(teams, iconOption, nickMap, openQueue);
     }
 
     bindClearSelection(handler) {
@@ -1217,7 +1257,12 @@ class ViewOverPiker {
                         this.onBorderRotation(team, hero);
                     }
                 } else {
-                    handler(team, hero, role);
+                    //With Unified OpenQ this container holds every role, so no role restriction applies
+                    handler(
+                        team,
+                        hero,
+                        this.openQueueActive ? undefined : role
+                    );
                 }
             }
         });
@@ -1316,7 +1361,12 @@ class ViewOverPiker {
                         this.onBorderRotation(team, hero);
                     }
                 } else {
-                    handler(team, hero, role);
+                    //With Unified OpenQ this container holds every role, so no role restriction applies
+                    handler(
+                        team,
+                        hero,
+                        this.openQueueActive ? undefined : role
+                    );
                 }
             }
         });
