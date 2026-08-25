@@ -16,36 +16,36 @@
         </div>
 
         <div class="mt-8 w-full">
-            <div class="glass-panel p-4 rounded-2xl border border-white/10 flex justify-center gap-3 flex-wrap shadow-xl">
+            <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-white/10 grid grid-cols-5 sm:flex sm:flex-nowrap justify-center sm:justify-between gap-1.5 sm:gap-2 shadow-xl">
 
                 {{-- All Ranks tab (roulette icon) --}}
                 <button
                     id="all-ranks-tab"
                     onclick="showAllRanks(this)"
-                    class="rank-tab flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-300 bg-[#294452] border border-amber-400/40 text-amber-400 shadow-md shadow-amber-400/5 hover:scale-105"
+                    class="rank-tab flex flex-col items-center justify-center flex-1 min-w-0 gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-xl transition-all duration-300 bg-[#294452] border border-amber-400/40 text-amber-400 shadow-md shadow-amber-400/5 hover:scale-105"
                 >
-                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="All ranks" class="w-8 h-8 invert" style="transition: opacity 0.15s">
-                    <span class="text-[10px] font-bold uppercase tracking-wider poppins text-slate-100">All Ranks</span>
+                    <img id="roulette-icon" src="{{ asset($allRanks[0]['icon']) }}" alt="All ranks" class="w-7 h-7 sm:w-8 sm:h-8 invert" style="transition: opacity 0.15s">
+                    <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider poppins text-slate-100 truncate max-w-full">All Ranks</span>
                 </button>
 
                 {{-- Community tab --}}
                 @if (count($communityHeroes) > 0)
                     <button
                         onclick="showRank('community', this)"
-                        class="rank-tab flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-300 border border-white/5 bg-[#294452]/20 hover:bg-[#294452]/60 hover:scale-105"
+                        class="rank-tab flex flex-col items-center justify-center flex-1 min-w-0 gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-xl transition-all duration-300 border border-white/5 bg-[#294452]/20 hover:bg-[#294452]/60 hover:scale-105"
                     >
-                        <img src="{{ asset('images/ranks/community-icon.svg') }}" alt="Community" class="w-8 h-8">
-                        <span class="text-[10px] font-bold uppercase tracking-wider poppins text-slate-400">Community</span>
+                        <img src="{{ asset('images/ranks/community-icon.svg') }}" alt="Community" class="w-7 h-7 sm:w-8 sm:h-8">
+                        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider poppins text-slate-400 truncate max-w-full">Community</span>
                     </button>
                 @endif
 
                 @foreach ($allRanks as $index => $rankData)
                     <button
                         onclick="showRank('{{ $rankData['name'] }}', this)"
-                        class="rank-tab flex flex-col items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all duration-300 border border-white/5 bg-[#294452]/20 hover:bg-[#294452]/60 hover:scale-105"
+                        class="rank-tab flex flex-col items-center justify-center flex-1 min-w-0 gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-xl transition-all duration-300 border border-white/5 bg-[#294452]/20 hover:bg-[#294452]/60 hover:scale-105"
                     >
-                        <img src="{{ asset($rankData['icon']) }}" alt="{{ $rankData['name'] }}" class="w-8 h-8 invert">
-                        <span class="text-[10px] font-bold uppercase tracking-wider poppins text-slate-400">{{ $rankData['name'] }}</span>
+                        <img src="{{ asset($rankData['icon']) }}" alt="{{ $rankData['name'] }}" class="w-7 h-7 sm:w-8 sm:h-8 invert">
+                        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider poppins text-slate-400 truncate max-w-full">{{ $rankData['name'] }}</span>
                     </button>
                 @endforeach
             </div>
