@@ -103,11 +103,12 @@ class HeroController extends BaseController
             }
         }
 
-        // Tier per rank (7 competitive ranks only)
+        // Tier per rank (competitive ranks)
         $rankIcons = [
             'GrandMaster' => 'images/ranks/grand-master-icon.svg',
             'Master'      => 'images/ranks/master-icon.svg',
             'Diamond'     => 'images/ranks/diamond-icon.svg',
+            'Emerald'     => 'images/ranks/emerald-icon.svg',
             'Platinum'    => 'images/ranks/platinum-icon.svg',
             'Gold'        => 'images/ranks/gold-icon.svg',
             'Silver'      => 'images/ranks/silver-icon.svg',
