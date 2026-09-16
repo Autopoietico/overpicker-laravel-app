@@ -16,4 +16,12 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_sources_redirects_permanently_to_about(): void
+    {
+        $response = $this->get('/sources');
+
+        $response->assertStatus(301);
+        $response->assertRedirect('/about');
+    }
 }

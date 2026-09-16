@@ -30,6 +30,7 @@ Route::get('/synergies', [OverpickerController::class, 'synergies']);
 Route::get('/maps', [OverpickerController::class, 'maps']);
 
 Route::get('/about', [PageController::class, 'about']);
+Route::permanentRedirect('/sources', '/about');
 
 Route::get('/privacy', [PageController::class, 'privacy']);
 

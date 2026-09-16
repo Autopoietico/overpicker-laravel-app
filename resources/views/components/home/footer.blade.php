@@ -18,9 +18,6 @@
                 <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="trackers">Trackers</a>
             </li>
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="sources">Sources</a>
-            </li>
-            <li>
                 <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="about">About</a>
             </li>
         </ol>
