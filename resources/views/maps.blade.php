@@ -11,12 +11,12 @@
     <section class="mb-16 text-center sm:text-left text-sm max-w-4xl m-auto px-4 mt-6">
         <div class="glass-panel p-6 rounded-3xl border border-white/10 shadow-lg text-slate-350 poppins leading-relaxed">
             <p class="sm:text-lg mb-4 text-slate-200">
-                Understand how every hero fares across the pool. Select a map below to view dynamic performance rankings based on competitive data.
+                Understand how every hero performs on every map. Select a map below to view dynamic performance rankings based on competitive data.
             </p>
             <div class="pt-4 border-t border-white/5">
                 <p class="font-semibold text-slate-250 mb-2">Scoring & Points:</p>
                 <p class="text-slate-400">
-                    Calculated on a scale from <strong class="text-emerald-450 font-bold">-20 to +20</strong>. Assault and Hybrid map pools evaluate Attack (ATK) and Defense (DEF) independently for their initial stages. Other modes assess the points directly.
+                    Calculated on a scale from <strong class="text-emerald-450 font-bold">-20 to +20</strong>. Assault and Hybrid map pools evaluate Attack (ATK) and Defense (DEF) independently for their initial stages. Other modes use a single score per map.
                 </p>
             </div>
         </div>

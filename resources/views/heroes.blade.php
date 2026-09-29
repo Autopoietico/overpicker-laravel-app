@@ -13,7 +13,7 @@
             <div class="absolute -top-10 -left-10 w-28 h-28 bg-[#294452]/20 rounded-full blur-2xl pointer-events-none"></div>
             <p class="text-sm sm:text-base text-slate-300 leading-relaxed poppins">
                 All Overwatch heroes organized by role. Tier badges are based on
-                <span class="text-amber-400 font-bold border-b border-amber-450/30 pb-0.5">{{ $topRankName }}</span> leaderboard data. Click any hero to see their full guide:
+                <span class="text-amber-400 font-bold border-b border-amber-450/30 pb-0.5">{{ $topRankName }}</span> leaderboard data. Select any hero to see their full guide:
                 counters, synergies, best maps, and tier by rank.
             </p>
         </div>

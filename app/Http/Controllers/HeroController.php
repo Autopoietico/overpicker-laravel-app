@@ -57,9 +57,9 @@ class HeroController extends BaseController
         $seo = [
             'title'          => 'Overwatch Heroes – All Heroes by Role',
             'keywords'       => 'overwatch heroes list, overwatch all heroes, overwatch hero guide, overwatch competitive heroes, overwatch hero rankings, overwatch tanks, overwatch damage heroes, overwatch support heroes',
-            'description'    => 'Browse all Overwatch heroes by role. Click any hero to see their full guide including counters, synergies, best maps, and tier by rank.',
+            'description'    => 'Browse all Overwatch heroes by role. Select any hero to see their full guide including counters, synergies, best maps, and tier by rank.',
             'og_title'       => 'Overwatch Heroes – All Heroes by Role',
-            'og_description' => 'Browse all Overwatch heroes by role. Click any hero for counters, synergies, best maps, and tier by rank.',
+            'og_description' => 'Browse all Overwatch heroes by role. Select any hero for counters, synergies, best maps, and tier by rank.',
             'og_url'         => 'https://overpicker.com/heroes',
         ];
 

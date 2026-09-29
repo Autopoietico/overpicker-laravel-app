@@ -172,7 +172,7 @@
                 <div>
                     <h4 class="font-semibold text-slate-200 text-sm sm:text-base">Input Sheet URL</h4>
                     <p class="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">
-                        Copy the exact web URL of your spreadsheet into the cell next to the "Next Match" top bar button. This links the custom macros correctly and lets the link cleanly disappear.
+                        Copy the exact web URL of your spreadsheet into the cell next to the "Next Match" top bar button. This lets the sheet's scripts find your file and link to it correctly.
                     </p>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                 </p>
                 <h4 class="font-bold text-amber-450 text-sm uppercase tracking-wider mb-1">Advanced Assets</h4>
                 <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                    Dynamic background assets syncing sheets to a global schema to auto-populate future game content updates.
+                    Hidden reference sheets that update automatically when new heroes, maps, or modes are added to the game.
                 </p>
                 <h4 class="font-bold text-amber-450 text-sm uppercase tracking-wider mb-1">SR Swing Dynamics</h4>
                 <p class="text-xs text-slate-400 leading-relaxed">
@@ -243,8 +243,8 @@
             @php
                 $faqs = [
                     [
-                        'q' => 'Can I request additional tips or advice matrices?',
-                        'a' => 'Currently, the advice templates remain static, but custom advice sheets can be easily written straight inside your copied spreadsheet file.'
+                        'q' => 'Can I add my own tips?',
+                        'a' => 'The built-in tips don\'t change, but you can write your own directly in your copy of the spreadsheet.'
                     ],
                     [
                         'q' => 'Where are Overwatch screenshots stored by default?',

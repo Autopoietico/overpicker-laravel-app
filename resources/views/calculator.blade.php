@@ -33,8 +33,8 @@
                 </li>
                 <li class="flex items-start">
                     <i class="bi bi-check-circle-fill text-amber-400 mt-1 mr-3"></i>
-                    <span><strong class="text-slate-100">Tierlist System</strong> - Discover the best heroes for every competitive rank based on
-                        high-level performance data.</span>
+                    <span><strong class="text-slate-100">Tier List System</strong> - Discover the best heroes for every competitive rank based on
+                        official pick and win rates.</span>
                 </li>
                 <li class="flex items-start">
                     <i class="bi bi-check-circle-fill text-amber-400 mt-1 mr-3"></i>
