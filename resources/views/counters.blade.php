@@ -11,23 +11,23 @@
     <section class="mb-16 text-center sm:text-left text-sm max-w-4xl m-auto px-4 mt-6">
         <div class="glass-panel p-6 rounded-3xl border border-white/10 shadow-lg text-slate-300 poppins leading-relaxed">
             <p class="sm:text-lg mb-4 text-slate-200">
-                Select a hero below to view their matchups, ranked from the strongest counters to the easiest targets.
+                Select a hero below to see how every other hero matches up against them, ranked from their hardest counters to the heroes they beat.
                 On desktop, the results are divided by role. On mobile, you can use the role tabs to navigate the list.
             </p>
             <div class="pt-4 border-t border-white/5">
                 <p class="font-semibold text-slate-200 mb-2">How the Scoring System Works:</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-350">
                     <p>
-                        <strong class="text-emerald-400 font-bold">+20 (Hard Counter):</strong> The hero completely dominates this matchup. We recommend switching or playing with extreme caution.
+                        <strong class="text-emerald-400 font-bold">+20 (Hard Counter):</strong> This hero dominates your selected hero.
                     </p>
                     <p>
-                        <strong class="text-emerald-300 font-bold">+10 (Favorable Matchup):</strong> The hero has clear utility, damage, or positional advantages.
+                        <strong class="text-emerald-300 font-bold">+10 (Favorable Matchup):</strong> This hero has clear utility, damage, or positional advantages over your selected hero.
                     </p>
                     <p>
-                        <strong class="text-slate-400 font-bold">0 (Skill Matchup):</strong> Neither hero has an inherent kits/mechanics advantage; outcome depends on player skill.
+                        <strong class="text-slate-400 font-bold">0 (Skill Matchup):</strong> Neither hero has an inherent kit or mechanical advantage; the outcome depends on player skill.
                     </p>
                     <p>
-                        <strong class="text-rose-400 font-bold">-10 to -20 (Weak Matchup):</strong> The selected hero is weak against your opponent. Avoid picking the opponent in this scenario.
+                        <strong class="text-rose-400 font-bold">-10 to -20 (Weak Matchup):</strong> This hero is weak against your selected hero.
                     </p>
                 </div>
             </div>
@@ -173,25 +173,25 @@
                     <div class="w-12 h-9 bg-emerald-500 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
                         +10
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Counter</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Favorable</span>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-9 bg-white/10 rounded-lg flex items-center justify-center mb-2 shadow text-slate-300 font-bold text-sm">
                         0
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Skill Match</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Skill Matchup</span>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-9 bg-rose-500/20 border border-rose-550/30 rounded-lg flex items-center justify-center mb-2 shadow text-rose-300 font-bold text-sm">
                         -10
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">No Counter</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Weak</span>
                 </div>
                 <div class="flex flex-col items-center col-span-2 sm:col-span-1">
                     <div class="w-12 h-9 bg-rose-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm mx-auto">
                         -20
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Not Recommended</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Hard Countered</span>
                 </div>
             </div>
         </div>
@@ -304,7 +304,7 @@
 
             const selectedRole = heroRoles[selectedHero] ?? '';
             document.getElementById('heroInfo').textContent =
-                'Showing counters for: ' + selectedHero + ' (' + selectedRole + ')';
+                'Showing matchups for: ' + selectedHero + ' (' + selectedRole + ')';
 
             applyMobileFilter();
         }

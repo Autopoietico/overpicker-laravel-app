@@ -18,16 +18,16 @@
                 <p class="font-semibold text-slate-200 mb-2">How the Scoring System Works:</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                     <p>
-                        <strong class="text-emerald-400 font-bold">+20 (Must Pick):</strong> The heroes have exceptional kit compatibility and can dominate team fights when combined.
+                        <strong class="text-emerald-400 font-bold">+20 (Excellent Synergy):</strong> The heroes have exceptional kit compatibility and can dominate team fights when combined.
                     </p>
                     <p>
                         <strong class="text-emerald-300 font-bold">+10 (Good Synergy):</strong> The pairing offers clear gameplay advantages and complementary playstyles.
                     </p>
                     <p>
-                        <strong class="text-slate-400 font-bold">0 (Decent):</strong> Neutral synergy. Interaction is basic and performance depends mostly on execution.
+                        <strong class="text-slate-400 font-bold">0 (Neutral):</strong> Interaction is basic and performance depends mostly on execution.
                     </p>
                     <p>
-                        <strong class="text-rose-400 font-bold">-10 to -20 (Antisynergy):</strong> Incompatible abilities or conflicting team strategies. Avoid pairing these heroes.
+                        <strong class="text-rose-400 font-bold">-10 to -20 (Poor Synergy / Antisynergy):</strong> Incompatible abilities or conflicting team strategies. Avoid pairing these heroes.
                     </p>
                 </div>
             </div>
@@ -167,7 +167,7 @@
                     <div class="w-12 h-9 bg-emerald-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
                         +20
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Must Pick</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Excellent Synergy</span>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-9 bg-emerald-500 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm">
@@ -179,13 +179,13 @@
                     <div class="w-12 h-9 bg-white/10 rounded-lg flex items-center justify-center mb-2 shadow text-slate-300 font-bold text-sm">
                         0
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Decent</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Neutral</span>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-12 h-9 bg-rose-500/20 border border-rose-550/30 rounded-lg flex items-center justify-center mb-2 shadow text-rose-300 font-bold text-sm">
                         -10
                     </div>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">No Synergy</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide poppins text-center">Poor Synergy</span>
                 </div>
                 <div class="flex flex-col items-center col-span-2 sm:col-span-1">
                     <div class="w-12 h-9 bg-rose-600 rounded-lg flex items-center justify-center mb-2 shadow text-white font-bold text-sm mx-auto">
@@ -199,7 +199,7 @@
         <div class="mt-8 glass-panel p-6 rounded-3xl border border-white/10 shadow-lg">
             <h4 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100 mb-3">What is Synergy in Overwatch?</h4>
             <p class="sm:text-lg text-slate-350 leading-relaxed poppins">
-                Hero synergy refers to how effectively two or more heroes combine their abilities to control the field. Positive synergies occur when playstyles, movement options, or visual range requirements align perfectly (like Nano-Blade or Pharah-Mercy). Identifying high synergy pairings allows teams to maximize their cooperative value.
+                Hero synergy refers to how effectively two or more heroes combine their abilities to control the field. Positive synergies occur when playstyles, movement options, or engagement ranges align perfectly (like Nano-Blade or Pharah-Mercy). Identifying high synergy pairings allows teams to maximize their cooperative value.
             </p>
         </div>
     </section>
