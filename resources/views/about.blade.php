@@ -5,7 +5,7 @@
             About Overpicker
         </h1>
         <p class="text-slate-400 text-lg sm:text-xl font-normal mt-4 poppins max-w-2xl mx-auto">
-            Overpicker is a hero composition calculator inspired by jazzmasta25's 
+            Overpicker is a hero composition calculator inspired by Jazzmasta25's 
             <a href="https://heropicker.com/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline decoration-amber-400">Hero Picker</a>.
         </p>
     </div>
@@ -24,7 +24,7 @@
         <div class="glass-panel p-6 rounded-2xl border border-white/10 shadow-lg">
             <h2 class="font-normal text-2xl fjalla uppercase tracking-wider text-slate-100 mb-3">Overwatch Experience</h2>
             <p class="sm:text-lg text-slate-350 leading-relaxed poppins">
-                I've been playing competitive Overwatch since <strong>Season 8</strong> of the original game. I've experienced every rank from Bronze up to a peak of <strong>Diamond I</strong> (3.9k SR), and I'm currently sitting at <strong>Diamond 5</strong> (3.1k SR). I'm primarily a Tank main but play all roles. My mains are <strong>D.Va/Zarya</strong>, <strong>Cassidy/Soldier</strong>, and <strong>Ana/Zen</strong>.
+                I've been playing competitive Overwatch since <strong>Season 8</strong> of the original game. I've experienced every rank from Bronze up to a peak of <strong>Diamond 1</strong> (3.4k SR), and I'm currently sitting at <strong>Diamond 5</strong> (3.1k SR). I'm primarily a Tank main but play all roles. My mains are <strong>D.Va/Zarya</strong>, <strong>Cassidy/Soldier</strong>, and <strong>Ana/Zen</strong>.
             </p>
         </div>
     </div>
@@ -72,7 +72,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-350 poppins">
             <p class="leading-relaxed">
                 <strong>Tiers, Map Types and Maps:</strong> <br>
-                Official pick/win rates from <a href="https://overwatch.blizzard.com/en-us/rates/" class="text-amber-450 hover:underline" target="_blank" rel="noopener noreferrer">overwatch.blizzard.com/en-us/rates/</a>
+                Official pick/win rates from <a href="https://overwatch.blizzard.com/en-us/rates/" class="text-amber-450 hover:underline" target="_blank" rel="noopener noreferrer">overwatch.blizzard.com/en-us/rates/</a>.
+                The Community tier list also includes tier lists from high-ranked community players.
             </p>
             <p class="leading-relaxed">
                 <strong>Map Points, Synergies &amp; Counters:</strong> <br>

@@ -113,11 +113,11 @@ class OverpickerController extends BaseController
         }
 
         $seo = [
-            'title'          => 'Overwatch Tier List All Ranks – GrandMaster to Bronze Meta',
+            'title'          => 'Overwatch Tier List All Ranks – Grandmaster to Bronze Meta',
             'keywords'       => 'overwatch tier list all ranks, overwatch tier list by rank, overwatch competitive ranks tier list, ' . implode(', ', $rankKeywords) . ', overwatch tier by rank, best heroes in low rank overwatch, best heroes in high rank overwatch',
-            'description'    => 'Compare Overwatch hero tiers across every competitive rank — from GrandMaster to Bronze. See S, A, B, C, D rankings for each bracket and find the best heroes for your rank.',
-            'og_title'       => 'Overwatch Tier List All Ranks – GrandMaster to Bronze Meta',
-            'og_description' => 'Compare Overwatch hero tiers across all competitive ranks. Find the best heroes for GrandMaster, Master, Diamond, Platinum, Gold, Silver, and Bronze.',
+            'description'    => 'Compare Overwatch hero tiers across every competitive rank — from Grandmaster to Bronze. See S, A, B, C, D rankings for each bracket and find the best heroes for your rank.',
+            'og_title'       => 'Overwatch Tier List All Ranks – Grandmaster to Bronze Meta',
+            'og_description' => 'Compare Overwatch hero tiers across all competitive ranks. Find the best heroes for Grandmaster, Master, Diamond, Platinum, Gold, Silver, and Bronze.',
             'og_url'         => 'https://overpicker.com/tiers',
         ];
 

@@ -10,8 +10,8 @@
     <section class="mb-10 text-center sm:text-left text-sm max-w-4xl m-auto">
         <div class="glass-panel p-5 rounded-2xl border border-white/10 mt-6 shadow-lg">
             <p class="sm:text-lg text-slate-200 leading-relaxed">
-                Compare hero tier rankings across all competitive ranks — from <strong>GrandMaster</strong> to <strong>Bronze</strong>.
-                Select your rank below to see which heroes dominate your bracket.
+                Compare hero tier rankings across all competitive ranks — from <strong>Grandmaster</strong> to <strong>Bronze</strong>.
+                Select your rank below to see which heroes dominate your bracket. The Community tab combines official Blizzard data with tier lists from high-ranked community players.
             </p>
         </div>
 
