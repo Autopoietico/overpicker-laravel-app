@@ -3,29 +3,32 @@
     <nav class="w-full hidden sm:block">
         <ol class="grid grid-flow-col gap-x-6 justify-center mt-1 fjalla tracking-wider">
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="tiers">Tiers</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/heroes">Heroes</a>
             </li>
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="counters">Counters</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/tiers">Tiers</a>
             </li>
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="synergies">Synergies</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/counters">Counters</a>
             </li>
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="maps">Maps</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/synergies">Synergies</a>
             </li>
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="trackers">Trackers</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/maps">Maps</a>
             </li>
             <li>
-                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="about">About</a>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/trackers">Trackers</a>
+            </li>
+            <li>
+                <a class="hover:text-amber-400 hover:bg-white/5 px-3 py-1.5 rounded-lg transition-all duration-300 text-lg" href="/about">About</a>
             </li>
         </ol>
     </nav>
     <div class="text-center select-none mt-2">
         <h3 class="fjalla text-3xl sm:text-4xl tracking-wide uppercase"><a href="/" class="hover:text-amber-400 transition-colors duration-300">Overpicker</a></h3>
         <h4 class="poppins text-xs font-semibold uppercase tracking-widest text-slate-400/80 text-center mt-1">
-            <a href="about" class="hover:text-amber-400 transition-colors">By Autopoietico</a>
+            <a href="/about" class="hover:text-amber-400 transition-colors">By Autopoietico</a>
         </h4>
     </div>
     <div class="h-fit w-full grid text-center text-xs tracking-wider uppercase font-semibold text-slate-400 sm:text-inherit sm:grid-flow-col sm:place-content-between sm:px-4">
